@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数字卦 · 三组数字起卦 · 九级断语</title>
+<style>
+:root{
+  --bg:#0a0812; --bg2:#100d1a; --panel:#161221; --panel2:#1d1829; --sunk:#0d0a16;
+  --line:#2a2340; --line2:#392f54;
+  --txt:#efecf8; --txt2:#a9a1be; --txt3:#6f6789;
+  --gold:#d9b45e; --gold-hi:#ffd97a; --red:#ff4d4d; --jade:#63d2a4;
+  /* 间距阶梯 */
+  --sp-1:6px; --sp-2:10px; --sp-3:14px; --sp-4:18px; --sp-5:24px; --sp-6:32px;
+  /* 圆角阶梯 */
+  --r:16px; --r-sm:10px; --r-md:13px; --r-lg:20px;
+  /* 阴影阶梯 */
+  --sh-sm:0 6px 18px -10px rgba(0,0,0,.6);
+  --sh-md:0 16px 46px -24px rgba(0,0,0,.72);
+  --sh-gold:0 22px 70px -36px rgba(255,205,95,.8);
+  --sh-red:0 22px 70px -36px rgba(255,77,77,.72);
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --v-yuanji:#FFD84D; --v-daji:#F5C64A; --v-ji:#E6B25C; --v-wujiu:#C9AE7B;
+  --v-ping:#9A93AE;
+  --v-hui:#F19070; --v-lin:#EF7159; --v-li:#EE5A48; --v-jiu:#F24040; --v-xiong:#FF3535;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;padding:24px 14px 72px;font-family:var(--sans);color:var(--txt);
+  background:
+    radial-gradient(900px 480px at 50% -8%,rgba(217,180,94,.10),transparent 62%),
+    radial-gradient(700px 420px at 88% 12%,rgba(99,210,164,.055),transparent 60%),
+    var(--bg);
+  min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;}
+
+/* ---------- header ---------- */
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+h1{margin:0;font-family:var(--serif);font-size:27px;font-weight:700;letter-spacing:.06em;
+  background:linear-gradient(100deg,#ffe6a8,#d9b45e 52%,#a8823a);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.sub{color:var(--txt2);font-size:13px;line-height:1.75;margin:8px 0 18px;}
+.sub b{color:var(--gold-hi);font-weight:600;}
+.rule{display:inline-block;font-family:var(--serif);color:var(--txt);background:var(--sunk);
+  border:1px solid var(--line);border-radius:7px;padding:1px 7px;margin:0 1px;font-size:12.5px;}
+
+/* ---------- panels ---------- */
+.panel{position:relative;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--sp-4);margin-bottom:14px;box-shadow:var(--sh-sm);
+  transition:box-shadow .25s,border-color .25s,transform .25s;}
+.panel::before{content:"";position:absolute;top:0;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,217,122,.35),transparent);pointer-events:none;}
+.panel:hover{box-shadow:var(--sh-md);border-color:var(--line2);}
+.ptag{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+.pnum{width:22px;height:22px;flex:0 0 auto;border-radius:50%;display:grid;place-items:center;
+  font-size:12px;font-weight:700;color:#1a1305;background:linear-gradient(140deg,#ffd97a,#c79b3e);}
+.pttl{font-size:13.5px;font-weight:700;letter-spacing:.04em;color:var(--gold-hi);}
+.pttl small{font-weight:400;color:var(--txt3);margin-left:7px;letter-spacing:0;}
+
+/* ---------- controls ---------- */
+.mode{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--txt2);
+  padding-bottom:14px;margin-bottom:14px;border-bottom:1px dashed var(--line);}
+select{background:var(--sunk);color:var(--txt);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:7px 11px;font-size:12.5px;font-family:inherit;cursor:pointer;}
+select:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.inbox{background:var(--sunk);border:1px solid var(--line);border-radius:13px;padding:13px 13px 11px;
+  transition:border-color .18s,box-shadow .18s;}
+.inbox.filled{border-color:rgba(217,180,94,.5);box-shadow:0 0 0 3px rgba(217,180,94,.07);}
+.inbox label{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--gold);font-weight:600;margin-bottom:9px;}
+.inbox label i{font-style:normal;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;
+  font-size:10px;background:rgba(217,180,94,.16);border:1px solid rgba(217,180,94,.4);}
+.inbox input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line2);
+  color:var(--txt);font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:.08em;
+  padding:2px 0 6px;text-align:center;outline:none;}
+.inbox input::placeholder{color:#4b4463;font-weight:400;letter-spacing:.04em;}
+.inbox .hint{font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.55;text-align:center;}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px;}
+button{background:var(--sunk);color:var(--txt2);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:9px 15px;font-size:12.5px;font-family:inherit;cursor:pointer;transition:.16s;}
+button:hover{border-color:var(--gold);color:var(--gold-hi);}
+button.primary{background:linear-gradient(140deg,#ffd97a,#c79b3e);color:#1a1305;border-color:transparent;font-weight:700;}
+button.primary:hover{color:#1a1305;filter:brightness(1.08);}
+button:active{transform:translateY(1px);}
+.segbtn:active{transform:translateY(1px);}
+
+/* ---------- verdict banner ---------- */
+#verdict{display:none;margin-bottom:14px;}
+#verdict.show{display:block;animation:rise .3s cubic-bezier(.2,.8,.2,1);}
+.vcard{position:relative;overflow:hidden;text-align:center;border-radius:var(--r-lg);padding:26px 18px 20px;
+  background:radial-gradient(130% 150% at 50% 0%,rgba(255,255,255,.06),transparent 68%),
+             linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);transition:border-color .25s,box-shadow .25s;}
+.vcard::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(135deg,transparent 0 13px,rgba(255,255,255,.014) 13px 14px);}
+.vcard::after{content:"";position:absolute;top:0;left:18%;right:18%;height:2px;border-radius:0 0 3px 3px;opacity:.9;
+  background:linear-gradient(90deg,transparent,var(--txt3),transparent);}
+.vcard.ji{border-color:rgba(217,180,94,.55);box-shadow:var(--sh-gold),inset 0 0 0 1px rgba(217,180,94,.12);}
+.vcard.ji::after{background:linear-gradient(90deg,transparent,var(--v-yuanji),transparent);box-shadow:0 0 16px var(--v-yuanji);}
+.vcard.xiong{border-color:rgba(255,77,77,.55);box-shadow:var(--sh-red),inset 0 0 0 1px rgba(255,77,77,.12);}
+.vcard.xiong::after{background:linear-gradient(90deg,transparent,var(--v-xiong),transparent);box-shadow:0 0 16px var(--v-xiong);}
+.vcard.ping{border-color:var(--line2);}
+.vcard.ping::after{background:linear-gradient(90deg,transparent,var(--v-ping),transparent);}
+.vstage{position:relative;font-size:11px;letter-spacing:.2em;color:var(--txt3);}
+.vchar{position:relative;font-family:var(--serif);font-weight:700;line-height:1.02;letter-spacing:.1em;
+  margin:10px 0 4px;transition:font-size .2s;text-shadow:0 0 30px rgba(255,217,122,.22);}
+.vcard.xiong .vchar{text-shadow:0 0 30px rgba(255,77,77,.32);}
+.vmean{position:relative;font-size:15.5px;font-weight:700;letter-spacing:.05em;}
+.vdesc{position:relative;font-size:12.5px;color:var(--txt2);margin-top:5px;line-height:1.7;}
+.vtags{position:relative;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.vtag{font-size:11px;border-radius:20px;padding:2px 10px;border:1px solid currentColor;opacity:.92;}
+.vsrc{position:relative;margin:13px auto 0;max-width:620px;font-size:13px;line-height:1.85;color:var(--txt2);
+  background:rgba(0,0,0,.3);border:1px dashed var(--line2);border-radius:12px;padding:10px 14px;text-align:left;
+  font-family:var(--serif);}
+.vsrc .lbl{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;color:var(--txt3);margin-bottom:3px;}
+.vsrc em{font-style:normal;font-weight:700;}
+.vyong{position:relative;margin:11px auto 0;max-width:620px;font-size:12.5px;line-height:1.8;text-align:left;
+  background:rgba(217,180,94,.07);border:1px solid rgba(217,180,94,.3);border-left:3px solid var(--gold);
+  border-radius:10px;padding:9px 14px;font-family:var(--serif);color:var(--txt);}
+.vyong .ytag{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  color:var(--gold-hi);border:1px solid rgba(217,180,94,.5);border-radius:5px;padding:0 6px;margin-right:7px;}
+.vyong .ytip{display:block;font-family:var(--sans);font-size:11px;color:var(--txt3);margin-top:5px;letter-spacing:.02em;}
+
+/* ---------- steps ---------- */
+.step{display:none;}
+.step.show{display:block;animation:rise .3s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes rise{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:none;}}
+.row{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+.hexwrap{display:flex;flex-direction:column;gap:5px;width:68px;flex:0 0 auto;padding-top:3px;}
+.bar{height:13px;border-radius:3px;position:relative;}
+.bar .seg{position:absolute;top:0;bottom:0;border-radius:3px;background:linear-gradient(180deg,#eccf8c,#b9944a);}
+.bar.yang .seg{left:0;right:0;}
+.bar.yin .seg.l{left:0;width:40%;}
+.bar.yin .seg.r{right:0;width:40%;}
+.bar.mv .seg{background:linear-gradient(180deg,#ffa88c,#ff4d4d);box-shadow:0 0 12px rgba(255,77,77,.65);}
+.bar .mvtag{position:absolute;left:calc(100% + 9px);top:50%;transform:translateY(-50%);white-space:nowrap;
+  font-size:10px;color:var(--red);border:1px solid rgba(255,77,77,.6);border-radius:5px;padding:0 5px;}
+.blk{flex:1;min-width:230px;font-size:13.5px;line-height:1.8;}
+.gname{font-family:var(--serif);font-size:21px;font-weight:700;color:var(--gold-hi);letter-spacing:.04em;}
+.gname small{font-family:var(--sans);font-size:12px;color:var(--txt3);font-weight:400;margin-left:9px;letter-spacing:0;}
+.kv{margin-top:9px;}
+.k{display:inline-block;font-size:11px;color:var(--gold);border:1px solid rgba(217,180,94,.35);
+  border-radius:5px;padding:0 6px;margin-right:7px;vertical-align:1.5px;}
+.calc{margin-top:13px;font-size:12px;color:var(--txt2);background:var(--sunk);border:1px dashed var(--line);
+  border-radius:var(--r-sm);padding:9px 12px;line-height:1.85;}
+.calc b{color:var(--gold-hi);}
+.summ{margin-top:13px;padding:13px 15px;background:var(--sunk);border-left:3px solid var(--gold);
+  border-radius:var(--r-sm);font-size:13.5px;line-height:1.85;}
+.summ b{color:var(--gold-hi);}
+/* 体用生克 + 风水建议 */
+.tybox{margin-top:13px;padding:13px 15px;background:linear-gradient(180deg,rgba(217,180,94,.07),rgba(217,180,94,.02));
+  border:1px solid rgba(217,180,94,.28);border-radius:var(--r-sm);font-size:13px;line-height:1.85;}
+.tybox .th{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--gold-hi);letter-spacing:.04em;margin-bottom:6px;}
+.tybox .th small{font-family:var(--sans);font-size:11px;color:var(--txt3);font-weight:400;margin-left:8px;}
+.ty-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:8px 0;}
+.ty-grid .tg{font-size:12.5px;color:var(--txt2);}
+.ty-grid .tg b{color:var(--txt);font-family:var(--serif);font-size:14px;}
+.tybox .rel{display:inline-block;font-size:13.5px;font-weight:700;font-family:var(--serif);padding:1px 12px;border-radius:20px;margin:2px 0 6px;}
+.tybox .rel.ji{color:#1c1505;background:linear-gradient(180deg,#FFE18C,#E0B25C);}
+.tybox .rel.xiong{color:#fff;background:linear-gradient(180deg,#ff6b6b,#d92b2b);}
+.fengbox{margin-top:13px;padding:13px 15px;background:linear-gradient(180deg,rgba(99,210,164,.08),rgba(99,210,164,.02));
+  border:1px solid rgba(99,210,164,.28);border-radius:var(--r-sm);font-size:13px;line-height:1.9;}
+.fengbox .th{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--jade);letter-spacing:.04em;margin-bottom:6px;}
+.fengbox .th small{font-family:var(--sans);font-size:11px;color:var(--txt3);font-weight:400;margin-left:8px;}
+.fengbox .fr{display:flex;gap:8px;flex-wrap:wrap;margin:7px 0;}
+.fengbox .ftag{font-size:11.5px;border:1px solid rgba(99,210,164,.4);border-radius:7px;padding:2px 9px;color:var(--jade);}
+.yaolist{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;}
+.yao{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.75;padding:4px 6px;border-radius:7px;}
+.yao.on{background:rgba(255,77,77,.09);box-shadow:inset 0 0 0 1px rgba(255,77,77,.28);}
+.yn{flex:0 0 auto;font-family:var(--serif);color:var(--txt2);width:26px;}
+.yao.on .yn{color:var(--red);font-weight:700;}
+.mini{flex:0 0 auto;font-size:10.5px;font-family:var(--serif);font-weight:700;border:1px solid currentColor;
+  border-radius:5px;padding:0 5px;line-height:1.6;margin-top:1px;}
+.yt{flex:1;color:var(--txt2);}
+.yao.on .yt{color:var(--txt);}
+.divider{height:1px;background:var(--line);margin:18px 0;}
+.arrow{text-align:center;color:var(--txt3);font-size:12px;letter-spacing:.3em;margin:14px 0 4px;}
+
+/* ---------- legend ---------- */
+.lg{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+  border-radius:var(--r);padding:16px 18px;margin-bottom:14px;}
+.lg summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--gold-hi);letter-spacing:.04em;list-style:none;}
+.lg summary::-webkit-details-marker{display:none;}
+.lg summary::before{content:"▸ ";color:var(--txt3);}
+.lg[open] summary::before{content:"▾ ";}
+.lgnote{font-size:11.5px;color:var(--txt3);line-height:1.7;margin-top:10px;}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin-top:13px;}
+.chip{display:flex;align-items:center;gap:9px;background:var(--sunk);border:1px solid var(--line);
+  border-radius:11px;padding:8px 11px;}
+.chip .c{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1;flex:0 0 auto;}
+.chip .m{font-size:11.5px;color:var(--txt2);line-height:1.45;}
+.chip .m b{display:block;color:var(--txt);font-size:12px;font-weight:600;}
+
+/* 用九/用六 附注（动爻区） */
+.yong-note{margin-top:11px;padding:10px 13px;background:rgba(217,180,94,.07);
+  border:1px solid rgba(217,180,94,.3);border-left:3px solid var(--gold);border-radius:10px;
+  font-family:var(--serif);font-size:13px;line-height:1.8;color:var(--txt);}
+.yong-note .ytag{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  color:var(--gold-hi);border:1px solid rgba(217,180,94,.5);border-radius:5px;padding:0 6px;margin-right:7px;vertical-align:1px;}
+.yong-note .ytip{display:block;font-family:var(--sans);font-size:11px;color:var(--txt3);margin-top:5px;line-height:1.6;}
+
+/* 取法切换提示条 */
+.modehint{display:block;width:100%;margin-top:11px;padding:9px 13px;font-size:12px;line-height:1.7;
+  background:rgba(99,210,164,.06);border:1px solid rgba(99,210,164,.28);border-left:3px solid var(--jade);
+  border-radius:10px;color:var(--txt2);}
+.modehint b{color:var(--jade);font-weight:700;}
+
+/* 取法切换：双按钮分段控件 */
+.seg{display:inline-flex;gap:6px;}
+.segbtn{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--txt2);
+  background:var(--sunk);border:1px solid var(--line);border-radius:11px;padding:9px 17px;cursor:pointer;
+  transition:all .18s;letter-spacing:.04em;}
+.segbtn:hover{border-color:var(--gold);color:var(--txt);}
+.segbtn.active{color:#1c1505;background:linear-gradient(180deg,#FFE18C,#E0B25C);
+  border-color:transparent;box-shadow:0 10px 26px -12px rgba(255,205,95,.85),inset 0 1px 0 rgba(255,255,255,.55);}
+.segitem{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.segcap{font-size:10px;color:var(--txt3);line-height:1.4;letter-spacing:.02em;text-align:center;}
+/* 小六壬三传 chips */
+.lxp{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 14px;border:1px solid var(--line);
+  border-radius:11px;background:var(--sunk);min-width:76px;}
+.lxp .lxt{font-size:10px;color:var(--txt3);letter-spacing:.12em;}
+.lxp b{font-family:var(--serif);font-size:18px;font-weight:700;}
+.lxp small{font-size:10.5px;color:var(--txt3);}
+.mlbl{font-size:12.5px;color:var(--txt2);}
+
+/* 占卜攻略说明卡 */
+.guide{border-color:var(--line2);}
+.guide>summary{font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.05em;
+  color:var(--gold);cursor:pointer;padding:2px 0;list-style:none;}
+.guide>summary::before{content:"▸ ";color:var(--txt3);}
+.guide[open]>summary::before{content:"▾ ";}
+.guide .gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px;}
+.gcard{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);border-radius:14px;padding:14px 15px 13px;}
+.gcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--gold),transparent);opacity:.55;}
+.gcard h4{margin:0 0 8px;font-family:var(--serif);font-size:15px;font-weight:700;color:var(--txt);line-height:1.4;}
+.gcard h4 .gk{font-family:var(--sans);font-size:10.5px;font-weight:700;color:#1c1505;
+  background:linear-gradient(180deg,#FFE18C,#E0B25C);border-radius:6px;padding:1px 7px;margin-right:7px;vertical-align:1px;}
+.gcard p{margin:0 0 7px;font-size:12.5px;line-height:1.78;color:var(--txt2);}
+.gcard .ex{font-family:var(--serif);font-size:12px;line-height:1.85;color:var(--txt);
+  background:rgba(0,0,0,.3);border:1px dashed var(--line2);border-radius:9px;padding:8px 11px;margin-top:3px;}
+.gcard .ex b{color:var(--gold);}
+.gcard .k{color:var(--jade);font-weight:700;}
+
+/* 万年历自动换算 */
+.conv{border:1px solid rgba(99,210,164,.24);border-radius:14px;padding:14px 15px;margin-bottom:16px;
+  background:linear-gradient(180deg,rgba(99,210,164,.07),rgba(99,210,164,.02));}
+.convhd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.cttl{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--jade);letter-spacing:.04em;}
+.cyear{font-size:11.5px;color:var(--txt3);}
+.cyear b{color:var(--txt);}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.citem label{display:block;font-size:11.5px;color:var(--gold);font-weight:600;margin-bottom:7px;}
+.citem select{width:100%;background:var(--sunk);color:var(--txt);border:1px solid var(--line);
+  border-radius:var(--r-sm);padding:8px 10px;font-size:13px;font-family:inherit;cursor:pointer;}
+.citem .csub{display:block;font-size:10.5px;color:var(--txt3);margin-top:6px;line-height:1.5;}
+.cresult{margin-top:12px;font-family:var(--serif);font-size:13px;line-height:1.9;color:var(--txt2);
+  background:rgba(0,0,0,.3);border:1px dashed var(--line2);border-radius:10px;padding:9px 12px;}
+.cresult b{color:var(--jade);}
+.cresult .arrow{color:var(--gold);}
+
+/* 攻略：开场通栏 + 小节标题 + 数字高亮 */
+.gintro{margin:2px 0 14px;font-family:var(--serif);font-size:13px;line-height:1.95;color:var(--txt2);
+  background:linear-gradient(90deg,rgba(217,180,94,.12),transparent);border-left:3px solid var(--gold);
+  border-radius:8px;padding:10px 14px;}
+.gintro b{color:var(--gold);}
+.gsub{display:flex;align-items:center;gap:8px;margin:16px 0 10px;font-family:var(--sans);
+  font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--txt3);}
+.gsub::before,.gsub::after{content:"";flex:1;height:1px;background:var(--line);}
+.gsub b{color:var(--gold);}
+.gcard .step{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:700;color:#1c1505;
+  background:linear-gradient(180deg,#FFE18C,#E0B25C);border-radius:5px;padding:0 6px;margin-right:6px;}
+.gcard .who{color:var(--txt);font-weight:700;}
+.gcard .num{color:var(--gold);font-weight:700;}
+.gcard .r{color:var(--red);font-weight:700;}
+
+.foot{color:var(--txt3);font-size:11.5px;line-height:1.85;margin-top:20px;text-align:center;}
+@media (max-width:600px){
+  body{padding:16px 10px calc(56px + env(safe-area-inset-bottom));}
+  .wrap{max-width:100%;}
+  .gcards{grid-template-columns:1fr;}
+  /* 三组输入框：手机端同样保持一排三个 */
+  .inbox{padding:11px 8px;}
+  .inbox label{font-size:10.5px;margin-bottom:7px;}
+  .inbox .hint{font-size:9.5px;}
+  h1{font-size:22px;}
+  .sub{font-size:12px;}
+  .hexwrap{width:56px;}
+  .panel{padding:14px 12px;}
+  .vcard{padding:20px 12px 16px;}
+  .vsrc{font-size:12px;padding:9px 11px;}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .btns .primary{grid-column:1/-1;}
+  .seg{width:100%;}
+  .segbtn{flex:1;text-align:center;padding:11px 8px;font-size:14px;}
+  button{min-height:44px;padding:11px 14px;font-size:14px;}
+  /* 万年历换算：手机端同样保持三列一排 */
+  .conv{padding:12px 10px;}
+  .citem label{font-size:10.5px;margin-bottom:6px;}
+  .citem select{min-height:44px;font-size:13.5px;padding:8px 4px;}
+  .citem .csub{font-size:9.5px;margin-top:5px;}
+  .inbox input{font-size:22px;}
+}
+@media (max-width:380px){
+  h1{font-size:19px;}
+  .btns{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style></head>
+<body><div class="wrap">
+
+<div class="hd"><h1>数字卦 · 三组数字起卦</h1></div>
+<div class="sub">
+本法为「<b>梅花易数 · 三组数字起卦法</b>」。<b>先天八卦数</b>：<span class="rule">乾1</span><span class="rule">兑2</span><span class="rule">离3</span><span class="rule">震4</span><span class="rule">巽5</span><span class="rule">坎6</span><span class="rule">艮7</span><span class="rule">坤8</span>（÷8 取余，余 0 作 8＝坤）。<br>
+吉凶依《易经》<b>九级断语</b>断之：<b>元吉 · 大吉 · 吉 · 无咎</b>｜<b style="color:var(--red)">悔 · 吝 · 厉 · 咎 · 凶</b>。每输入一组数字即自动起算，断语大字前置。
+</div>
+
+<div class="panel">
+  <div class="mode">测算取法
+    <div class="seg" id="segMode" role="group" aria-label="测算取法">
+      <div class="segitem"><button type="button" class="segbtn active" data-mode="meihua">梅花易数</button><span class="segcap">三数起卦 · 卦辞详析</span></div>
+      <div class="segitem"><button type="button" class="segbtn" data-mode="liuren">小六壬</button><span class="segcap">三数定六神 · 一事速断</span></div>
+    </div>
+    <span id="modehint" class="modehint"></span>
+  </div>
+  <div class="conv">
+    <div class="convhd">
+      <span class="cttl">万年历 · 自动换算</span>
+      <span class="cyear">以当前 <b id="convYear"></b> 年实时日历对应</span>
+    </div>
+    <div class="cgrid">
+      <div class="citem">
+        <label for="cMonth">新历月份</label>
+        <select id="cMonth" aria-label="新历月份"></select>
+        <span class="csub" id="csub1">→ 农历月份 · 第①组</span>
+      </div>
+      <div class="citem">
+        <label for="cDay">新历日</label>
+        <select id="cDay" aria-label="新历日"></select>
+        <span class="csub" id="csub2">→ 农历日 · 第②组</span>
+      </div>
+      <div class="citem">
+        <label for="cHour">24 小时</label>
+        <select id="cHour" aria-label="24小时"></select>
+        <span class="csub" id="csub3">→ 12 时辰 · 第③组</span>
+      </div>
+    </div>
+    <div class="cresult" id="cResult"></div>
+  </div>
+  <div class="inputs">
+    <div class="inbox" id="box1"><label><i>1</i>第一组数字</label>
+      <input id="g1" inputmode="numeric" autocomplete="off" placeholder="735" aria-label="第一组数字">
+      <div class="hint" id="h1">÷8 取余 → 下卦（内卦）</div></div>
+    <div class="inbox" id="box2"><label><i>2</i>第二组数字</label>
+      <input id="g2" inputmode="numeric" autocomplete="off" placeholder="993" aria-label="第二组数字">
+      <div class="hint" id="h2">÷8 取余 → 上卦（外卦）</div></div>
+    <div class="inbox" id="box3"><label><i>3</i>第三组数字</label>
+      <input id="g3" inputmode="numeric" autocomplete="off" placeholder="455" aria-label="第三组数字">
+      <div class="hint" id="h3">÷6 取余 → 动爻（第 1–6 爻）</div></div>
+  </div>
+  <div class="btns">
+    <button class="primary" id="btnEx">载入示例 735 / 993 / 455</button>
+    <button id="btnRnd">随机三组</button>
+    <button id="btnClr">清空</button>
+  </div>
+</div>
+
+<div id="verdict"><div class="vcard" id="vcard">
+  <div class="vstage" id="vstage"></div>
+  <div class="vchar" id="vchar"></div>
+  <div class="vmean" id="vmean"></div>
+  <div class="vdesc" id="vdesc"></div>
+  <div class="vtags" id="vtags"></div>
+  <div class="vsrc" id="vsrc"></div>
+  <div class="vyong" id="vyong"></div>
+</div></div>
+
+<div class="panel step" id="step1">
+  <div class="ptag"><span class="pnum">1</span><span class="pttl" id="t1">第一组 · 下卦成象<small>内卦已定，待上卦</small></span></div>
+  <div class="row"><div id="s1hex" class="hexwrap"></div><div class="blk" id="s1txt"></div></div>
+  <div class="calc" id="s1calc"></div>
+</div>
+
+<div class="panel step" id="step2">
+  <div class="ptag"><span class="pnum">2</span><span class="pttl" id="t2">第二组 · 本卦成卦<small>上下卦合，六爻齐备</small></span></div>
+  <div class="row"><div id="s2hex" class="hexwrap"></div><div class="blk" id="s2txt"></div></div>
+  <div class="calc" id="s2calc"></div>
+  <div class="yaolist" id="s2yao"></div>
+</div>
+
+<div class="panel step" id="step3">
+  <div class="ptag"><span class="pnum">3</span><span class="pttl" id="t3">第三组 · 动爻定吉凶<small>爻变生卦，终判在此</small></span></div>
+  <div class="summ" id="s3yao"></div>
+  <div class="row" style="margin-top:16px;"><div id="s3bh" class="hexwrap"></div><div class="blk" id="s3bt"></div></div>
+  <div class="arrow" id="s3arrow">爻 　变 　↓</div>
+  <div class="row"><div id="s3xh" class="hexwrap"></div><div class="blk" id="s3xt"></div></div>
+  <div class="calc" id="s3calc"></div>
+  <div class="summ" id="s3sum"></div>
+  <div class="tybox" id="s3tys"></div>
+  <div class="fengbox" id="s3feng"></div>
+</div>
+
+<details class="lg" id="lgbox"><summary>九级断语 · 吉凶量表</summary>
+  <div class="chips" id="chips"></div>
+  <div class="lgnote">
+    判法：扫描卦辞 / 爻辞中的断语字，取其主断。否定式（<b>无咎 · 无大咎 · 何咎 · 悔亡 · 无悔</b>）一律归入「无咎」级；
+    同一句读内「凶类＋吉类」连用者（如「<b>厉无咎</b>」「<b>厉终吉</b>」）属转危为安句式，以吉类为主断、凶类降为前置警示；
+    若句读已断（如「<b>征凶。居贞吉。</b>」）则凶断不可翻。辞中未著断语字者列为「平」，须依卦象义理而断。
+  </div>
+</details>
+
+<details class="guide">
+  <summary>占卜攻略 · 怎么取数字（一看就懂，含全部取数法详解）</summary>
+  <div class="gintro">
+    占卜只做一件事：把你要问的事，变成 <b>3 个数字</b>填进下面三格，程序自动起卦断吉凶。<br>
+    数字最好"从事情本身来"——<b>事情定在哪天、几点，就用那天的农历月、农历日、时辰</b>；事情还没定时间，就心里随手想三个数。<b>一事一卦</b>，问题越具体越准。
+  </div>
+
+  <div class="gcards">
+    <div class="gcard" style="grid-column:1/-1;">
+      <h4><span class="gk">最推荐</span>方法一：按事情发生的那天那个点取数（用上面的万年历换算器）</h4>
+      <p>凡是有"具体日子"的事——<b>谈项目、相亲、面试、考试、结婚、开业、搬家、出行</b>——就用<b>事情发生那天的农历月、农历日、时辰</b>来测。打开上方「万年历自动换算」，选好<b>新历几月、几号、几点</b>，三格数字自动填好。</p>
+      <div class="ex">
+        <span class="step">例1</span><span class="who">阿强</span>约了客户，下个月 <b>9月20日 下午3点</b> 面谈项目合作意向。换算器选"9月、20日、15时"→ 自动得 <b>农历八月初十 · 申时</b> → 第①格=<b class="num">8</b>（农历月） 第②格=<b class="num">10</b>（农历日） 第③格=<b class="num">9</b>（申时），即以此断这次会谈的成败吉凶。<br>
+        <span class="step">例2</span><span class="who">小美与小明</span>定于 <b>10月1日 上午10点</b> 举办婚礼。换算器选"10月、1日、10时"→ 自动得 <b>农历八月廿一 · 巳时</b> → 第①格=<b class="num">8</b> 第②格=<b class="num">21</b> 第③格=<b class="num">6</b>（巳时），即以此断这桩婚事是否和美。新人算日子结婚、订婚、领证同理。
+      </div>
+      <p><span class="k">小提示</span>：事情还没定时间，就用<b>你问卦的当下</b>日期时辰来算，或改用方法二。</p>
+    </div>
+
+    <div class="gcard">
+      <h4><span class="gk">最快</span>方法二：心里报三个数</h4>
+      <p>心里默念问题，随口报三个数（或看手表秒数、车牌尾号、小票尾数），直接填进三格。<b>念起即取</b>，不要犹豫、不要改来改去。</p>
+      <div class="ex"><span class="step">例</span>你想问"这个月能不能签下合同"，心里冒出 <b class="num">3、7、12</b> → 第①格=3 第②格=7 第③格=12（12÷6 余0 → 第6爻动）。</div>
+    </div>
+
+    <div class="gcard">
+      <h4><span class="gk">算法</span>梅花易数 · 三组数字怎么定卦</h4>
+      <p>第①格=下卦（内），第②格=上卦（外），第③格÷6 定动爻（第1–6爻）。三格齐备即起出<b>本卦</b>，动爻阴阳互换得<b>变卦</b>；吉凶以<b>终判（动爻爻辞）</b>为主。</p>
+      <div class="ex">例 <b>735 / 993 / 455</b> → 下艮(7) 上乾(1) 动 455÷6→5 → <b>天山遁 · 五爻 · 火山旅</b>，终判<b>吉</b>。</div>
+    </div>
+  </div>
+
+  <div class="gsub"><b>其它取数法详解</b>（进阶 · 同样把结果填进三格即可）</div>
+
+  <div class="gcards">
+    <div class="gcard">
+      <h4>① 时间起卦法（不用换算器、手工算）</h4>
+      <p>记四样数：<b>年地支</b>（子1 丑2 寅3 卯4 辰5 巳6 午7 未8 申9 酉10 戌11 亥12）、<b>农历月</b>、<b>农历日</b>、<b>时辰</b>（子1…亥12）。<br>
+      <span class="k">上卦数</span>=(年支+月+日)÷8 余数（余0记8）；<span class="k">下卦数</span>=(年支+月+日+时)÷8 余数；<span class="k">动爻数</span>=(四项和)÷6 余数（余0记6）。<br>
+      <b>填：第①格=下卦数　第②格=上卦数　第③格=动爻数</b></p>
+      <div class="ex"><span class="step">例</span>2026丙午年（午=7）农历八月廿五 午时（7）：上=(7+8+25)=40÷8 余0→8；下=(7+8+25+7)=47÷8 余7；动=47÷6 余5 → 填 <b class="num">7、8、5</b>，得 <b>地山谦 · 五爻动</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>② 字数法（用你问的话）</h4>
+      <p>把想问的话写下来。第①格 = <b>后半句</b>字数÷8 余数；第②格 = <b>前半句</b>字数÷8 余数；第③格 = <b>总字数</b>÷6 余数。</p>
+      <div class="ex"><span class="step">例</span>问"我何时脱单"（5字）→ 前2字"我何"、后3字"时脱单" → 填 <b class="num">3、2、5</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>③ 姓名法（问两人缘分 / 合作）</h4>
+      <p>第①格 = <b>你的</b>姓名总笔画÷8 余数；第②格 = <b>对方</b>姓名总笔画÷8 余数；第③格 = 两人笔画和÷6 余数。</p>
+      <div class="ex"><span class="step">例</span>张三（10画）测与李四（12画）：①=10÷8 余2　②=12÷8 余4　③=22÷6 余4 → 填 <b class="num">2、4、4</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>④ 物数法（看到什么数什么）</h4>
+      <p>第①格 = 所见东西<b>个数</b>÷8 余数；第②格 = 当下<b>时辰数</b>÷8 余数；第③格 = 两者和÷6 余数。</p>
+      <div class="ex"><span class="step">例</span>见 3 只鸟飞过，此时午时（7）：①=3　②=7　③=(3+7)÷6 余4 → 填 <b class="num">3、7、4</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>⑤ 声音法（听几声）</h4>
+      <p>第①格 = 第一段声音<b>次数</b>÷8 余数；第②格 = 第二段次数÷8 余数；第③格 = 总数÷6 余数。</p>
+      <div class="ex"><span class="step">例</span>敲门先响 2 下、停顿、再响 5 下：①=2　②=5　③=7÷6 余1 → 填 <b class="num">2、5、1</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>⑥ 方位 / 颜色法</h4>
+      <p><b>方位</b>后天数：北1 西南2 东4 东南5 中5 西北6 西7 东北8 南9。<b>颜色</b>五行数：金(白银)=1/2 木(青绿)=4/5 水(黑蓝)=6 火(红紫)=3 土(黄棕)=7/8。<br>
+      第①格=方位数÷8 余数；第②格=颜色数÷8 余数；第③格=两者和÷6 余数。</p>
+      <div class="ex"><span class="step">例</span>欲测向<b>东北方</b>发展、当日着<b>红衣</b>：①=8　②=火=3　③=11÷6 余5 → 填 <b class="num">8、3、5</b>。</div>
+    </div>
+
+    <div class="gcard">
+      <h4>⑦ 诚心随机法（心乱没着落时）</h4>
+      <p>闭眼随手敲三下、看手表秒数、记公交班次、小票尾数——直接填三格。<b>数贵在"诚"与"感"，起念即取</b>，想得越久反而越不准。</p>
+    </div>
+    <div class="gcard" style="grid-column:1/-1;">
+      <h4><span class="gk">模式</span>小六壬六神速查（切到"小六壬"模式用）</h4>
+      <p>六神顺序：<b>大安 → 留连 → 速喜 → 赤口 → 小吉 → 空亡</b>（1–6 循环）。取三数：①自<b>大安</b>数第①数得<b>初传</b>；②自初传续数第②数得<b>中传</b>；③自中传续数第③数得<b>末传</b>（主断）。<b>适用</b>：临时起意、一事速断——出行、见人、小事成败、随手问吉凶。</p>
+      <div class="ex"><b>大安</b>=吉·木 ｜ <b>留连</b>=凶·水 ｜ <b>速喜</b>=吉·火 ｜ <b>赤口</b>=凶·金 ｜ <b>小吉</b>=吉·木 ｜ <b>空亡</b>=凶·土。<br>例：报 <b>7、13、8</b>（=丙午年七月十三未时）→ 初传<b>大安</b> → 中传<b>大安</b> → 末传<b>留连</b>。</div>
+    </div>
+  </div>
+
+  <div class="gintro" style="margin-top:14px;">
+    记住：三格数字中 <b>第③格最要紧</b>——它决定"动爻"，是断吉凶的关键。填完自动出卦，重点看最上方大字的<b>终判</b>与<b>变卦</b>（见"九级断语 · 吉凶量表"）。
+  </div>
+</details>
+
+<div class="foot">
+阳爻 ▬▬ / 阴爻 ▬ ▬，卦象自下而上读 ｜ 断语以第三组所定之动爻爻辞为终判<br>
+资料经《易经》古本结构校勘与简体文本交叉校验，六十四卦卦辞 / 爻辞 / 卦象完整。本工具仅供传统文化学习与娱乐参考，不构成任何决策建议。
+</div>
+</div>
+
+<script>
+"use strict";
+let curMode = "meihua";
+const HEX = [{"n":1,"name":"乾","full":"乾为天","upper":"乾","lower":"乾","judge":"元亨，利贞。","lines":[{"y":"初九","x":"潜龙，勿用。"},{"y":"九二","x":"见龙在田，利见大人。"},{"y":"九三","x":"君子终日乾乾，夕惕若，厉无咎。"},{"y":"九四","x":"或跃在渊，无咎。"},{"y":"九五","x":"飞龙在天，利见大人。"},{"y":"上九","x":"亢龙有悔。"}],"yong":"用九：见群龙无首。吉。","jianxi":"刚健中正，自强不息。诸事当积极进取，然须戒骄戒躁，知进知退。"},{"n":2,"name":"坤","full":"坤为地","upper":"坤","lower":"坤","judge":"元亨，利牝马之贞。君子有攸往，先迷，後得，主利。西南得朋，东北丧朋。安贞吉。","lines":[{"y":"初六","x":"履霜，坚冰至。"},{"y":"六二","x":"直方。大，不习。无不利。"},{"y":"六三","x":"含章。可贞。或从王事，无成，有终。"},{"y":"六四","x":"括囊。无咎无誉。"},{"y":"六五","x":"黄裳。元吉。"},{"y":"上六","x":"龙战于野，其血玄黄。"}],"yong":"用六：利永贞。","jianxi":"柔顺包容，厚德载物。宜守静顺势、辅助他人，忌强出头、争先。"},{"n":3,"name":"屯","full":"水雷屯","upper":"坎","lower":"震","judge":"元亨，利贞。勿用有攸往。利建侯。","lines":[{"y":"初九","x":"磐桓。利居贞。利建侯。"},{"y":"六二","x":"屯如邅如，乘马班如。匪寇，婚媾。女子贞不字，十年乃字。"},{"y":"六三","x":"即鹿无虞，惟入于林中，君子几不如舍。往吝。"},{"y":"六四","x":"乘马班如，求婚媾。往吉，无不利。"},{"y":"九五","x":"屯其膏。小贞吉，大贞凶。"},{"y":"上六","x":"乘马班如，泣血涟如。"}],"yong":"","jianxi":"万物始生，艰难初创。宜固守待时、循序渐进，不可冒进求成。"},{"n":4,"name":"蒙","full":"山水蒙","upper":"艮","lower":"坎","judge":"亨。匪我求童蒙，童蒙求我。初筮告，再三渎，渎则不告。利贞。","lines":[{"y":"初六","x":"发蒙。利用刑人，用说桎梏。以往吝。"},{"y":"九二","x":"包蒙。吉。纳妇吉，子克家。"},{"y":"六三","x":"勿用取女，见金，夫不有躬。无攸利。"},{"y":"六四","x":"困蒙。吝。"},{"y":"六五","x":"童蒙。吉。"},{"y":"上九","x":"击蒙。不利为寇，利御寇。"}],"yong":"","jianxi":"蒙昧未明，须启蒙求学。宜虚心受教、耐心解惑，忌固执己见。"},{"n":5,"name":"需","full":"水天需","upper":"坎","lower":"乾","judge":"有孚。光亨，贞吉。利涉大川。","lines":[{"y":"初九","x":"需于郊。利用恒，无咎。"},{"y":"九二","x":"需于沙。小有言，终吉。"},{"y":"九三","x":"需于泥，致寇至。"},{"y":"六四","x":"需于血，出自穴。"},{"y":"九五","x":"需于酒食。贞吉。"},{"y":"上六","x":"入于穴。有不速之客三人来。敬之，终吉。"}],"yong":"","jianxi":"等待时机，云上于天。宜静守待雨、蓄力养锐，勿急躁冒进。"},{"n":6,"name":"讼","full":"天水讼","upper":"乾","lower":"坎","judge":"有孚。窒惕，中吉，终凶。利见大人。不利涉大川。","lines":[{"y":"初六","x":"不永所事。小有言，终吉。"},{"y":"九二","x":"不克讼，归而逋，其邑人，三百户。无眚。"},{"y":"六三","x":"食旧德。贞厉，终吉。或从王事，无成。"},{"y":"九四","x":"不克讼，复即命。渝。安贞吉。"},{"y":"九五","x":"讼元吉。"},{"y":"上九","x":"或锡之鞶带，终朝三褫之。"}],"yong":"","jianxi":"争讼之象，宜退不宜进。遇争执当忍让和解，忌缠讼不休。"},{"n":7,"name":"师","full":"地水师","upper":"坤","lower":"坎","judge":"贞丈人吉，无咎。","lines":[{"y":"初六","x":"师出以律。否臧，凶。"},{"y":"九二","x":"在师中。吉，无咎。王三锡命。"},{"y":"六三","x":"师或舆尸。凶。"},{"y":"六四","x":"师左次。无咎。"},{"y":"六五","x":"田有禽。利执言，无咎。长子帅师，弟子舆尸。贞凶。"},{"y":"上六","x":"大君有命，开国承家。小人勿用。"}],"yong":"","jianxi":"兵众兴师，用兵之道。宜有严正之帅、纪律严明，慎战而用之。"},{"n":8,"name":"比","full":"水地比","upper":"坎","lower":"坤","judge":"吉。原筮，元，永贞，无咎。不宁方来，后夫凶。","lines":[{"y":"初六","x":"有孚。比之，无咎。有孚盈缶，终来有它。吉。"},{"y":"六二","x":"比之自内。贞吉。"},{"y":"六三","x":"比之匪人。"},{"y":"六四","x":"外比之。贞吉。"},{"y":"九五","x":"显比。王用三驱，失前禽，邑人不诫。吉。"},{"y":"上六","x":"比之无首。凶。"}],"yong":"","jianxi":"亲比相辅，择善而从。宜结同心、亲贤远佞，忌朋比为奸。"},{"n":9,"name":"小畜","full":"风天小畜","upper":"巽","lower":"乾","judge":"亨。密云不雨，自我西郊。","lines":[{"y":"初九","x":"复自道，何其咎。吉。"},{"y":"九二","x":"牵复。吉。"},{"y":"九三","x":"舆说辐，夫妻反目。"},{"y":"六四","x":"有孚。血去，惕出。无咎。"},{"y":"九五","x":"有孚挛如。富以其邻。"},{"y":"上九","x":"既雨，既处。尚德载。妇贞厉。月几望，君子征凶。"}],"yong":"","jianxi":"小有积蓄，力量未足。宜积德蓄力、待时而发，勿贪大求快。"},{"n":10,"name":"履","full":"天泽履","upper":"乾","lower":"兑","judge":"履","lines":[{"y":"初九","x":"素履。往无咎。"},{"y":"九二","x":"履道坦坦。幽人贞吉。"},{"y":"六三","x":"眇能视，跛能履。履虎尾，咥人。凶。武人为于大君。"},{"y":"九四","x":"履虎尾，愬愬。终吉。"},{"y":"九五","x":"夬履。贞厉。"},{"y":"上九","x":"视履，考祥，其旋。元吉。"}],"yong":"","jianxi":"履虎尾而慎行。宜小心谨慎、依礼而动，忌莽撞招祸。"},{"n":11,"name":"泰","full":"地天泰","upper":"坤","lower":"乾","judge":"小往大来，吉，亨。","lines":[{"y":"初九","x":"拔茅茹，以其彙。征吉。"},{"y":"九二","x":"包荒，用冯河，不遐遗。朋亡，得尚于中行。"},{"y":"九三","x":"无平不陂，无往不复。艰贞无咎。勿恤其孚，于食有福。"},{"y":"六四","x":"翩翩。不富以其邻。不戒以孚。"},{"y":"六五","x":"帝乙归妹，以祉。元吉。"},{"y":"上六","x":"城复于隍。勿用师。自邑告命。贞吝。"}],"yong":"","jianxi":"天地交泰，通顺安和。诸事亨通，宜把握良机，居安思危。"},{"n":12,"name":"否","full":"天地否","upper":"乾","lower":"坤","judge":"否","lines":[{"y":"初六","x":"拔茅茹，以其彙。贞吉。亨。"},{"y":"六二","x":"包承。小人吉，大人否，亨。"},{"y":"六三","x":"包羞。"},{"y":"九四","x":"有命。无咎。畴离祉。"},{"y":"九五","x":"休否。大人吉。其亡其亡，系于苞桑。"},{"y":"上九","x":"倾否。先否后喜。"}],"yong":"","jianxi":"天地不交，闭塞不通。宜韬光养晦、忍耐待变，勿强为。"},{"n":13,"name":"同人","full":"天火同人","upper":"乾","lower":"离","judge":"同人","lines":[{"y":"初九","x":"同人于门。无咎。"},{"y":"六二","x":"同人于宗。吝。"},{"y":"九三","x":"伏戎于莽，升其高陵，三岁不兴。"},{"y":"九四","x":"乘其墉，弗克攻。吉。"},{"y":"九五","x":"同人先号咷，而后笑，大师克相遇。"},{"y":"上九","x":"同人于郊。无悔。"}],"yong":"","jianxi":"与人和同，同心协力。宜广结善缘、求同存异，忌私心自用。"},{"n":14,"name":"大有","full":"火天大有","upper":"离","lower":"乾","judge":"元亨。","lines":[{"y":"初九","x":"无交害。匪咎，艰则无咎。"},{"y":"九二","x":"大车以载。有攸往，无咎。"},{"y":"九三","x":"公用亨于天子，小人弗克。"},{"y":"九四","x":"匪其彭。无咎。"},{"y":"六五","x":"厥孚交如威如，吉。"},{"y":"上九","x":"自天祐之。吉，无不利。"}],"yong":"","jianxi":"大有所得，富庶丰盈。宜谦守其成、行善散财，忌骄奢。"},{"n":15,"name":"谦","full":"地山谦","upper":"坤","lower":"艮","judge":"亨。君子有终。","lines":[{"y":"初六","x":"谦谦，君子用涉大川，吉。"},{"y":"六二","x":"鸣谦。贞吉。"},{"y":"九三","x":"劳谦。君子有终。吉。"},{"y":"六四","x":"无不利。撝谦。"},{"y":"六五","x":"不富以其邻。利用侵伐。无不利。"},{"y":"上六","x":"鸣谦。利用行师征邑国。"}],"yong":"","jianxi":"谦逊美德，亨通无碍。宜谦恭自守、功成不居，谦尊而光。"},{"n":16,"name":"豫","full":"雷地豫","upper":"震","lower":"坤","judge":"利建侯行师。","lines":[{"y":"初六","x":"鸣豫。凶。"},{"y":"六二","x":"介于石，不终日。贞吉。"},{"y":"六三","x":"盱豫。悔，迟有悔。"},{"y":"九四","x":"由豫。大有得，勿疑朋盍簪。"},{"y":"六五","x":"贞疾，恒不死。"},{"y":"上六","x":"冥豫。成有渝。无咎。"}],"yong":"","jianxi":"欢乐喜悦，顺动有成。宜忧患预备、行乐有度，忌懈怠生祸。"},{"n":17,"name":"随","full":"泽雷随","upper":"兑","lower":"震","judge":"元亨，利贞。无咎。","lines":[{"y":"初九","x":"官有渝。贞吉。出门交有功。"},{"y":"六二","x":"系小子，失丈夫。"},{"y":"六三","x":"系丈夫，失小子。随有求，得。利居贞。"},{"y":"九四","x":"随有获。贞凶。有孚，在道，以明。何咎。"},{"y":"九五","x":"孚于嘉。吉。"},{"y":"上六","x":"拘系之，乃从维之。王用亨于西山。"}],"yong":"","jianxi":"随时而动，从宜适变。宜择善而从、灵活变通，忌盲从失主。"},{"n":18,"name":"蛊","full":"山风蛊","upper":"艮","lower":"巽","judge":"元亨。利涉大川，先甲三日，后甲三日。","lines":[{"y":"初六","x":"干父之蛊。有子，考无咎。厉终吉。"},{"y":"九二","x":"干母之蛊。不可贞。"},{"y":"九三","x":"干父之蛊。小有悔，无大咎。"},{"y":"六四","x":"裕父之蛊。往见吝。"},{"y":"六五","x":"干父之蛊，用誉。"},{"y":"上九","x":"不事王侯，高尚其事。"}],"yong":"","jianxi":"积弊待革，拨乱反正。宜整治蛊坏、除旧布新，忌因循。"},{"n":19,"name":"临","full":"地泽临","upper":"坤","lower":"兑","judge":"元亨，利贞。至于八月有凶。","lines":[{"y":"初九","x":"咸临。贞吉。"},{"y":"九二","x":"咸临。吉，无不利。"},{"y":"六三","x":"甘临。无攸利。既忧之，无咎。"},{"y":"六四","x":"至临。无咎。"},{"y":"六五","x":"知临。大君之宜，吉。"},{"y":"上六","x":"敦临。吉，无咎。"}],"yong":"","jianxi":"临下亲民，阳气渐长。宜积极进取、以德临人，把握时机。"},{"n":20,"name":"观","full":"风地观","upper":"巽","lower":"坤","judge":"盥而不荐，有孚顒若。","lines":[{"y":"初六","x":"童观。小人无咎，君子吝。"},{"y":"六二","x":"闚观。利女贞。"},{"y":"六三","x":"观我生进退。"},{"y":"六四","x":"观国之光。利用宾于王。"},{"y":"九五","x":"观我生。君子无咎。"},{"y":"上九","x":"观其生。君子无咎。"}],"yong":"","jianxi":"观察审视，省方设教。宜静观其变、反身自省，忌轻举妄动。"},{"n":21,"name":"噬嗑","full":"火雷噬嗑","upper":"离","lower":"震","judge":"亨。利用狱。","lines":[{"y":"初九","x":"屦校灭趾。无咎。"},{"y":"六二","x":"噬肤灭鼻。无咎。"},{"y":"六三","x":"噬腊肉，遇毒。小吝，无咎。"},{"y":"九四","x":"噬乾胏，得金矢。利艰贞，吉。"},{"y":"六五","x":"噬乾肉，得黄金。贞厉，无咎。"},{"y":"上九","x":"何校灭耳。凶。"}],"yong":"","jianxi":"咬合去梗，刑狱决断。宜明断是非、排除障碍，忌姑息养奸。"},{"n":22,"name":"贲","full":"山火贲","upper":"艮","lower":"离","judge":"亨，小利有攸往。","lines":[{"y":"初九","x":"贲其趾，舍车而徒。"},{"y":"六二","x":"贲其须。"},{"y":"九三","x":"贲如，濡如。永贞吉。"},{"y":"六四","x":"贲如皤如，白马翰如。匪寇，婚媾。"},{"y":"六五","x":"贲于丘园，束帛戋戋。吝，终吉。"},{"y":"上九","x":"白贲，无咎。"}],"yong":"","jianxi":"文饰之美，质彬彬然。宜适度修饰、重内轻外，忌虚饰过度。"},{"n":23,"name":"剥","full":"山地剥","upper":"艮","lower":"坤","judge":"不利有攸往。","lines":[{"y":"初六","x":"剥床以足。蔑贞，凶。"},{"y":"六二","x":"剥床以辨。蔑贞，凶。"},{"y":"六三","x":"剥之，无咎。"},{"y":"六四","x":"剥床以肤。凶。"},{"y":"六五","x":"贯鱼，以宫人宠。无不利。"},{"y":"上九","x":"硕果不食，君子得舆，小人剥庐。"}],"yong":"","jianxi":"阴盛剥阳，剥落侵蚀。宜静守避险、顺势退避，勿妄动。"},{"n":24,"name":"复","full":"地雷复","upper":"坤","lower":"震","judge":"亨。出入无疾，朋来无咎。反复其道，七日来复。利有攸往。","lines":[{"y":"初九","x":"不远复。无祗悔。元吉。"},{"y":"六二","x":"休复。吉。"},{"y":"六三","x":"频复。厉无咎。"},{"y":"六四","x":"中行独复。"},{"y":"六五","x":"敦复。无悔。"},{"y":"上六","x":"迷复。凶，有灾眚。用行师，终有大败，以其国君凶，至于十年不克征。"}],"yong":"","jianxi":"一阳来复，生机回返。宜见机回复、改过迁善，把握转机。"},{"n":25,"name":"无妄","full":"天雷无妄","upper":"乾","lower":"震","judge":"元亨，利贞。其匪正有眚。不利有攸往。","lines":[{"y":"初九","x":"无妄，往吉。"},{"y":"六二","x":"不耕获，不菑畬。则利用攸往。"},{"y":"六三","x":"无妄之灾，或系之牛。行人之得，邑人之灾。"},{"y":"九四","x":"可贞，无咎。"},{"y":"九五","x":"无妄之疾，勿药有喜。"},{"y":"上九","x":"无妄，行有眚，无攸利。"}],"yong":"","jianxi":"不妄为，顺天合道。宜守正安分、不妄想，忌妄动招灾。"},{"n":26,"name":"大畜","full":"山天大畜","upper":"艮","lower":"乾","judge":"利贞。不家食吉。利涉大川。","lines":[{"y":"初九","x":"有厉。利巳。"},{"y":"九二","x":"舆说輹。"},{"y":"九三","x":"良马逐。利艰贞。曰闲舆卫。利有攸往。"},{"y":"六四","x":"童牛之牿。元吉。"},{"y":"六五","x":"豶豕之牙。吉。"},{"y":"上九","x":"何天之衢。亨。"}],"yong":"","jianxi":"大畜其德，厚积笃实。宜蓄才养德、止而后行，待时而用。"},{"n":27,"name":"颐","full":"山雷颐","upper":"艮","lower":"震","judge":"贞吉。观颐，自求口实。","lines":[{"y":"初九","x":"舍尔灵龟，观我朵颐。凶。"},{"y":"六二","x":"颠颐，拂经于丘。颐征凶。"},{"y":"六三","x":"拂颐。贞凶，十年勿用，无攸利。"},{"y":"六四","x":"颠颐。吉。虎视眈眈，其欲逐逐。无咎。"},{"y":"六五","x":"拂经。居贞吉。不可涉大川。"},{"y":"上九","x":"由颐。厉，吉。利涉大川。"}],"yong":"","jianxi":"颐养之道，慎言节食。宜自求口实、养正为本，忌贪侈。"},{"n":28,"name":"大过","full":"泽风大过","upper":"兑","lower":"巽","judge":"栋挠。利有攸往。亨。","lines":[{"y":"初六","x":"藉用白茅。无咎。"},{"y":"九二","x":"枯杨生稊，老夫得其女妻。无不利。"},{"y":"九三","x":"栋桡。凶。"},{"y":"九四","x":"栋隆。吉。有它，吝。"},{"y":"九五","x":"枯杨生华，老妇得其士夫。无咎无誉。"},{"y":"上六","x":"过涉灭顶，凶。无咎。"}],"yong":"","jianxi":"大过之时，栋桡将倾。宜审慎担当、刚柔并济，忌轻率。"},{"n":29,"name":"坎","full":"坎为水","upper":"坎","lower":"坎","judge":"习坎：有孚维心，亨。行有尚。","lines":[{"y":"初六","x":"习坎，入于坎窞。凶。"},{"y":"九二","x":"坎有险。求小得。"},{"y":"六三","x":"来之坎，坎险且枕，入于坎窞。勿用。"},{"y":"六四","x":"樽酒，簋贰，用缶，纳约自牖。终无咎。"},{"y":"九五","x":"坎不盈，祗既平。无咎。"},{"y":"上六","x":"系用徽纆，寘于丛棘，三岁不得。凶。"}],"yong":"","jianxi":"重重险陷，习坎心亨。宜处险守正、习坎有常，勿躁进。"},{"n":30,"name":"离","full":"离为火","upper":"离","lower":"离","judge":"利贞，亨。畜牝牛吉。","lines":[{"y":"初九","x":"履错然。敬之，无咎。"},{"y":"六二","x":"黄离。元吉。"},{"y":"九三","x":"日昃之离。不鼓缶而歌，则大耋之嗟。凶。"},{"y":"九四","x":"突如，其来如，焚如，死如，弃如。"},{"y":"六五","x":"出涕沱若，戚嗟若。吉。"},{"y":"上九","x":"王用出征，有嘉折首，获匪其丑。无咎。"}],"yong":"","jianxi":"附丽光明，明照四方。宜附贤守正、重明继照，忌空浮无依。"},{"n":31,"name":"咸","full":"泽山咸","upper":"兑","lower":"艮","judge":"亨，利贞。取女吉。","lines":[{"y":"初六","x":"咸其拇。"},{"y":"六二","x":"咸其腓。凶。居吉。"},{"y":"九三","x":"咸其股，执其随。往吝。"},{"y":"九四","x":"贞吉，悔亡。憧憧往来，朋从尔思。"},{"y":"九五","x":"咸其脢。无悔。"},{"y":"上六","x":"咸其辅颊舌。"}],"yong":"","jianxi":"感应交合，男女相悦。宜以虚受感、自然相契，忌强求。"},{"n":32,"name":"恒","full":"雷风恒","upper":"震","lower":"巽","judge":"亨。无咎。利贞。利有攸往。","lines":[{"y":"初六","x":"浚恒。贞凶，无攸利。"},{"y":"九二","x":"悔亡。"},{"y":"九三","x":"不恒其德，或承之羞。贞吝。"},{"y":"九四","x":"田无禽。"},{"y":"六五","x":"恒其德。贞妇人吉，夫子凶。"},{"y":"上六","x":"振恒。凶。"}],"yong":"","jianxi":"恒久不息，常道不移。宜持之以恒、立不易方，忌朝三暮四。"},{"n":33,"name":"遁","full":"天山遁","upper":"乾","lower":"艮","judge":"亨，小利贞。","lines":[{"y":"初六","x":"遯尾。厉，勿用有攸往。"},{"y":"六二","x":"执之，用黄牛之革，莫之胜说。"},{"y":"九三","x":"系遯。有疾厉。畜臣妾吉。"},{"y":"九四","x":"好遯。君子吉，小人否。"},{"y":"九五","x":"嘉遯。贞吉。"},{"y":"上九","x":"肥遯。无不利。"}],"yong":"","jianxi":"退避隐遁，明哲保身。宜当退则退、远小人，适时而遁。"},{"n":34,"name":"大壮","full":"雷天大壮","upper":"震","lower":"乾","judge":"利贞。","lines":[{"y":"初九","x":"壮于趾。征凶。有孚。"},{"y":"九二","x":"贞吉。"},{"y":"九三","x":"小人用壮，君子用罔。贞厉。羝羊触藩，羸其角。"},{"y":"九四","x":"贞吉，悔亡。藩决不羸，壮于大舆之輹。"},{"y":"六五","x":"丧羊于易。无悔。"},{"y":"上六","x":"羝羊触藩，不能退，不能遂。无攸利，艰则吉。"}],"yong":"","jianxi":"阳刚壮盛，壮勿妄动。宜守正用壮、壮而能止，忌恃强。"},{"n":35,"name":"晋","full":"火地晋","upper":"离","lower":"坤","judge":"康侯用锡马蕃庶，昼日三接。","lines":[{"y":"初六","x":"晋如，摧如。贞吉。罔孚，裕无咎。"},{"y":"六二","x":"晋如，愁如。贞吉。受兹介福，于其王母。"},{"y":"六三","x":"众允。悔亡。"},{"y":"九四","x":"晋如鼫鼠。贞厉。"},{"y":"六五","x":"悔亡。失得勿恤。往吉，无不利。"},{"y":"上九","x":"晋其角。维用伐邑。厉吉，无咎。贞吝。"}],"yong":"","jianxi":"光明上进，柔进上行。宜进取显达、自昭明德，循序渐进。"},{"n":36,"name":"明夷","full":"地火明夷","upper":"坤","lower":"离","judge":"利艰贞。","lines":[{"y":"初九","x":"明夷于飞，垂其翼。君子于行，三日不食。有攸往，主人有言。"},{"y":"六二","x":"明夷，夷于左股。用拯马壮，吉。"},{"y":"九三","x":"明夷于南狩，得其大首。不可疾贞。"},{"y":"六四","x":"入于左腹，获明夷之心，于出门庭。"},{"y":"六五","x":"箕子之明夷。利贞。"},{"y":"上六","x":"不明，晦。初登于天，后入于地。"}],"yong":"","jianxi":"明入地中，韬光养晦。宜内敛守正、处难待时，忌露锋招忌。"},{"n":37,"name":"家人","full":"风火家人","upper":"巽","lower":"离","judge":"利女贞。","lines":[{"y":"初九","x":"闲有家，悔亡。"},{"y":"六二","x":"无攸遂，在中馈。贞吉。"},{"y":"九三","x":"家人嗃嗃。悔厉吉。妇子嘻嘻。终吝。"},{"y":"六四","x":"富家，大吉。"},{"y":"九五","x":"王假有家，勿恤。吉。"},{"y":"上九","x":"有孚威如，终吉。"}],"yong":"","jianxi":"家道人伦，齐家有序。宜正内严外、各正其位，家和事兴。"},{"n":38,"name":"睽","full":"火泽睽","upper":"离","lower":"兑","judge":"小事吉。","lines":[{"y":"初九","x":"悔亡。丧马勿逐，自复。见恶人无咎。"},{"y":"九二","x":"遇主于巷。无咎。"},{"y":"六三","x":"见舆曳，其牛掣，其人天且劓。无初有终。"},{"y":"九四","x":"睽孤，遇元夫。交孚，厉无咎。"},{"y":"六五","x":"悔亡。厥宗噬肤。往何咎。"},{"y":"上九","x":"睽孤，见豕负涂，载鬼一车。先张之弧，后说之弧。匪寇，婚媾。往遇雨则吉。"}],"yong":"","jianxi":"乖离睽违，同中有异。宜求同存异、因势利导，忌对立。"},{"n":39,"name":"蹇","full":"水山蹇","upper":"坎","lower":"艮","judge":"利西南，不利东北。利见大人。贞吉。","lines":[{"y":"初六","x":"往蹇来誉。"},{"y":"六二","x":"王臣蹇蹇，匪躬之故。"},{"y":"九三","x":"往蹇来反。"},{"y":"六四","x":"往蹇来连。"},{"y":"九五","x":"大蹇朋来。"},{"y":"上六","x":"往蹇来硕。吉，利见大人。"}],"yong":"","jianxi":"行难涉险，见险止步。宜反身修德、待时济蹇，勿强涉。"},{"n":40,"name":"解","full":"雷水解","upper":"震","lower":"坎","judge":"利西南。无所往，其来复，吉。有攸往，夙吉。","lines":[{"y":"初六","x":"无咎。"},{"y":"九二","x":"田获三狐，得黄矢。贞吉。"},{"y":"六三","x":"负且乘，致寇至。贞吝。"},{"y":"九四","x":"解而拇，朋至斯。孚。"},{"y":"六五","x":"君子维有解。吉。有孚于小人。"},{"y":"上六","x":"公用射隼于高墉之上，获之。无不利。"}],"yong":"","jianxi":"险难消解，舒缓解脱。宜赦过宥罪、趁势解难，把握时机。"},{"n":41,"name":"损","full":"山泽损","upper":"艮","lower":"兑","judge":"有孚。元吉。无咎。可贞。利有攸往。曷之，用二簋。可用享。","lines":[{"y":"初九","x":"巳事遄往。无咎。酌损之。"},{"y":"九二","x":"利贞。征凶。弗损，益之。"},{"y":"六三","x":"三人行则损一人，一人行则得其友。"},{"y":"六四","x":"损其疾，使遄有喜。无咎。"},{"y":"六五","x":"或益之十朋之龟，弗克违。元吉。"},{"y":"上九","x":"弗损，益之。无咎，贞吉。利有攸往。得臣无家。"}],"yong":"","jianxi":"损下益上，惩忿窒欲。宜损有余补不足、适时减损，忌苛。"},{"n":42,"name":"益","full":"风雷益","upper":"巽","lower":"震","judge":"利有攸往，利涉大川。","lines":[{"y":"初九","x":"利用为大作。元吉，无咎。"},{"y":"六二","x":"或益之十朋之龟，弗克违。永贞吉。王用享于帝。吉。"},{"y":"六三","x":"益之。用凶事，无咎。有孚。中行告公用圭。"},{"y":"六四","x":"中行告公从。利用为依迁国。"},{"y":"九五","x":"有孚。惠心，勿问。元吉。有孚。惠我德。"},{"y":"上九","x":"莫益之，或击之。立心勿恒，凶。"}],"yong":"","jianxi":"损上益下，与时偕行。宜兴利惠民、见善则迁，把握增益。"},{"n":43,"name":"夬","full":"泽天夬","upper":"兑","lower":"乾","judge":"扬于王庭，孚号。有厉，告自邑。不利即戎。利有攸往。","lines":[{"y":"初九","x":"壮于前趾。往不胜为咎。"},{"y":"九二","x":"惕号。莫夜有戎，勿恤。"},{"y":"九三","x":"壮于九页。有凶。君子夬夬独行，遇雨若濡。有愠无咎。"},{"y":"九四","x":"臀无肤，其行次且。牵羊悔亡。闻言不信。"},{"y":"九五","x":"苋陆，夬夬中行。无咎。"},{"y":"上六","x":"无号。终有凶。"}],"yong":"","jianxi":"决而去之，刚决柔也。宜果决明断、告公从众，忌独断。"},{"n":44,"name":"姤","full":"天风姤","upper":"乾","lower":"巽","judge":"女壮，勿用取女。","lines":[{"y":"初六","x":"系于金柅。贞吉。有攸往，见凶。羸豕孚蹢躅。"},{"y":"九二","x":"包有鱼。无咎。不利宾。"},{"y":"九三","x":"臀无肤，其行次且。厉，无大咎。"},{"y":"九四","x":"包无鱼。起凶。"},{"y":"九五","x":"以杞包瓜。含章，有陨自天。"},{"y":"上九","x":"姤其角。吝，无咎。"}],"yong":"","jianxi":"不期而遇，阴长侵阳。宜防微杜渐、谨守边界，忌滥交。"},{"n":45,"name":"萃","full":"泽地萃","upper":"兑","lower":"坤","judge":"亨。王假有庙。利见大人。亨，利贞。用大牲吉。利有攸往。","lines":[{"y":"初六","x":"有孚不终，乃乱乃萃。若号，一握为笑。勿恤。往无咎。"},{"y":"六二","x":"引吉。无咎。孚乃利用禴。"},{"y":"六三","x":"萃如嗟如。无攸利。往无咎。小吝。"},{"y":"九四","x":"大吉，无咎。"},{"y":"九五","x":"萃有位。无咎。匪孚。元永贞。悔亡。"},{"y":"上六","x":"赍咨涕洟，无咎。"}],"yong":"","jianxi":"荟萃汇聚，人物相聚。宜聚以正、修祀立诚，忌群而不党。"},{"n":46,"name":"升","full":"地风升","upper":"坤","lower":"巽","judge":"元亨。用见大人，勿恤。南征吉。","lines":[{"y":"初六","x":"允升。大吉。"},{"y":"九二","x":"孚乃利用禴。无咎。"},{"y":"九三","x":"升虚邑。"},{"y":"六四","x":"王用亨于岐山。吉，无咎。"},{"y":"六五","x":"贞吉。升阶。"},{"y":"上六","x":"冥升。利于不息之贞。"}],"yong":"","jianxi":"顺势上升，积小成高。宜积德渐进、由下而上，稳步升进。"},{"n":47,"name":"困","full":"泽水困","upper":"兑","lower":"坎","judge":"亨。贞大人吉，无咎。有言不信。","lines":[{"y":"初六","x":"臀困于株木，入于幽谷，三岁不觌。"},{"y":"九二","x":"困于酒食，朱绂方来。利用享祀。征凶。无咎。"},{"y":"六三","x":"困于石，据于蒺藜。入于其宫，不见其妻。凶。"},{"y":"九四","x":"来徐徐，困于金车。吝有终。"},{"y":"九五","x":"劓刖，困于赤绂，乃徐有说。利用祭祀。"},{"y":"上六","x":"困于葛藟，于臲兀危。曰动悔有悔。征吉。"}],"yong":"","jianxi":"困穷之境，处困守正。宜致命遂志、静守待变，忌妄动。"},{"n":48,"name":"井","full":"水风井","upper":"坎","lower":"巽","judge":"改邑不改井。无丧无得。往来井，井汔至，亦未繘井，羸其瓶。凶。","lines":[{"y":"初六","x":"井泥不食，旧井无禽。"},{"y":"九二","x":"井谷，射鲋，瓮敝漏。"},{"y":"九三","x":"井渫不食，为我心恻。可用汲。王明，并受其福。"},{"y":"六四","x":"井甃。无咎。"},{"y":"九五","x":"井冽，寒泉食。"},{"y":"上六","x":"井收，勿幕。有孚。元吉。"}],"yong":"","jianxi":"井养不穷，养民有常。宜修身养德、惠泽于人，汲而不穷。"},{"n":49,"name":"革","full":"泽火革","upper":"兑","lower":"离","judge":"巳日乃孚。元亨，利贞。悔亡。","lines":[{"y":"初九","x":"巩用黄牛之革。"},{"y":"六二","x":"巳日乃革之。征吉，无咎。"},{"y":"九三","x":"征凶。贞厉。革言三就。有孚。"},{"y":"九四","x":"悔亡。有孚。改命吉。"},{"y":"九五","x":"大人虎变。未占有孚。"},{"y":"上六","x":"君子豹变，小人革面。征凶。居贞吉。"}],"yong":"","jianxi":"变革之时，顺天应人。宜审时改制、汤武革命，顺机而动。"},{"n":50,"name":"鼎","full":"火风鼎","upper":"离","lower":"巽","judge":"元吉，亨。","lines":[{"y":"初六","x":"鼎颠趾，利出否，得妾以其子。无咎。"},{"y":"九二","x":"鼎有实，我仇有疾，不我能即。吉。"},{"y":"九三","x":"鼎耳革，其行塞，雉膏不食。方雨，亏悔，终吉。"},{"y":"九四","x":"鼎折足，覆公餗，其形渥。凶。"},{"y":"六五","x":"鼎黄耳，金铉。利贞。"},{"y":"上九","x":"鼎玉铉。大吉，无不利。"}],"yong":"","jianxi":"鼎新取象，烹饪养贤。宜稳重图新、任贤养正，鼎故而新。"},{"n":51,"name":"震","full":"震为雷","upper":"震","lower":"震","judge":"亨。震来虩虩，笑言哑哑，震惊百里，不丧匕鬯。","lines":[{"y":"初九","x":"震来虩虩，后笑言哑哑。吉。"},{"y":"六二","x":"震来厉，亿丧贝。跻于九陵，勿逐，七日得。"},{"y":"六三","x":"震苏苏。震行无眚。"},{"y":"九四","x":"震遂泥。"},{"y":"六五","x":"震往来厉，意无丧，有事。"},{"y":"上六","x":"震索索，视矍矍。征凶。震不于其躬，于其邻。无咎。婚媾有言。"}],"yong":"","jianxi":"震动惊惧，恐惧修省。宜临危不乱、惧而思戒，复归于常。"},{"n":52,"name":"艮","full":"艮为山","upper":"艮","lower":"艮","judge":"艮","lines":[{"y":"初六","x":"艮其趾。无咎，利永贞。"},{"y":"六二","x":"艮其腓。不拯其随，其心不快。"},{"y":"九三","x":"艮其限，列其夤。厉。熏心。"},{"y":"六四","x":"艮其身。无咎。"},{"y":"六五","x":"艮其辅，言有序。悔亡。"},{"y":"上九","x":"敦艮，吉。"}],"yong":"","jianxi":"止其所止，动静有时。宜止欲安分、行止有节，宜静不宜动。"},{"n":53,"name":"渐","full":"风山渐","upper":"巽","lower":"艮","judge":"女归吉。利贞。","lines":[{"y":"初六","x":"鸿渐于干。小子厉，有言，无咎。"},{"y":"六二","x":"鸿渐于磐，饮食衎衎。吉。"},{"y":"九三","x":"鸿渐于陆，夫征不复，妇孕不育。凶。利御寇。"},{"y":"六四","x":"鸿渐于木，或得其桷。无咎。"},{"y":"九五","x":"鸿渐于陵。妇三岁不孕，终莫之胜。吉。"},{"y":"上九","x":"鸿渐于陆，其羽可用为仪。吉。"}],"yong":"","jianxi":"循序渐进，渐次有成。宜按部就班、稳步积累，忌躐等。"},{"n":54,"name":"归妹","full":"雷泽归妹","upper":"震","lower":"兑","judge":"征凶，无攸利。","lines":[{"y":"初九","x":"归妹以娣。跛能履。征吉。"},{"y":"九二","x":"眇能视。利幽人之贞。"},{"y":"六三","x":"归妹以须，反归以娣。"},{"y":"九四","x":"归妹愆期，迟归有时。"},{"y":"六五","x":"帝乙归妹，其君之袂，不如其娣之袂良。月几望，吉。"},{"y":"上六","x":"女承筐，无实，士刲羊，无血。无攸利。"}],"yong":"","jianxi":"归妹失正，行有敝也。宜守礼慎行、明其分位，忌妄动。"},{"n":55,"name":"丰","full":"雷火丰","upper":"震","lower":"离","judge":"亨。王假之，勿忧。宜日中。","lines":[{"y":"初九","x":"遇其配主。虽旬无咎。往有尚。"},{"y":"六二","x":"丰其蔀，日中见斗。往得疑疾。有孚发若，吉。"},{"y":"九三","x":"丰其沛，日中见沬，折其右肱。无咎。"},{"y":"九四","x":"丰其蔀，日中见斗。遇其夷主。吉。"},{"y":"六五","x":"来章，有庆誉。吉。"},{"y":"上六","x":"丰其屋，蔀其家，闚其户，阒其无人，三岁不觌。凶。"}],"yong":"","jianxi":"丰大盛满，日中则昃。宜盛极戒盈、及时照明，忌满招损。"},{"n":56,"name":"旅","full":"火山旅","upper":"离","lower":"艮","judge":"小亨。旅贞吉。","lines":[{"y":"初六","x":"旅琐琐，斯其所。取灾。"},{"y":"六二","x":"旅即次，怀其资，得童仆。贞。"},{"y":"九三","x":"旅焚其次，丧其童仆。贞厉。"},{"y":"九四","x":"旅于处，得其资斧。我心不快。"},{"y":"六五","x":"射雉，一矢亡。终以誉命。"},{"y":"上九","x":"鸟焚其巢，旅人先笑后号咷。丧牛于易。凶。"}],"yong":"","jianxi":"行旅在外，寄居无定。宜柔顺谨慎、安分守己，忌妄动招灾。"},{"n":57,"name":"巽","full":"巽为风","upper":"巽","lower":"巽","judge":"小亨。利有攸往。利见大人。","lines":[{"y":"初六","x":"进退。利武人之贞。"},{"y":"九二","x":"巽在床下。用史巫纷若，吉，无咎。"},{"y":"九三","x":"频巽。吝。"},{"y":"六四","x":"悔亡。田获三品。"},{"y":"九五","x":"贞吉，悔亡，无不利。无初有终。先庚三日，后庚三日，吉。"},{"y":"上九","x":"巽在床下。丧其资斧。贞凶。"}],"yong":"","jianxi":"谦顺入人，申命行事。宜谦逊顺从、因势利导，忌优柔。"},{"n":58,"name":"兑","full":"兑为泽","upper":"兑","lower":"兑","judge":"亨，利贞。","lines":[{"y":"初九","x":"和兑。吉。"},{"y":"九二","x":"孚兑。吉，悔亡。"},{"y":"六三","x":"来兑。凶。"},{"y":"九四","x":"商兑未宁，介疾有喜。"},{"y":"九五","x":"孚于剥。有厉。"},{"y":"上六","x":"引兑。"}],"yong":"","jianxi":"和悦欢喜，朋友讲习。宜以诚悦人、和而不流，忌谄媚。"},{"n":59,"name":"涣","full":"风水涣","upper":"巽","lower":"坎","judge":"亨。王假有庙。利涉大川。利贞。","lines":[{"y":"初六","x":"用拯马壮，吉。"},{"y":"九二","x":"涣奔其机。悔亡。"},{"y":"六三","x":"涣其躬。无悔。"},{"y":"六四","x":"涣其群。元吉。涣有丘，匪夷所思。"},{"y":"九五","x":"涣汗其大号，涣王居。无咎。"},{"y":"上九","x":"涣其血，去逖出。无咎。"}],"yong":"","jianxi":"涣散离析，涣然冰释。宜涣释积聚、凝聚人心，济涣以聚。"},{"n":60,"name":"节","full":"水泽节","upper":"坎","lower":"兑","judge":"亨。苦节，不可贞。","lines":[{"y":"初九","x":"不出户庭。无咎。"},{"y":"九二","x":"不出门庭。凶。"},{"y":"六三","x":"不节若，则嗟若。无咎。"},{"y":"六四","x":"安节。亨。"},{"y":"九五","x":"甘节。吉，往有尚。"},{"y":"上六","x":"苦节，贞凶。悔亡。"}],"yong":"","jianxi":"节制有度，不伤不溢。宜守节适度、知止不殆，忌过度。"},{"n":61,"name":"中孚","full":"风泽中孚","upper":"巽","lower":"兑","judge":"豚鱼，吉。利涉大川。利贞。","lines":[{"y":"初九","x":"虞吉。有它，不燕。"},{"y":"九二","x":"鸣鹤在阴，其子和之，我有好爵，吾与尔靡之。"},{"y":"六三","x":"得敌，或鼓或罢，或泣或歌。"},{"y":"六四","x":"月几望，马匹亡。无咎。"},{"y":"九五","x":"有孚挛如，无咎。"},{"y":"上九","x":"翰音登于天。贞凶。"}],"yong":"","jianxi":"中心诚信，信及豚鱼。宜以诚信待人、慎诺笃行，忌伪。"},{"n":62,"name":"小过","full":"雷山小过","upper":"震","lower":"艮","judge":"亨，利贞。可小事，不可大事。飞鸟遗之音。不宜上，宜下。大吉。","lines":[{"y":"初六","x":"飞鸟以凶。"},{"y":"六二","x":"过其祖，遇其妣，不及其君，遇其臣。无咎。"},{"y":"九三","x":"弗过防之，从或戕之。凶。"},{"y":"九四","x":"无咎。弗过遇之。往厉必戒。勿用永贞。"},{"y":"六五","x":"密云不雨，自我西郊。公弋，取彼在穴。"},{"y":"上六","x":"弗遇过之，飞鸟离之。凶，是谓灾眚。"}],"yong":"","jianxi":"小者过越，宜下不宜上。宜行小事宜谨、守分安常，忌大举。"},{"n":63,"name":"既济","full":"水火既济","upper":"坎","lower":"离","judge":"亨，小利贞。初吉终乱。","lines":[{"y":"初九","x":"曳其轮，濡其尾。无咎。"},{"y":"六二","x":"妇丧其茀，勿逐，七日得。"},{"y":"九三","x":"高宗伐鬼方，三年克之。小人勿用。"},{"y":"六四","x":"糸需有衣袽，终日戒。"},{"y":"九五","x":"东邻杀牛，不如西邻之禴祭，实受其福。"},{"y":"上六","x":"濡其首。厉。"}],"yong":"","jianxi":"事已成济，初吉终乱。宜守成戒骄、防患未然，慎保其终。"},{"n":64,"name":"未济","full":"火水未济","upper":"离","lower":"坎","judge":"亨。小狐汔济，濡其尾。无攸利。","lines":[{"y":"初六","x":"濡其尾。吝。"},{"y":"九二","x":"曳其轮。贞吉。"},{"y":"六三","x":"未济。征凶。利涉大川。"},{"y":"九四","x":"贞吉，悔亡。震用伐鬼方，三年，有赏于大国。"},{"y":"六五","x":"贞吉，无悔。君子之光，有孚，吉。"},{"y":"上九","x":"有孚。于饮酒，无咎。濡其首。有孚。失是。"}],"yong":"","jianxi":"事未竟成，首尾无序。宜慎终如始、相机进取，待时而济。"}];
+const byComp = {}; HEX.forEach(h=>{ byComp[h.upper+"|"+h.lower]=h; });
+const TRI  = {1:{n:"乾",e:"天"},2:{n:"兑",e:"泽"},3:{n:"离",e:"火"},4:{n:"震",e:"雷"},5:{n:"巽",e:"风"},6:{n:"坎",e:"水"},7:{n:"艮",e:"山"},8:{n:"坤",e:"地"}};
+const TRIPAT = {"乾":[1,1,1],"兑":[1,1,0],"离":[1,0,1],"震":[1,0,0],"巽":[0,1,1],"坎":[0,1,0],"艮":[0,0,1],"坤":[0,0,0]};
+const PAT2TRI = {"111":"乾","110":"兑","101":"离","100":"震","011":"巽","010":"坎","001":"艮","000":"坤"};
+const TRINATURE = {"乾":"刚健创始","兑":"和悦通说","离":"光明附丽","震":"奋动惊起","巽":"顺入渗透","坎":"险陷流下","艮":"止静笃实","坤":"厚顺承载"};
+
+/* ===== 八卦五行 + 体用生克 ===== */
+const TRIFIVE = {"乾":"金","兑":"金","离":"火","震":"木","巽":"木","坎":"水","艮":"土","坤":"土"};
+const WX_GEN = {"金":"水","水":"木","木":"火","火":"土","土":"金"};   /* 我生 */
+const WX_KE  = {"金":"木","木":"土","土":"水","水":"火","火":"金"};   /* 我克 */
+const WX_META = {
+  "木":{dir:"正东 / 东南", color:"绿 · 青 · 翠", adv:"宜向东行，可摆放阔叶绿植，利文昌学业。"},
+  "火":{dir:"正南", color:"红 · 紫 · 粉", adv:"宜向南行，增加照明采光，利声名事业。"},
+  "土":{dir:"东北 / 西南", color:"黄 · 啡 · 米色", adv:"宜原地固守或向西南、东北，利地产与稳定。"},
+  "金":{dir:"正西 / 西北", color:"白 · 金 · 银", adv:"宜向西行，佩戴金属饰品，利决策断决。"},
+  "水":{dir:"正北", color:"黑 · 深蓝", adv:"宜向北行，接触水元素或静心冥想。"}
+};
+/* 动爻所在之卦为「用卦」，无动爻之卦为「体卦」；依五行生克断体用 */
+function tiYongShengKe(up, low, yao){   /* yao: 1-6 自下而上 */
+  const yongTri = yao<=3 ? low : up;    /* 下卦管 1/2/3 爻，上卦管 4/5/6 爻 */
+  const tiTri   = yao<=3 ? up  : low;
+  const tw=TRIFIVE[tiTri], yw=TRIFIVE[yongTri];
+  let rel, lv, cls, text;
+  if(tw===yw){ rel="体用比和"; lv=2; cls="ji"; text="体用同属"+tw+"，同类相合、相互为助，主事顺遂、可成。"; }
+  else if(WX_GEN[yw]===tw){ rel="用生体"; lv=1; cls="ji"; text="用卦"+yongTri+"（"+yw+"）生体卦"+tiTri+"（"+tw+"），得外界生扶，大吉，谋事多成、贵人相帮。"; }
+  else if(WX_GEN[tw]===yw){ rel="体生用"; lv=4; cls="xiong"; text="体卦"+tiTri+"（"+tw+"）生用卦"+yongTri+"（"+yw+"），体气外泄，付出多而收益少，宜量力而行。"; }
+  else if(WX_KE[tw]===yw){ rel="体克用"; lv=3; cls="ji"; text="体卦"+tiTri+"（"+tw+"）克用卦"+yongTri+"（"+yw+"），事可成但须劳心费力，终能掌控。"; }
+  else { rel="用克体"; lv=5; cls="xiong"; text="用卦"+yongTri+"（"+yw+"）克体卦"+tiTri+"（"+tw+"），受外界压制，大凶，此事宜缓、宜避、宜另择时机。"; }
+  return {ti:tiTri, yong:yongTri, tw:tw, yw:yw, rel:rel, lv:lv, cls:cls, text:text};
+}
+
+/* ===== 九级断语引擎（与 verdict.py 规则一致） ===== */
+const VM = {
+  "元吉":{lv:1, cls:"ji",    mean:"最为吉祥", c:"var(--v-yuanji)", desc:"大善之吉，元始亨通，所谋皆可成。"},
+  "大吉":{lv:2, cls:"ji",    mean:"非常吉祥", c:"var(--v-daji)",   desc:"大为吉利，势顺力足，宜积极进取。"},
+  "吉":  {lv:3, cls:"ji",    mean:"吉祥",     c:"var(--v-ji)",     desc:"顺遂有获，持守正道即得其吉。"},
+  "无咎":{lv:4, cls:"ji",    mean:"没有灾难", c:"var(--v-wujiu)",  desc:"虽无大利，亦无灾殃，足以保平安。"},
+  "平":  {lv:5, cls:"ping",  mean:"吉凶未显", c:"var(--v-ping)",   desc:"辞中未著断语，须依卦象义理而断。"},
+  "悔":  {lv:6, cls:"xiong", mean:"懊悔",     c:"var(--v-hui)",    desc:"行有偏失，事后生悔，宜及早修正。"},
+  "吝":  {lv:7, cls:"xiong", mean:"困难",     c:"var(--v-lin)",    desc:"滞塞难行，进退不畅，事多阻碍。"},
+  "厉":  {lv:8, cls:"xiong", mean:"危险",     c:"var(--v-li)",     desc:"临事有险，须戒惧慎行，勿轻举妄动。"},
+  "咎":  {lv:9, cls:"xiong", mean:"灾难",     c:"var(--v-jiu)",    desc:"已成过失，灾咎及身，须担责补救。"},
+  "凶":  {lv:10,cls:"xiong", mean:"凶祸",     c:"var(--v-xiong)",  desc:"凶险之象，其事难成，宜止不宜行。"}
+};
+const VORDER = ["元吉","大吉","吉","无咎","平","悔","吝","厉","咎","凶"];
+const XSET = {"悔":1,"吝":1,"厉":1,"咎":1,"凶":1};
+const NEGP = "无匪何弗勿", SEPC = "。；";
+
+function scanV(text){
+  const re = /元吉|大吉|吉|悔|吝|厉|咎|凶/g; const out=[]; let m;
+  while((m = re.exec(text)) !== null){
+    let w=m[0], s=m.index, e=m.index+w.length, canon=w, raw=w;
+    if(XSET[w]){
+      let neg = false;
+      for(const ch of text.slice(Math.max(0,s-2), s)) if(NEGP.indexOf(ch)>=0) neg=true;
+      if(text.charAt(e) === "亡"){ neg=true; raw=w+"亡"; e+=1; }
+      if(neg){ canon="无咎"; if(raw===w) raw = text.slice(Math.max(0,s-2), e).replace(/^[，、]+/,""); }
+    }
+    out.push({canon:canon, s:s, e:e, raw:raw});
+  }
+  return out;
+}
+function judgeV(text){
+  if(!text) return {key:"平", all:[], warn:"", mixed:false, hits:[]};
+  const hits = scanV(text);
+  if(!hits.length) return {key:"平", all:[], warn:"", mixed:false, hits:[]};
+  let main = hits[0].canon, warn = "";
+  if(VM[main].cls === "xiong"){
+    for(let i=1;i<hits.length;i++){
+      let brk=false;
+      for(const ch of text.slice(hits[0].e, hits[i].s)) if(SEPC.indexOf(ch)>=0) brk=true;
+      if(brk) break;
+      if(VM[hits[i].canon].cls === "ji"){ warn=main; main=hits[i].canon; break; }
+    }
+  }
+  if(VM[main].cls === "ji"){
+    hits.forEach(h=>{ if(VM[h.canon].cls==="ji" && VM[h.canon].lv < VM[main].lv) main=h.canon; });
+  }
+  const all=[]; hits.forEach(h=>{ if(all.indexOf(h.canon)<0) all.push(h.canon); });
+  const hj = all.some(k=>VM[k].cls==="ji"), hx = all.some(k=>VM[k].cls==="xiong");
+  return {key:main, all:all, warn:warn, mixed:(hj&&hx), hits:hits};
+}
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function hlV(text){                             /* 高亮辞中断语字 */
+  const hits = scanV(text); if(!hits.length) return esc(text);
+  let out="", p=0;
+  hits.forEach(h=>{
+    out += esc(text.slice(p, h.s));
+    out += '<em style="color:'+VM[h.canon].c+'">'+esc(text.slice(h.s, h.e))+"</em>";
+    p = h.e;
+  });
+  return out + esc(text.slice(p));
+}
+
+/* ===== 起卦算法 ===== */
+function rem8(n){ let r=((parseInt(n,10)%8)+8)%8; return r===0?8:r; }
+function rem6(n){ let r=((parseInt(n,10)%6)+6)%6; return r===0?6:r; }
+function numToTri(n){ return TRI[rem8(n)]; }
+function isYang(y){ return y.indexOf("九")>=0; }
+function pat(h){ return h.lines.map(l=>isYang(l.y)?1:0); }
+function flip(h,i){ const p=pat(h).slice(); p[i]=p[i]?0:1;
+  return byComp[PAT2TRI[p.slice(3,6).join("")]+"|"+PAT2TRI[p.slice(0,3).join("")]]; }
+function mutual(h){ const p=pat(h);
+  return byComp[PAT2TRI[[p[2],p[3],p[4]].join("")]+"|"+PAT2TRI[[p[1],p[2],p[3]].join("")]]; }
+function ok(v){ return v!=="" && /^\d+$/.test(v); }
+
+function barsHTML(arr, mvIdx, mvLabel){       /* arr: 自下而上 1/0 */
+  const out=[];
+  for(let i=arr.length-1;i>=0;i--){
+    const yang = arr[i]===1, mv = (mvIdx===i);
+    out.push('<div class="bar '+(yang?"yang":"yin")+(mv?" mv":"")+'">'
+      + (yang?'<span class="seg"></span>':'<span class="seg l"></span><span class="seg r"></span>')
+      + (mv?'<span class="mvtag">'+mvLabel+'</span>':'') + '</div>');
+  }
+  return out.join("");
+}
+function hexHTML(h,mvIdx,mvLabel){ return barsHTML(pat(h), mvIdx, mvLabel); }
+function triHTML(name){ return barsHTML(TRIPAT[name].slice().reverse(), null, ""); }
+
+/* ===== 断语横幅 ===== */
+function showVerdict(stage, res, srcLabel, srcText, size){
+  const v = VM[res.key], box=document.getElementById("verdict"), card=document.getElementById("vcard");
+  card.className = "vcard " + v.cls;
+  document.getElementById("vstage").textContent = stage;
+  const ch = document.getElementById("vchar");
+  ch.textContent = res.key;
+  ch.style.fontSize = "clamp(" + Math.round(size*0.5) + "px, " + (size/6.5).toFixed(1) + "vw, " + size + "px)";
+  ch.style.color = v.c;
+  ch.style.textShadow = (v.cls==="ping") ? "none"
+    : "0 0 34px " + (v.cls==="ji" ? "rgba(255,210,100,.55)" : "rgba(255,77,77,.5)");
+  const mn = document.getElementById("vmean");
+  mn.textContent = v.mean; mn.style.color = v.c;
+  document.getElementById("vdesc").textContent = v.desc;
+
+  const tags=[];
+  if(res.warn) tags.push('<span class="vtag" style="color:'+VM[res.warn].c+'">前置警示 · '+res.warn+'（'+VM[res.warn].mean+'）</span>');
+  if(res.mixed) tags.push('<span class="vtag" style="color:var(--txt2)">吉凶参半 · 辞见 '+res.all.join(" / ")+'</span>');
+  document.getElementById("vtags").innerHTML = tags.join("");
+
+  document.getElementById("vsrc").innerHTML =
+    '<span class="lbl">'+esc(srcLabel)+'</span>' + hlV(srcText);
+  box.classList.add("show");
+}
+
+/* ===== 主计算：逐组即算 ===== */
+function compute(){
+  const g1=document.getElementById("g1").value.trim(),
+        g2=document.getElementById("g2").value.trim(),
+        g3=document.getElementById("g3").value.trim(),
+        video=(curMode==="meihua");
+  const S1=document.getElementById("step1"), S2=document.getElementById("step2"), S3=document.getElementById("step3");
+  [S1,S2,S3].forEach(s=>s.classList.remove("show"));
+  document.getElementById("verdict").classList.remove("show");
+  document.getElementById("vyong").innerHTML = "";
+  document.getElementById("s3tys").innerHTML = "";
+  document.getElementById("s3feng").innerHTML = "";
+  document.getElementById("box1").classList.toggle("filled", ok(g1));
+  document.getElementById("box2").classList.toggle("filled", ok(g2));
+  document.getElementById("box3").classList.toggle("filled", ok(g3));
+  if(curMode==="liuren"){
+    document.getElementById("h1").textContent = "÷6 取余 → 初传（自大安数起）";
+    document.getElementById("h2").textContent = "÷6 取余 → 中传（承初传续数）";
+    document.getElementById("h3").textContent = "÷6 取余 → 末传（主断）";
+    liurenCompute(g1,g2,g3); return;
+  }
+  document.getElementById("h1").textContent = "÷8 取余 → " + (video?"下卦（内卦）":"上卦（外卦）");
+  document.getElementById("h2").textContent = "÷8 取余 → " + (video?"上卦（外卦）":"下卦（内卦）");
+  document.getElementById("h3").textContent = "÷6 取余 → 动爻（第 1–6 爻）";
+  document.getElementById("s3arrow").textContent = "爻 　变 　↓";
+  if(!ok(g1)) return;
+
+  /* ---- 第一组：定一卦（三画） ---- */
+  const t1=numToTri(g1), r1=rem8(g1), pos1 = video?"下卦（内卦）":"上卦（外卦）";
+  document.getElementById("t1").innerHTML = "第一组 · "+(video?"下卦":"上卦")+"成象<small>"+(video?"内卦":"外卦")+"已定，待另一卦</small>";
+  document.getElementById("s1hex").innerHTML = triHTML(t1.n);
+  document.getElementById("s1txt").innerHTML =
+    '<div class="gname">'+t1.n+'<small>'+t1.e+' · '+pos1+'</small></div>'
+    + '<div class="kv"><span class="k">卦性</span>'+TRINATURE[t1.n]+'</div>'
+    + '<div class="kv"><span class="k">先天数</span>'+"乾1 兑2 离3 震4 巽5 坎6 艮7 坤8 中取 "+r1+' → '+t1.n+'</div>';
+  document.getElementById("s1calc").innerHTML =
+    '计算：'+esc(g1)+' ÷ 8 = 余 <b>'+r1+'</b> → 先天数 '+r1+' 为 <b>'+t1.n+'（'+t1.e+'）</b>，充作'+pos1+'。';
+  S1.classList.add("show");
+
+  /* 第一组横幅：以该卦之纯卦卦辞作「初象」参考 */
+  const pure = byComp[t1.n+"|"+t1.n];
+  showVerdict("① 初象 · 未成卦，仅供参考", judgeV(pure.judge),
+    "取 "+t1.n+" 之纯卦《"+pure.full+"》卦辞为初象", pure.judge, 54);
+  if(!ok(g2)) return;
+
+  /* ---- 第二组：合成本卦 ---- */
+  const t2=numToTri(g2), r2=rem8(g2);
+  const up = video?t2.n:t1.n, low = video?t1.n:t2.n;
+  const ben = byComp[up+"|"+low], mu = mutual(ben);
+  document.getElementById("s2hex").innerHTML = hexHTML(ben,null,"");
+  document.getElementById("s2txt").innerHTML =
+    '<div class="gname">'+ben.full+'<small>第 '+ben.n+' 卦 · 上'+up+'（'+TRI[{"乾":1,"兑":2,"离":3,"震":4,"巽":5,"坎":6,"艮":7,"坤":8}[up]].e+'）下'+low+'（'+TRI[{"乾":1,"兑":2,"离":3,"震":4,"巽":5,"坎":6,"艮":7,"坤":8}[low]].e+'）</small></div>'
+    + '<div class="kv"><span class="k">卦辞</span>'+hlV(ben.judge)+'</div>'
+    + (ben.yong?'<div class="kv"><span class="k">用辞</span>'+hlV(ben.yong)+'</div>':'')
+    + '<div class="kv"><span class="k">简析</span>'+esc(ben.jianxi)+'</div>'
+    + (mu?'<div class="kv"><span class="k">互卦</span>'+mu.full+'（'+mu.name+'）—— '+esc(mu.jianxi)+'</div>':'');
+  document.getElementById("s2calc").innerHTML =
+    (video ? ('下卦：'+esc(g1)+' ÷ 8 余 <b>'+r1+'</b> → '+low+'　｜　上卦：'+esc(g2)+' ÷ 8 余 <b>'+r2+'</b> → '+up)
+           : ('上卦：'+esc(g1)+' ÷ 8 余 <b>'+r1+'</b> → '+up+'　｜　下卦：'+esc(g2)+' ÷ 8 余 <b>'+r2+'</b> → '+low))
+    + '<br>上'+up+' ＋ 下'+low+' ＝ <b>'+ben.full+'</b>（第 '+ben.n+' 卦）';
+  const mvIdx0 = ok(g3) ? rem6(g3)-1 : -1;
+  document.getElementById("s2yao").innerHTML =
+    '<div style="font-size:11px;letter-spacing:.14em;color:var(--txt3);margin-bottom:7px;">六爻爻辞及各爻断语（自下而上）</div>'
+    + ben.lines.map((l,i)=>{ const r=judgeV(l.x); return '<div class="yao'+(i===mvIdx0?" on":"")+'">'
+        + '<span class="yn">'+l.y+'</span>'
+        + '<span class="mini" style="color:'+VM[r.key].c+'">'+r.key+'</span>'
+        + '<span class="yt">'+hlV(l.x)+'</span></div>'; }).join("");
+  S2.classList.add("show");
+
+  showVerdict("② 卦断 · 本卦卦辞", judgeV(ben.judge),
+    "《"+ben.full+"》卦辞", ben.judge, 68);
+  if(!ok(g3)) return;
+
+  /* ---- 第三组：动爻 + 变卦，爻辞终判 ---- */
+  const yao=rem6(g3), mv=ben.lines[yao-1], bian=flip(ben, yao-1), res=judgeV(mv.x);
+  /* 体用生克：动爻所在之卦为「用卦」，无动爻之卦为「体卦」，依五行生克断吉凶 */
+  const ty = tiYongShengKe(up, low, yao);
+  /* 用九/用六 附注：本卦为乾/坤且动爻在最上爻（上九/上六）时，依《易》例特附用辞为参，主断仍取上九/上六爻辞 */
+  let yongNote = "";
+  if(ben.n===1 && yao===6) yongNote = "用九：见群龙无首。吉。";
+  else if(ben.n===2 && yao===6) yongNote = "用六：利永贞。";
+  const topYao = (ben.n===1) ? "上九" : "上六";
+  document.getElementById("s3yao").innerHTML =
+    '<b>动爻：第 '+yao+' 爻（'+mv.y+' · '+(isYang(mv.y)?"阳":"阴")+'爻）</b><br>'
+    + '<span class="k">爻辞</span>'+hlV(mv.x)
+    + '　<span class="mini" style="color:'+VM[res.key].c+'">'+res.key+' · '+VM[res.key].mean+'</span>'
+    + (yongNote ? '<div class="yong-note"><span class="ytag">附 · 用九/用六</span>'+hlV(yongNote)
+        + '<span class="ytip">《'+ben.full+'》之'+topYao+'独动，依《易》例特附用辞为参；主断仍取'+topYao+'爻辞「'+mv.x+'」</span></div>' : '');
+  document.getElementById("s3bh").innerHTML = hexHTML(ben, yao-1, "动");
+  document.getElementById("s3bt").innerHTML =
+    '<div class="gname" style="font-size:18px;">本卦 · '+ben.full+'<small>'+ben.name+'卦 · 当下情势</small></div>'
+    + '<div class="kv"><span class="k">卦辞</span>'+hlV(ben.judge)+'</div>'
+    + '<div class="kv"><span class="k">简析</span>'+esc(ben.jianxi)+'</div>';
+  document.getElementById("s3xh").innerHTML = hexHTML(bian, null, "");
+  document.getElementById("s3xt").innerHTML =
+    '<div class="gname" style="font-size:18px;">变卦 · '+bian.full+'<small>'+bian.name+'卦 · 发展趋向</small></div>'
+    + '<div class="kv"><span class="k">卦辞</span>'+hlV(bian.judge)+'</div>'
+    + '<div class="kv"><span class="k">简析</span>'+esc(bian.jianxi)+'</div>';
+  document.getElementById("s3calc").innerHTML =
+    '动爻：'+esc(g3)+' ÷ 6 = 余 <b>'+rem6(g3)+'</b> → 第 <b>'+yao+'</b> 爻动（自下而上数）。'
+    + mv.y+' 阴阳互换，'+(video?"":"")+'得变卦 <b>'+bian.full+'</b>。';
+  const bj = judgeV(bian.judge);
+  document.getElementById("s3sum").innerHTML =
+    '<b>综合解读</b><br>'
+    + '本卦《'+ben.full+'》显当下之势——'+esc(ben.jianxi)+'<br>'
+    + '第 '+yao+' 爻动为变化之机，爻辞断语 <b style="color:'+VM[res.key].c+'">'+res.key+'（'+VM[res.key].mean+'）</b>：'+VM[res.key].desc
+    + (res.warn?'　其辞先见「'+res.warn+'」而后转吉，是先难后易、转危为安之象，须谨慎持守。':'')
+    + (res.mixed&&!res.warn?'　其辞吉凶并见（'+res.all.join(" / ")+'），当分情境而论，不可一概而断。':'')
+    + '<br>变卦《'+bian.full+'》显发展趋向——'+esc(bian.jianxi)
+    + '（变卦卦辞断语 <b style="color:'+VM[bj.key].c+'">'+bj.key+'</b>）';
+  S3.classList.add("show");
+
+  showVerdict("③ 终判 · 动爻爻辞（以此为断）", res,
+    "《"+ben.full+"》"+mv.y+" 爻辞", mv.x, 104);
+
+  document.getElementById("vyong").innerHTML = yongNote
+    ? '<span class="ytag">附 · 用九/用六</span>'+hlV(yongNote)
+      + ' <span class="ytip">《'+ben.full+'》'+topYao+'独动，特附用辞为参；主断见上（'+res.key+'）。</span>'
+    : '';
+
+  /* ---- 体用生克分析卡 ---- */
+  document.getElementById("s3tys").innerHTML =
+    '<div class="th">体用生克<small>五行 · 梅花易数精要</small></div>'
+    + '<span class="rel '+ty.cls+'">'+ty.rel+'</span>'
+    + '<div class="ty-grid">'
+    +   '<div class="tg"><b>体卦</b>（我方）＝ '+ty.ti+' · 属'+ty.tw+'</div>'
+    +   '<div class="tg"><b>用卦</b>（外方）＝ '+ty.yong+' · 属'+ty.yw+'</div>'
+    + '</div>'
+    + '<div style="color:var(--txt2);">'+ty.text+'</div>';
+
+  /* ---- 风水理气 · 趋吉建议卡（依体卦五行定后天方位）---- */
+  const fw = WX_META[ty.tw];
+  document.getElementById("s3feng").innerHTML =
+    '<div class="th">风水理气 · 趋吉建议<small>依体卦属'+ty.tw+' · 后天方位</small></div>'
+    + '<div class="fr">'
+    +   '<span class="ftag">方位：'+fw.dir+'</span>'
+    +   '<span class="ftag">喜用色：'+fw.color+'</span>'
+    + '</div>'
+    + '<div style="color:var(--txt2);">'+fw.adv+'</div>'
+    + '<div style="color:var(--txt3);font-size:11.5px;margin-top:4px;">以上依体卦五行给出后天方位、喜用颜色与趋吉方向，供择时择地、趋吉避凶之参。</div>';
+}
+
+/* ===== 图例 ===== */
+document.getElementById("chips").innerHTML = VORDER.map(k=>{
+  const v=VM[k], n=(k==="平")?"（补充）":"";
+  return '<div class="chip"><span class="c" style="color:'+v.c+'">'+k+'</span>'
+    + '<span class="m"><b>'+v.mean+n+'</b>'+v.desc+'</span></div>';
+}).join("");
+
+/* ===== 事件 ===== */
+["g1","g2","g3"].forEach((id,i)=>{
+  const el=document.getElementById(id);
+  el.addEventListener("input", ()=>{ el.value=el.value.replace(/\D/g,"").slice(0,6); compute(); });
+  el.addEventListener("keydown", e=>{ if(e.key==="Enter" && i<2) document.getElementById(["g1","g2","g3"][i+1]).focus(); });
+});
+document.querySelectorAll("#segMode .segbtn").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    curMode=b.dataset.mode;
+    document.querySelectorAll("#segMode .segbtn").forEach(x=>x.classList.toggle("active", x===b));
+    updateModeHint();
+    if(curMode==="liuren") syncConvToNow(); else compute();
+  });
+});
+/* 小六壬多用于即时测算：切到该模式时，万年历自动同步当前设备时间并即时换算 */
+function syncConvToNow(){
+  const n=new Date();
+  cM.value = n.getMonth()+1;
+  fillDays();
+  cD.value = n.getDate();
+  cH.value = n.getHours();
+  applyConv();
+}
+function updateModeHint(){
+  const mh=document.getElementById("modehint"), d=curMode;
+  if(d==="liuren"){
+    mh.innerHTML = '当前：<b>小六壬</b>（诸葛马前课）——<b>用途</b>：心里想事、随口报三个数，立刻断吉凶；适合赶时间、临时起意的问事（出门、见人、小事成败）。<b>算法</b>：三数定六神（大安→留连→速喜→赤口→小吉→空亡），初→中→末三传，<b>以末传为主断</b>。切到此模式，万年历已自动同步当前时间，即取即算。';
+  } else {
+    mh.innerHTML = '当前：<b>梅花易数</b>（三组数字起卦）——<b>用途</b>：问具体一件事的吉凶（事业、婚姻、项目、出行等），适合需要仔细分析的时候。<b>算法</b>：第①组定下卦（内）、第②组定上卦（外）、第③组÷6 定动爻；另依<b>体用生克</b>（五行）与<b>风水方位</b>参断。例：<b>735 / 993 / 455 → 天山遁 · 五爻 · 火山旅</b>。';
+  }
+  updateConvHint();
+}
+updateModeHint();
+
+/* ===== 小六壬（诸葛马前课）：六神 + 三传推演 ===== */
+const LX = [
+  {n:"大安", w:"木", g:true,  beast:"青龙", attr:"身不动时", mean:"吉 · 安安稳稳", desc:"诸事稳妥，求谋顺利，失物可寻，出行可行，凡事可成。"},
+  {n:"留连", w:"水", g:false, beast:"玄武", attr:"卒未归时", mean:"凶 · 拖延纠缠", desc:"事难长久，谋事不遂，失物难寻，官事宜缓，凡事拖延。"},
+  {n:"速喜", w:"火", g:true,  beast:"朱雀", attr:"人便至时", mean:"吉 · 喜事速至", desc:"喜事临门，谋事可成，失物在南，求财得利，宜速行动。"},
+  {n:"赤口", w:"金", g:false, beast:"白虎", attr:"官事凶时", mean:"凶 · 口舌是非", desc:"口舌官非，谋事难成，失物难寻，须防小人，凡事忍让。"},
+  {n:"小吉", w:"木", g:true,  beast:"六合", attr:"人来喜时", mean:"吉 · 和合顺遂", desc:"凡事和合，谋事可成，失物近在，婚姻吉利，病易愈。"},
+  {n:"空亡", w:"土", g:false, beast:"勾陈", attr:"音信稀时", mean:"凶 · 事落空", desc:"事落空，谋事不成，求财无望，出行不利，凡事谨慎。"}
+];
+/* 三传推演：每传自当前位置数起（当前位置算第1位），返回六神索引 0-5 */
+function liuRen(a,b,c){ const p1=(a-1)%6, p2=(p1+b-1)%6, p3=(p2+c-1)%6; return [p1,p2,p3]; }
+function liurenCardHTML(G){
+  return '<div class="gname">'+G.n+'<small>属'+G.w+' · '+G.beast+'</small></div>'
+    + '<div class="kv"><span class="k">属性</span>'+G.attr+'</div>'
+    + '<div class="kv"><span class="k">断语</span><b style="color:'+(G.g?'var(--gold)':'var(--red)')+'">'+G.mean+'</b> — '+G.desc+'</div>';
+}
+function liurenVerdictText(G1,G2,G3){
+  const jn=(G1.g?1:0)+(G2.g?1:0)+(G3.g?1:0), T=G3;
+  let t;
+  if(jn===3) t='三传皆吉，诸事顺遂，可以安心推进。';
+  else if(jn===2) t='两吉夹一凶，总体向吉；末传'+T.n+(T.g?'——事可成，惟收尾须用心。':'——事大体可成，但结尾有波折，宜缓图、防拖延纠缠。');
+  else if(jn===1) t='一吉两凶，阻力较大；末传'+T.n+(T.g?'——虽前路多阻，坚持可转吉。':'——凶多吉少，此事须谨慎，不宜冒进。');
+  else t='三传皆凶，谋事难成，此事宜缓、宜避、宜另择时机。';
+  return t+'（小六壬以末传落位为主断；结果供参考，仍须结合所问之事与当下处境。）';
+}
+function liurenOverviewHTML(G1,G2,G3){
+  const Gs=[G1,G2,G3], tags=["初传","中传","末传"];
+  const chips = Gs.map((G,i)=>
+    '<div class="lxp"><span class="lxt">'+tags[i]+'</span><b style="color:'+(G.g?'var(--gold)':'var(--red)')+'">'+G.n+'</b><small>'+(G.g?'吉':'凶')+' · '+G.w+'</small></div>'
+  ).join('');
+  return '<div class="gname" style="font-size:17px;">三传总览<small>初 → 中 → 末</small></div>'
+    + '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">'+chips+'</div>';
+}
+function showLX(stage, G, size){
+  const box=document.getElementById("verdict"), card=document.getElementById("vcard");
+  card.className = "vcard " + (G.g?"ji":"xiong");
+  document.getElementById("vstage").textContent = stage;
+  const ch=document.getElementById("vchar");
+  ch.textContent = G.n;
+  ch.style.fontSize = "clamp(" + Math.round(size*0.5) + "px, " + (size/6.5).toFixed(1) + "vw, " + size + "px)";
+  ch.style.color = G.g ? "var(--gold-hi)" : "var(--v-xiong)";
+  ch.style.textShadow = G.g ? "0 0 34px rgba(255,210,100,.55)" : "0 0 34px rgba(255,77,77,.5)";
+  const mn=document.getElementById("vmean");
+  mn.textContent = G.mean; mn.style.color = G.g ? "var(--gold)" : "var(--red)";
+  document.getElementById("vdesc").textContent = G.w+"（五行）· "+G.beast+" · "+G.attr+"。";
+  document.getElementById("vtags").innerHTML = '<span class="vtag" style="color:'+(G.g?'var(--gold)':'var(--red)')+'">'+(G.g?'吉':'凶')+' · 属'+G.w+' · '+G.beast+'</span>';
+  document.getElementById("vsrc").innerHTML = '<span class="lbl">小六壬 · '+esc(G.attr)+'</span>' + hlV(G.desc);
+  document.getElementById("vyong").innerHTML = "";
+  box.classList.add("show");
+}
+function liurenCompute(g1,g2,g3){
+  const S1=document.getElementById("step1"), S2=document.getElementById("step2"), S3=document.getElementById("step3");
+  if(!ok(g1)) return;
+  const n1=Number(g1), p1=(n1-1)%6, G1=LX[p1];
+  document.getElementById("t1").innerHTML = "第一数 · 初传<small>自大安数起，定六神</small>";
+  document.getElementById("s1hex").innerHTML = "";
+  document.getElementById("s1txt").innerHTML = liurenCardHTML(G1);
+  document.getElementById("s1calc").innerHTML = '计算：'+esc(g1)+' ÷ 6 → 自大安数至第 <b>'+((n1-1)%6+1)+'</b> 位，得 <b>'+G1.n+'</b>（属'+G1.w+' · '+G1.beast+'）。';
+  S1.classList.add("show");
+  showLX("① 初传 · 第一数", G1, 68);
+  if(!ok(g2)) return;
+  const n2=Number(g2), p2=(p1+n2-1)%6, G2=LX[p2];
+  document.getElementById("t2").innerHTML = "第二数 · 中传<small>自初传续数，定六神</small>";
+  document.getElementById("s2hex").innerHTML = "";
+  document.getElementById("s2txt").innerHTML = liurenCardHTML(G2);
+  document.getElementById("s2calc").innerHTML = '计算：承初传 <b>'+G1.n+'</b> 续数 '+esc(g2)+' ÷ 6 → 落于 <b>'+G2.n+'</b>（属'+G2.w+' · '+G2.beast+'）。';
+  S2.classList.add("show");
+  showLX("② 中传 · 第二数", G2, 68);
+  if(!ok(g3)) return;
+  const n3=Number(g3), p3=(p2+n3-1)%6, G3=LX[p3];
+  document.getElementById("t3").innerHTML = "第三数 · 末传落位<small>自中传续数，以此为主断</small>";
+  document.getElementById("s3yao").innerHTML = '<b>末传：'+G3.n+'</b>　<span style="color:'+(G3.g?'var(--gold)':'var(--red)')+'">'+G3.mean+'</span>';
+  document.getElementById("s3bh").innerHTML = "";
+  document.getElementById("s3bt").innerHTML = liurenCardHTML(G3);
+  document.getElementById("s3arrow").textContent = "初传 → 中传 → 末传";
+  document.getElementById("s3xh").innerHTML = "";
+  document.getElementById("s3xt").innerHTML = liurenOverviewHTML(G1,G2,G3);
+  document.getElementById("s3calc").innerHTML = '计算：承中传 <b>'+G2.n+'</b> 续数 '+esc(g3)+' ÷ 6 → 落于 <b>'+G3.n+'</b>（属'+G3.w+' · '+G3.beast+'）。';
+  document.getElementById("s3sum").innerHTML = '<b>综合解读</b><br>'+liurenVerdictText(G1,G2,G3);
+  S3.classList.add("show");
+  showLX("③ 终判 · 末传（以此为主断）", G3, 104);
+}
+
+function setAll(a,b,c){ document.getElementById("g1").value=a; document.getElementById("g2").value=b; document.getElementById("g3").value=c; compute(); }
+document.getElementById("btnEx").addEventListener("click", ()=>setAll("735","993","455"));
+document.getElementById("btnRnd").addEventListener("click", ()=>{ const r=()=>String(Math.floor(Math.random()*900+100)); setAll(r(),r(),r()); });
+document.getElementById("btnClr").addEventListener("click", ()=>{ setAll("","",""); document.getElementById("g1").focus(); });
+
+/* ===== 万年历 · 公历↔农历换算（1900–2100，实时日历对应） ===== */
+const LUNAR_INFO = [
+0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
+0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,
+0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,
+0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
+0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,
+0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
+0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,
+0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,
+0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,
+0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,
+0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,
+0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,
+0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a2d0,0x0d150,0x0f252,
+0x0d520];
+const LMON = ["正","二","三","四","五","六","七","八","九","十","冬","腊"];
+const LD10 = ["初","十","廿","卅"];
+const LDIG = ["一","二","三","四","五","六","七","八","九","十"];
+const SHICHEN = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+
+function lYearDays(y){ let i,s=348; for(i=0x8000;i>0x8;i>>=1) if(LUNAR_INFO[y-1900]&i) s++; return s+lLeapDays(y); }
+function lLeapMonth(y){ return LUNAR_INFO[y-1900]&0xf; }
+function lLeapDays(y){ if(lLeapMonth(y)) return (LUNAR_INFO[y-1900]&0x10000)?30:29; return 0; }
+function lMonthDays(y,m){ return (LUNAR_INFO[y-1900]&(0x10000>>m))?30:29; }
+
+function solar2lunar(y,m,d){
+  let offset = Math.floor((Date.UTC(y,m-1,d) - Date.UTC(1900,0,31)) / 86400000);
+  let temp=0, i;
+  for(i=1900; i<2101 && offset>0; i++){ temp=lYearDays(i); offset-=temp; }
+  if(offset<0){ offset+=temp; i--; }
+  const ly=i, leap=lLeapMonth(i);
+  let isLeap=false;
+  for(i=1; i<13 && offset>0; i++){
+    if(leap>0 && i===(leap+1) && !isLeap){ --i; isLeap=true; temp=lLeapDays(ly); }
+    else { temp=lMonthDays(ly,i); }
+    if(isLeap && i===(leap+1)) isLeap=false;
+    offset-=temp;
+  }
+  if(offset===0 && leap>0 && i===(leap+1)){
+    if(isLeap){ isLeap=false; } else { isLeap=true; --i; }
+  }
+  if(offset<0){ offset+=temp; --i; }
+  const lm=i, ld=offset+1;
+  let dName;
+  if(ld===10) dName="初十";
+  else if(ld===20) dName="二十";
+  else if(ld===30) dName="三十";
+  else dName = LD10[Math.floor(ld/10)] + LDIG[(ld%10)-1];
+  return { y:ly, m:lm, d:ld, leap:isLeap, mName:(isLeap?"闰":"")+LMON[lm-1]+"月", dName:dName };
+}
+function shichenOf(h){ const idx=Math.floor((h+1)/2)%12; return { n:idx+1, name:SHICHEN[idx] }; }
+const TGAN = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+/* 公历年 → 干支年（年支序数 子1~亥12） */
+function ganZhiYear(y){ const g=(y-4)%10, z=(y-1900)%12; return { gz:TGAN[g]+SHICHEN[z]+"年", zhiNum:z+1, zhi:SHICHEN[z] }; }
+
+/* ===== 自动换算 UI：新历月/日/24小时 → 农历月/日/12时辰 → 三组数字 ===== */
+const CONV_YEAR = new Date().getFullYear();
+document.getElementById("convYear").textContent = CONV_YEAR;
+const cM=document.getElementById("cMonth"), cD=document.getElementById("cDay"), cH=document.getElementById("cHour");
+for(let i=1;i<=12;i++) cM.add(new Option(i+" 月", i));
+for(let i=0;i<=23;i++) cH.add(new Option(i+" 时 · "+shichenOf(i).name+"时", i));
+function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
+function fillDays(){
+  const m=+cM.value, cur=+cD.value, n=daysInMonth(CONV_YEAR,m);
+  cD.innerHTML="";
+  for(let i=1;i<=n;i++) cD.add(new Option(i+" 日", i));
+  cD.value = cur<=n ? cur : n;
+}
+function applyConv(){
+  const lun = solar2lunar(CONV_YEAR, +cM.value, +cD.value);
+  const sc  = shichenOf(+cH.value);
+  const gz  = ganZhiYear(CONV_YEAR);
+  if(curMode==="liuren"){
+    /* 小六壬：农历月 / 日 / 时辰三数（月日时法） */
+    document.getElementById("g1").value = lun.m;
+    document.getElementById("g2").value = lun.d;
+    document.getElementById("g3").value = sc.n;
+    document.getElementById("cResult").innerHTML =
+      '换算结果：<b>农历 '+lun.mName+' · '+lun.dName+'</b>　｜　'
+      + '<span class="arrow">月</span>=<b>'+lun.m+'</b>　'
+      + '<span class="arrow">日</span>=<b>'+lun.d+'</b>　'
+      + '<span class="arrow">时</span>=<b>'+sc.n+'</b>（'+sc.name+'时）';
+  } else {
+    /* 梅花易数：时间起卦法 —— 年支+月+日 为上卦，年支+月+日+时支 为下卦，总和定动爻 */
+    const s1 = gz.zhiNum + lun.m + lun.d;         /* 年支 + 月 + 日 */
+    const s2 = s1 + sc.n;                          /* 再 + 时支 */
+    const upper = s1%8===0?8:s1%8;                 /* 上卦数 */
+    const lower = s2%8===0?8:s2%8;                 /* 下卦数 */
+    const dong  = s2%6===0?6:s2%6;                 /* 动爻 */
+    document.getElementById("g1").value = lower;   /* 第①组＝下卦 */
+    document.getElementById("g2").value = upper;   /* 第②组＝上卦 */
+    document.getElementById("g3").value = dong;    /* 第③组＝动爻 */
+    document.getElementById("cResult").innerHTML =
+      '换算结果：<b>'+gz.gz+' · 农历 '+lun.mName+' · '+lun.dName+' · '+sc.name+'时</b><br>'
+      + '<span class="arrow">年支</span>'+gz.zhi+'='+gz.zhiNum+'　'
+      + '<span class="arrow">月</span>'+lun.m+'　'
+      + '<span class="arrow">日</span>'+lun.d+'　'
+      + '<span class="arrow">时支</span>'+sc.name+'='+sc.n+'<br>'
+      + '上卦 = (年支'+gz.zhiNum+' + 月'+lun.m+' + 日'+lun.d+') ÷ 8 = <b>'+s1+'</b> → 余 <b>'+upper+'</b><br>'
+      + '下卦 = ('+s1+' + 时支'+sc.n+') ÷ 8 = <b>'+s2+'</b> → 余 <b>'+lower+'</b>　｜　'
+      + '动爻 = '+s2+' ÷ 6 → 余 <b>'+dong+'</b>（第 '+dong+' 爻）';
+  }
+  compute();
+}
+function updateConvHint(){
+  const c1=document.getElementById("csub1"), c2=document.getElementById("csub2"), c3=document.getElementById("csub3");
+  if(!c1||!c2||!c3) return; /* DOM 未就绪时防御，避免整段脚本中断 */
+  if(curMode==="liuren"){
+    c1.textContent="农历月 → 第①组";
+    c2.textContent="农历日 → 第②组";
+    c3.textContent="12时辰 → 第③组";
+  } else {
+    c1.textContent="年支+月+日+时支 → 下卦数";
+    c2.textContent="年支+月+日 → 上卦数";
+    c3.textContent="年支+月+日+时支 → 动爻数";
+  }
+}
+const _now=new Date();
+cM.value = _now.getMonth()+1;
+fillDays();
+cD.value = _now.getDate();
+cH.value = _now.getHours();
+cM.addEventListener("change", ()=>{ fillDays(); applyConv(); });
+cD.addEventListener("change", applyConv);
+cH.addEventListener("change", applyConv);
+applyConv();
+</script>
+</body></html>
