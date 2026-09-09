@@ -7,9 +7,7 @@
 
 ---
 
-## 在线体验
-
-🔗 **https://a9a922c8cd4f4d0ab0d77386e018041c.app.workbuddy.link**
+## 使用方式
 
 本地使用：下载本仓库，直接双击 `index.html` 即可（无需服务器）。
 
