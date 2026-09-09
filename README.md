@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/welcome_disc_logo.png" alt="东方秘境 · 欢迎界面" width="480">
+</p>
+
 # 东方秘境 · 命理排盘
 
 > 一款单文件网页应用，集 **八字（子平）· 易经问卦 · 奇门遁甲 · 紫微飞星 · 老黄历** 于一体。
