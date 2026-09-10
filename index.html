@@ -118,7 +118,9 @@ img{display:block;max-width:100%}
 
 /* 阶段1 logo 素材图（"东方秘境"金色书法）—— 横排居中，叠加在呼吸环中央，盘面内放大 */
 /* 光晕收敛约 20%：书法本身是光源，光晕只做陪衬，避免手机端笔触被光吃掉 */
-.w-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(280px,62vmin,400px);height:auto;pointer-events:none;z-index:2;filter:drop-shadow(0 0 11px rgba(255,236,180,.68)) drop-shadow(0 0 24px rgba(231,199,122,.56)) drop-shadow(0 0 48px rgba(201,164,92,.36)) drop-shadow(0 0 77px rgba(231,199,122,.18));opacity:.98;animation:logoIn 1.4s var(--ease) 1.2s both}
+/* 宽度收窄至 32vmin：半宽 16vmin < 八卦带内缘 18.45vmin（R=130/400 × 66% 盘宽），
+   保证 logo 落在左右卦象之间不踩卦画，两侧各留约 2vmin 间距 */
+.w-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(110px,32vmin,240px);height:auto;pointer-events:none;z-index:2;filter:drop-shadow(0 0 11px rgba(255,236,180,.68)) drop-shadow(0 0 24px rgba(231,199,122,.56)) drop-shadow(0 0 48px rgba(201,164,92,.36)) drop-shadow(0 0 77px rgba(231,199,122,.18));opacity:.98;animation:logoIn 1.4s var(--ease) 1.2s both}
 .welcome.fast .w-logo{animation:logoIn .6s var(--ease) .25s both}
 .welcome.to-stage2 .w-logo{opacity:0;transition:opacity .4s var(--ease)}
 @keyframes logoIn{0%{opacity:0;filter:blur(10px) brightness(1.5)}100%{opacity:.98;filter:blur(0) brightness(1)}}
@@ -5437,7 +5439,7 @@ function mgSanRun(){
     + '<p class="mb-play">—— 八字合参，重在人为 · 相信科学，理性看待 ——</p>';
 }
 /* —— 设置层 —— */
-const MG_APP_VER = "V0.28.10", MG_BUILD = "2026-09-09";
+const MG_APP_VER = "V0.28.11", MG_BUILD = "2026-09-10";
 /* ================= 老黄历（黄页）引擎 ================= */
 const HL_XIU = ["角","亢","氐","房","心","尾","箕","斗","牛","女","虚","危","室","壁","奎","娄","胃","昴","毕","觜","参","井","鬼","柳","星","张","翼","轸"];
 const HL_QIN = ["角木蛟","亢金龙","氐土貉","房日兔","心月狐","尾火虎","箕水豹","斗木獬","牛金牛","女土蝠","虚日鼠","危月燕","室火猪","壁水貐","奎木狼","娄金狗","胃土雉","昴日鸡","毕月乌","觜火猴","参水猿","井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓"];
