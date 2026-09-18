@@ -1044,6 +1044,9 @@ body.lang-en h2{line-height:1.25}
 .mb-tag{display:inline-block;font-size:12px;letter-spacing:.14em;color:var(--gold);border:1px solid rgba(201,164,92,.4);border-radius:6px;padding:2px 10px;margin:2px 4px 2px 0}
 .mb-story{border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;margin:12px 0;background:rgba(255,255,255,.02)}
 .mb-story .mb-st{font-family:var(--serif);font-size:17px;color:var(--gold-hi);letter-spacing:.1em;margin-bottom:8px}
+.mb-story-lock{border-style:dashed;text-align:center}
+.mb-story-lock .mb-st{font-size:16px;color:var(--gold)}
+.mb-story-lock .tp-text{margin:6px 0 0;opacity:.75}
 .mb-play{font-size:12.5px;color:var(--ink-dim);letter-spacing:.12em;text-align:center;margin-top:14px}
 /* 设置层 */
 .set-layer{position:fixed;inset:0;z-index:106;display:none;background:rgba(4,6,5,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto;padding:calc(24px + env(safe-area-inset-top)) 20px 40px;opacity:0;transition:opacity .3s var(--ease);-webkit-overflow-scrolling:touch}
@@ -1150,6 +1153,47 @@ body.lang-en h2{line-height:1.25}
 .hl-pz b{color:var(--gold);font-weight:400;font-family:var(--serif)}
 .hl-note{font-size:11px;color:var(--ink-dim);line-height:1.8;text-align:center;padding:2px 6px 0}
 .hl-date{background:#1a201a;border:1px solid rgba(201,164,92,.45);color:var(--ink);border-radius:8px;padding:5px 8px;font-size:12px;font-family:var(--sans);color-scheme:dark}
+/* ===== 吉时择日（择时）：排行 + 时辰网格 ===== */
+.js-ctl{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.js-ctl label{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-dim);letter-spacing:.06em}
+.js-sel{background:#1a201a;border:1px solid rgba(201,164,92,.45);color:var(--ink);border-radius:8px;padding:5px 8px;font-size:12px;font-family:var(--sans);max-width:170px}
+.js-rank{display:flex;flex-direction:column;gap:8px}
+.js-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px 12px;align-items:center;padding:9px 11px;border:1px solid rgba(201,164,92,.3);border-radius:10px;background:linear-gradient(90deg,rgba(231,199,122,.07),rgba(231,199,122,.015))}
+.js-item.top{border-color:rgba(231,199,122,.6);box-shadow:0 0 14px rgba(231,199,122,.16)}
+.js-no{font-family:var(--serif);font-size:11px;color:var(--gold);border:1px solid rgba(201,164,92,.42);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.js-hd{display:flex;flex-direction:column;gap:2px;min-width:0}
+.js-name{font-family:var(--serif);font-size:15px;color:var(--gold-hi);letter-spacing:.06em}
+.js-range{font-size:10px;color:var(--ink-dim);letter-spacing:.04em}
+.js-why{font-size:11px;line-height:1.6;color:var(--ink-dim);grid-column:2 / -1}
+.js-score{font-family:var(--serif);font-size:17px;color:var(--gold-hi);text-align:right;white-space:nowrap}
+.js-score small{display:block;font-size:9px;color:var(--ink-dim);letter-spacing:.06em;font-family:var(--sans)}
+.js-badges{display:flex;flex-wrap:wrap;gap:4px;grid-column:2 / -1}
+.js-badge{font-size:9.5px;padding:1px 6px;border-radius:3px;letter-spacing:.04em;border:1px solid}
+.js-badge.xi{color:#E7C77A;border-color:rgba(231,199,122,.5);background:rgba(231,199,122,.1)}
+.js-badge.ji{color:var(--red-hi);border-color:rgba(222,41,16,.45);background:rgba(222,41,16,.08)}
+.js-badge.qm{color:#9fb8a8;border-color:rgba(159,184,168,.45);background:rgba(159,184,168,.08)}
+.js-badge.lock{color:var(--ink-dim);border-color:rgba(157,154,145,.35);background:rgba(157,154,145,.06)}
+.js-qm{margin:10px 0 0;padding:10px 11px;border:1px dashed rgba(201,164,92,.38);border-radius:9px;background:rgba(231,199,122,.035)}
+.js-qm-t{font-family:var(--serif);font-size:12px;color:var(--gold);letter-spacing:.16em;margin-bottom:6px}
+.js-qm p{font-size:11.5px;line-height:1.8;color:var(--ink)}
+.js-qm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0 6px;grid-auto-rows:minmax(0,auto)}
+/* 吉时内的奇门简图：复用 .qm-gong 但压扁高度，避免窄列被拉伸留白 */
+.js-qm-grid .qm-gong{min-height:0;height:auto;padding:6px 5px 4px;gap:1px;justify-content:flex-start;align-self:start}
+.js-qm-grid .qm-gong .qm-gname{margin-top:2px;font-size:9.5px;letter-spacing:.14em}
+.js-qm-grid .qm-gong.mid{min-height:38px;justify-content:center}
+.js-qm-grid .qm-men{font-size:11.5px}
+.js-lock{padding:11px 12px;border:1px dashed rgba(201,164,92,.42);border-radius:10px;background:rgba(231,199,122,.04);text-align:center}
+.js-lock p{font-size:11.5px;line-height:1.8;color:var(--ink-dim)}
+.js-lock b{color:var(--gold-hi)}
+.js-lock-btn{margin-top:8px;background:transparent;border:1px solid var(--gold);color:var(--gold-hi);border-radius:8px;padding:5px 14px;font-size:11.5px;font-family:var(--sans);letter-spacing:.08em;cursor:pointer}
+.js-lock-btn:hover{background:rgba(231,199,122,.1)}
+.js-hours .hl-hour{cursor:pointer}
+.js-hours .hl-hour .hh-s{font-size:9px;color:var(--gold);display:block;margin-top:1px;letter-spacing:.02em}
+.js-hours .hl-hour.sel{border-color:var(--gold-hi);box-shadow:0 0 10px rgba(231,199,122,.3)}
+.js-detail{margin-top:10px;padding:10px 11px;border:1px solid rgba(201,164,92,.3);border-radius:9px;background:rgba(255,255,255,.016)}
+.js-detail .hl-cap{margin-bottom:7px}
+.js-dl{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:11.5px;color:var(--ink-dim);line-height:1.85}
+.js-dl b{color:var(--gold);font-weight:400;font-family:var(--serif)}
 .set-disclaim p{font-size:11.5px!important}
 /* ============ 奇门遁甲（V0.28.5 · 阳盘拆补法，问事tab第三术） ============ */
 .qm-cat{background:#1a201a;border:1px solid rgba(201,164,92,.4);color:var(--ink);border-radius:8px;padding:6px 8px;font-size:12px;font-family:var(--sans)}
@@ -2133,18 +2177,23 @@ input[type="date"].qm-cat{color-scheme:dark}
       <span class="bk-seal">宜</span>
       <span class="bk-sub">择日吉凶</span>
     </button>
+    <button class="book" data-mbook="jishi" type="button" aria-label="吉时择日">
+      <span class="bk-title">吉时</span>
+      <span class="bk-seal">时</span>
+      <span class="bk-sub">择时选刻</span>
+    </button>
   </div>
-  <p class="tp-cap shelf-note" id="mgNote">上排三卷需先排盘；紫微星盘与老黄历随时可翻。命书含传统推演与戏说之笔，相信科学，理性看待。</p>
-
-  <!-- 三卷命书层 -->
-  <div class="ming-layer" id="mingLayer" role="dialog" aria-label="命书">
-    <div class="ml-head">
-      <button class="bk-close" id="mlClose" type="button">‹ 合 卷</button>
-      <div class="ml-cap" id="mlCap"></div>
-    </div>
-    <div class="ml-sheet" id="mlSheet"></div>
-  </div>
+  <p class="tp-cap shelf-note" id="mgNote">上排三卷需先排盘；紫微星盘与老黄历、吉时随时可翻。命书含传统推演与戏说之笔，相信科学，理性看待。</p>
 </section>
+
+<!-- 三卷命书层（必须置于 .tab-page 之外：.tab-page 带 transform 会自成层叠上下文，嵌套其中的层无法可靠压住书架） -->
+<div class="ming-layer" id="mingLayer" role="dialog" aria-label="命书">
+  <div class="ml-head">
+    <button class="bk-close" id="mlClose" type="button">‹ 合 卷</button>
+    <div class="ml-cap" id="mlCap"></div>
+  </div>
+  <div class="ml-sheet" id="mlSheet"></div>
+</div>
 
 <!-- ============ 设置层（版本 / 版权 / 更新 / 赞助 / 数据） ============ -->
 <div class="set-layer" id="setLayer" role="dialog" aria-label="设置">
@@ -2231,6 +2280,43 @@ input[type="date"].qm-cat{color-scheme:dark}
   </div>
 </div>
 
+<!-- ============ 吉时择日层（择时选刻） ============ -->
+<div class="hl-layer" id="jsLayer" role="dialog" aria-label="吉时择日">
+  <div class="hl-card">
+    <div class="hl-head">
+      <span class="hl-title">吉 时</span>
+      <span style="display:flex;gap:8px;align-items:center">
+        <input type="date" id="jsDate" class="hl-date" aria-label="选择日期">
+        <button class="bk-close" id="jsClose" type="button">关 闭</button>
+      </span>
+    </div>
+    <div class="hl-body">
+      <div class="hl-frame">
+        <div class="hl-cap">择 时 事 由</div>
+        <div class="js-ctl">
+          <label><span>事由</span><select id="jsEvt" class="js-sel" aria-label="选择事由"></select></label>
+          <label><span>合我</span><select id="jsMe" class="js-sel" aria-label="是否结合本命">
+            <option value="0">通用吉时</option>
+            <option value="1">合我本命</option>
+          </select></label>
+        </div>
+        <p class="tp-usage" style="margin-top:9px">选好日期与事由，下方按<b>吉时指数</b>排出当日最佳三个时辰；点任一时辰看细节。指数＝黄黑道 · 建除 · 星宿 · 彭祖 · 事由宜忌的加权整合，逐项可溯。</p>
+        <p class="tp-usage" id="jsMeTip" hidden style="margin-top:6px;border-color:rgba(222,41,16,.4);color:#E8A79C">「合我本命」需先知道你的生辰——请到「命理」填好生辰时辰并排盘；未填时按通用吉时计算。</p>
+      </div>
+      <div class="hl-frame">
+        <div class="hl-cap">当 日 最 佳 时 辰</div>
+        <div class="js-rank" id="jsRank"></div>
+      </div>
+      <div class="hl-frame">
+        <div class="hl-cap">十 二 时 辰 · 全 览</div>
+        <div class="hl-hours js-hours" id="jsHours"></div>
+        <div class="js-detail" id="jsDetail"></div>
+      </div>
+      <p class="hl-note">吉时为传统择日文化的加权整理，源出《象吉通书》《协纪辨方书》《玉匣记》通用口径，仅供参考 · 相信科学，理性看待</p>
+    </div>
+  </div>
+</div>
+
 <!-- ============ 紫微斗数层（飞星四化） ============ -->
 <div class="zw-layer" id="zwLayer" role="dialog" aria-label="紫微斗数">
   <div class="zw-card">
@@ -2239,7 +2325,7 @@ input[type="date"].qm-cat{color-scheme:dark}
       <button class="bk-close" id="zwClose" type="button">关 闭</button>
     </div>
     <div class="qm-meta" id="zwMeta"></div>
-    <div class="zw-grid" id="zwGrid"><svg class="zw-svg" id="zwSvg"></svg></div>
+    <div class="zw-grid" id="zwGrid"></div>
     <div class="zw-bai" id="zwBaiBox"></div>
     <div class="qm-yong" id="zwInfo"></div>
     <p class="hl-note">盘式：飞星派十二宫。生年四化标于星旁（禄绿·权蓝·科金·忌红）；轻触任一宫，看该宫宫干飞出之四化连线（虚线回环为自化）。年干以立春为界，与八字同源。相信科学，理性看待。</p>
@@ -5063,12 +5149,14 @@ function mgVerdict(bz){
 }
 /* —— 前世卷（趣味推演 · 确定性；歌诀参民间《三世书》体例：[身份, 生平, 三世书云, 今生遗痕]） —— */
 const MG_PAST = (DF_K || DF_STUB).MG_PAST;
+const MG_PAST_LOCKED = !DF_K;   // 未解锁：整段替换为提示，避免出现半截断句
 function mgPast(bz){
   const idx = ((bz.dStem * 6 + bz.dBr) % 12 + 12) % 12;
   return MG_PAST[idx];
 }
 /* —— 来世卷（以今生五行所缺推演 · 戏说） —— */
 const MG_FUTURE = (DF_K || DF_STUB).MG_FUTURE;
+const MG_FUTURE_LOCKED = !DF_K;
 function mgFuture(bz){
   const WXO = ["木","火","土","金","水"];
   let weak = "水", min = 1e9;
@@ -5143,6 +5231,7 @@ function mgPillar(col, g, label, ssName){
 function mgOpenBook(kind){
   if(kind === "ziwei"){ zwOpen(); return; }
   if(kind === "huangli"){ hlOpen(); return; }
+  if(kind === "jishi"){ jsOpen(); return; }
   if(kind === "san"){ mgOpenSan(); return; }
   if(!MG_BZ){
     const n = document.getElementById("mgNote");
@@ -5182,22 +5271,42 @@ function mgOpenBook(kind){
   } else if(kind === "past"){
     const P = mgPast(bz);
     cap.textContent = "过 去 卷 · 前 世 因 缘";
-    html = '<h3 class="tp-h">前 世 档 案</h3>'
-      + '<p class="tp-text">以日柱「' + bz.pillars.day.gz + '」起数，翻得前世一卷——</p>'
-      + '<div class="mb-story"><div class="mb-st">' + P[0] + '</div><p class="tp-text">' + P[1] + '</p>'
-      + '<p class="tp-verse">三世书云：「' + P[2] + '」</p></div>'
-      + '<h3 class="tp-h" style="font-size:19px;margin-top:14px">今 生 遗 痕</h3>'
-      + '<p class="tp-text">' + P[3] + '</p>'
-      + '<p class="mb-play">—— 前世之说，聊博一笑 · 真正写下明天的，是今天的你 ——</p>';
+    if(MG_PAST_LOCKED){
+      /* 未解锁：只给起数依据与引导，不留半截故事 */
+      html = '<h3 class="tp-h">前 世 档 案</h3>'
+        + '<p class="tp-text">以日柱「' + bz.pillars.day.gz + '」起数，翻得前世一卷——</p>'
+        + '<div class="mb-story mb-story-lock"><div class="mb-st">此 卷 尚 未 启 封</div>'
+        + '<p class="tp-text">前世因缘、三世书歌诀、今生遗痕三段，完整版解锁后可看。</p></div>'
+        + '<p class="mb-play">—— 前世之说，聊博一笑 · 真正写下明天的，是今天的你 ——</p>';
+    } else {
+      html = '<h3 class="tp-h">前 世 档 案</h3>'
+        + '<p class="tp-text">以日柱「' + bz.pillars.day.gz + '」起数，翻得前世一卷——</p>'
+        + '<div class="mb-story"><div class="mb-st">' + P[0] + '</div><p class="tp-text">' + P[1] + '</p>'
+        + '<p class="tp-verse">三世书云：「' + P[2] + '」</p></div>'
+        + '<h3 class="tp-h" style="font-size:19px;margin-top:14px">今 生 遗 痕</h3>'
+        + '<p class="tp-text">' + P[3] + '</p>'
+        + '<p class="mb-play">—— 前世之说，聊博一笑 · 真正写下明天的，是今天的你 ——</p>';
+    }
   } else {
     const F = mgFuture(bz);
     cap.textContent = "未 来 卷 · 来 世 推 演";
-    html = '<h3 class="tp-h">来 世 推 演</h3>'
-      + '<p class="tp-text">今生「' + F.wx + '」气最薄，轮回之轮便向此行补去——戏说一笔，且看且笑。</p>'
-      + '<div class="mb-story"><div class="mb-st">' + F[0] + '</div><p class="tp-text">' + F[1] + '</p></div>'
-      + '<h3 class="tp-h" style="font-size:19px;margin-top:14px">轮 回 指 引</h3>'
-      + '<p class="tp-text">来世年柱戏推「' + F.gz + '」，纳音「' + F.nayin + '」；自今生日柱起算，' + F.cycle + ' 位一转。<br>' + F[2] + '</p>'
-      + '<p class="mb-play">—— 来世太远，先过好这一世 ——</p>';
+    if(MG_FUTURE_LOCKED){
+      /* 未解锁：可公开的「最薄之行」与轮回推演规则照给，故事段替换为整段引导 */
+      html = '<h3 class="tp-h">来 世 推 演</h3>'
+        + '<p class="tp-text">今生「' + F.wx + '」气最薄，轮回之轮便向此行补去——戏说一笔，且看且笑。</p>'
+        + '<div class="mb-story mb-story-lock"><div class="mb-st">此 卷 尚 未 启 封</div>'
+        + '<p class="tp-text">轮回故事与来世气运指引两段，完整版解锁后可看。</p></div>'
+        + '<h3 class="tp-h" style="font-size:19px;margin-top:14px">轮 回 指 引</h3>'
+        + '<p class="tp-text">来世年柱戏推「' + F.gz + '」，纳音「' + F.nayin + '」；自今生日柱起算，' + F.cycle + ' 位一转。</p>'
+        + '<p class="mb-play">—— 来世太远，先过好这一世 ——</p>';
+    } else {
+      html = '<h3 class="tp-h">来 世 推 演</h3>'
+        + '<p class="tp-text">今生「' + F.wx + '」气最薄，轮回之轮便向此行补去——戏说一笔，且看且笑。</p>'
+        + '<div class="mb-story"><div class="mb-st">' + F[0] + '</div><p class="tp-text">' + F[1] + '</p></div>'
+        + '<h3 class="tp-h" style="font-size:19px;margin-top:14px">轮 回 指 引</h3>'
+        + '<p class="tp-text">来世年柱戏推「' + F.gz + '」，纳音「' + F.nayin + '」；自今生日柱起算，' + F.cycle + ' 位一转。<br>' + F[2] + '</p>'
+        + '<p class="mb-play">—— 来世太远，先过好这一世 ——</p>';
+    }
   }
   mgShowSheet(cap.textContent, html);
 }
@@ -5439,7 +5548,7 @@ function mgSanRun(){
     + '<p class="mb-play">—— 八字合参，重在人为 · 相信科学，理性看待 ——</p>';
 }
 /* —— 设置层 —— */
-const MG_APP_VER = "V0.28.11", MG_BUILD = "2026-09-10";
+const MG_APP_VER = "V0.28.12", MG_BUILD = "2026-09-18";
 /* ================= 老黄历（黄页）引擎 ================= */
 const HL_XIU = ["角","亢","氐","房","心","尾","箕","斗","牛","女","虚","危","室","壁","奎","娄","胃","昴","毕","觜","参","井","鬼","柳","星","张","翼","轸"];
 const HL_QIN = ["角木蛟","亢金龙","氐土貉","房日兔","心月狐","尾火虎","箕水豹","斗木獬","牛金牛","女土蝠","虚日鼠","危月燕","室火猪","壁水貐","奎木狼","娄金狗","胃土雉","昴日鸡","毕月乌","觜火猴","参水猿","井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓"];
@@ -5509,11 +5618,16 @@ function hlCalc(date){
     hdStart: HL_HD_START[dB]
   };
 }
+/* 某日某时辰的黄黑道吉凶（t=0..11 为子..亥）；吉时模块与老黄历共用此判定 */
+function hlHourLuck(hdStart, t){
+  const idx = (((t - hdStart) % 12) + 12) % 12;
+  return { idx: idx, good: !!HL_HD_GOOD[idx], god: HL_HD[idx] };
+}
 function hlHoursHTML(hdStart){
   let h = "";
   for(let t = 0; t < 12; t++){
-    const idx = (((t - hdStart) % 12) + 12) % 12, good = HL_HD_GOOD[idx];
-    h += '<div class="hl-hour ' + (good ? "good" : "bad") + '"><span class="hh-n">' + HL_SHI[t] + '</span><span class="hh-l">' + HL_HD[idx] + '</span></div>';
+    const L = hlHourLuck(hdStart, t);
+    h += '<div class="hl-hour ' + (L.good ? "good" : "bad") + '"><span class="hh-n">' + HL_SHI[t] + '</span><span class="hh-l">' + L.god + '</span></div>';
   }
   return h;
 }
@@ -5568,6 +5682,187 @@ function hlClose(){
   const L = document.getElementById("hlLayer");
   L.classList.remove("vis");
   setTimeout(function(){ L.classList.remove("show"); }, 300);
+}
+
+/* ================= 吉时择日（择时）引擎 V0.28.12 =================
+   设计：不新造历法。装配已有零件做「打分 + 排序」——
+   黄黑道(hlHourLuck) + 建除(HL_JC) + 彭祖(HL_PZ) + 星宿(HL_XIU_LUCK)
+   + 深度层：八字喜用(mgFavorWx) / 奇门用神宫(qmCalc)。
+   事件共 7 组 37 项：同类共用一张权重表，个别事项再加专属修正。
+   ponytail: 37 个选项只对应 7 张组表，代码量不随事件数膨胀。 */
+const JS_HOUR = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const JS_RANGE = ["23–01","01–03","03–05","05–07","07–09","09–11","11–13","13–15","15–17","17–19","19–21","21–23"];
+const JS_HWX   = ["水","土","木","木","土","火","火","土","金","金","土","水"];   // 时辰支五行
+/* 事件表：key → {组, 名, 宜时[], 忌时[]}（宜/忌为时辰支序，通用通书口径，只做宜忌级别） */
+const JS_EVT = {
+  // A 婚姻子嗣
+  jiaqu:  { g:"hun", n:"嫁娶",     yi:[1,2,3,6,7,9],   ji:[0,5,8,11] },
+  dingmeng:{ g:"hun", n:"订盟纳采", yi:[1,2,3,6,7,9],   ji:[0,5,8,11] },
+  qiuzi:  { g:"hun", n:"求嗣",     yi:[1,2,3,6,7,9],   ji:[0,5,8,11] },
+  guanji: { g:"hun", n:"冠笄成人",  yi:[2,3,6,7,9],     ji:[5,8,11] },
+  // B 营造动土
+  dongtu: { g:"zao", n:"动土",     yi:[2,3,4,7,8,10],  ji:[0,6,9] },
+  shangliang:{g:"zao",n:"上梁立柱", yi:[2,3,4,7,8,10],  ji:[0,6,9] },
+  shuzao: { g:"zao", n:"竖造",     yi:[2,3,4,7,8,10],  ji:[0,6,9] },
+  xiuzhuang:{g:"zao",n:"修造装修",  yi:[2,3,4,7,8,10],  ji:[0,6,9] },
+  chaixie:{ g:"zao", n:"拆卸",     yi:[3,4,7,8,10],    ji:[0,2,6,9] },
+  anduimo:{ g:"zao", n:"安碓磨",   yi:[2,4,7,8,10],    ji:[0,6,9] },
+  ruqiao: { g:"zao", n:"入宅搬家",  yi:[2,3,4,7,8,9,10],ji:[0,6] },
+  // C 工商财利
+  kaishi: { g:"cai", n:"开市开业",  yi:[1,2,3,5,6,7,8,10],ji:[0,4,9,11] },
+  liqan:  { g:"cai", n:"立券交易",  yi:[1,2,3,5,6,7,8,10],ji:[0,4,9,11] },
+  qianyue:{ g:"cai", n:"签约",     yi:[1,2,3,5,6,7,8,10],ji:[0,4,9,11] },
+  nacai:  { g:"cai", n:"纳财收货",  yi:[1,2,3,5,6,7,8,10],ji:[0,4,9,11] },
+  kaicang:{ g:"cai", n:"开仓库",   yi:[2,3,5,6,7,8,10], ji:[0,4,9,11] },
+  naxu:   { g:"cai", n:"纳畜",     yi:[1,2,3,5,7,8,10], ji:[0,4,9,11] },
+  // D 祭祀超度
+  jisi:   { g:"si",  n:"祭祀",     yi:[0,1,2,3,4,5,6,7,8,9,10,11], ji:[] },
+  qifu:   { g:"si",  n:"祈福开光",  yi:[0,1,2,4,5,6,7,8,10,11],  ji:[3,9] },
+  shejiao:{ g:"si",  n:"设醮",     yi:[0,1,2,4,5,6,7,8,10,11],  ji:[3,9] },
+  anzang: { g:"si",  n:"安葬",     yi:[1,2,3,4,7,8,9,10],      ji:[0,5,6,11] },
+  xiufen: { g:"si",  n:"修坟立碑",  yi:[1,2,3,4,7,8,9,10],      ji:[0,5,6,11] },
+  // E 出行迁移
+  chuxing:{ g:"xing",n:"出行",     yi:[2,3,4,5,7,8,9,10],      ji:[0,6,11] },
+  yuanyu: { g:"xing",n:"远行渡水",  yi:[2,3,4,7,8,9,10],        ji:[0,5,6,11] },
+  shangren:{g:"xing",n:"上任赴任",  yi:[2,3,4,5,7,8,9,10],      ji:[0,6,11] },
+  qianyi: { g:"xing",n:"迁移移徙",  yi:[2,3,4,5,7,8,9,10],      ji:[0,6,11] },
+  // F 人际医疗
+  huiyou: { g:"yi",  n:"会友见贵",  yi:[1,2,3,5,6,7,8,9,10],    ji:[0,4,11] },
+  qiuyi:  { g:"yi",  n:"求医问诊",  yi:[1,2,3,4,7,8,9],         ji:[0,5,6,11] },
+  liaobing:{g:"yi",  n:"疗病针灸",  yi:[1,2,3,4,7,8,9],         ji:[0,5,6,11] },
+  anchuang:{g:"yi",  n:"安床",     yi:[1,2,3,6,7,8,9],         ji:[0,5,11] },
+  caiyi:  { g:"yi",  n:"裁衣做衣",  yi:[1,2,3,6,7,8,9],         ji:[0,5,11] },
+  titou:  { g:"yi",  n:"剃头",     yi:[1,2,3,6,7,8,9],         ji:[0,5,11] },
+  // G 文书考试（现代事，取文昌/天乙贵人时）
+  kaoshi: { g:"wen", n:"考试应试",  yi:[2,3,4,6,7,8,9,10],      ji:[0,5,11] },
+  mianshi:{ g:"wen", n:"面试求职",  yi:[2,3,4,6,7,8,9,10],      ji:[0,5,11] },
+  lianu:  { g:"wen", n:"立案诉讼",  yi:[2,3,4,7,8,10],          ji:[0,5,6,11] },
+  // H 杂事
+  anshenwei:{g:"za", n:"安神位",   yi:[0,1,2,4,5,6,7,8,10,11],  ji:[3,9] },
+  xietu:  { g:"za",  n:"谢土",     yi:[2,3,4,7,8,10],          ji:[0,6,9] },
+  fangshui:{g:"za",  n:"放水",     yi:[2,4,7,8,10],            ji:[0,6,9] },
+  juejing:{ g:"za",  n:"开渠掘井",  yi:[2,4,7,8,10],            ji:[0,6,9] }
+};
+/* 组表：宜时/忌时总口径（供无专属表的扩展用）+ 组别分（同类事项的禀赋差异） */
+const JS_GRP = {
+  hun:  { n:"婚姻子嗣", b: 0 },
+  zao:  { n:"营造动土", b: 0 },
+  cai:  { n:"工商财利", b: 0 },
+  si:   { n:"祭祀超度", b: -2 },   // 祭祀重诚不重时，整体略平
+  xing: { n:"出行迁移", b: 0 },
+  yi:   { n:"人际医疗", b: 0 },
+  wen:  { n:"文书考试", b: 0 },
+  za:   { n:"营建杂事", b: 0 }
+};
+const JS_GROUPS = [["hun","婚姻子嗣"],["zao","营造动土"],["cai","工商财利"],["si","祭祀超度"],["xing","出行迁移"],["yi","人际医疗"],["wen","文书考试"],["za","营建杂事"]];
+function jsEvtList(){
+  let h = "";
+  JS_GROUPS.forEach(function(g){
+    const items = Object.keys(JS_EVT).filter(function(k){ return JS_EVT[k].g === g[0]; });
+    if(!items.length) return;
+    h += '<optgroup label="' + g[1] + '">';
+    items.forEach(function(k){ h += '<option value="' + k + '">' + JS_EVT[k].n + '</option>'; });
+    h += '</optgroup>';
+  });
+  return h;
+}
+/* 单时辰打分：返回 {t, name, range, score, reasons[]} */
+function jsScoreHour(D, day, t, E, bz, favorable){
+  const L = hlHourLuck(day.hdStart, t);
+  const hitYi = E.yi.indexOf(t) >= 0, hitJi = E.ji.indexOf(t) >= 0;
+  let sc = 50;
+  const R = [];
+  /* 1 黄黑道 */
+  if(L.good){ sc += 18; R.push("黄道「" + L.god + "」当值，吉神在位（+18）"); }
+  else { sc -= 18; R.push("黑道「" + L.god + "」当值，宜静不宜动（−18）"); }
+  /* 2 建除十二神 */
+  const jci = HL_JC.indexOf(D.jc.replace("日",""));
+  if(jci >= 0){
+    if(HL_JC_LUCK[jci] === "吉"){ sc += 8; R.push("建除「" + HL_JC[jci] + "日」属吉（+8）"); }
+    else { sc -= 6; R.push("建除「" + HL_JC[jci] + "日」属凶（−6）"); }
+    if(HL_JC_YIJI[jci].yi.indexOf(E.n) >= 0){ sc += 12; R.push("日宜「" + E.n + "」，正合此日（+12）"); }
+    if(HL_JC_YIJI[jci].ji.indexOf(E.n) >= 0){ sc -= 14; R.push("日忌「" + E.n + "」，此日不宜（−14）"); }
+  }
+  /* 3 彭祖百忌（时支 · 日干各一条） */
+  const pzZ = HL_PZ_ZHI[t];
+  if(hitJi){ sc -= 12; R.push("彭祖忌「" + pzZ.slice(0, 1) + "」——" + pzZ.slice(1) + "（−12）"); }
+  /* 4 星宿 */
+  if(D.xiuLuck === "吉"){ sc += 6; R.push("星宿「" + D.xiu + "」吉（+6）"); }
+  else { sc -= 6; R.push("星宿「" + D.xiu + "」凶（−6）"); }
+  /* 5 事件专属宜忌时 */
+  if(hitYi){ sc += 8; R.push("「" + E.n + "」宜此" + JS_HOUR[t] + "时（+8）"); }
+  if(hitJi){ sc -= 10; R.push("「" + E.n + "」忌此" + JS_HOUR[t] + "时（−10）"); }
+  /* 6 深度层：八字喜用（有排盘时） */
+  let me = null;
+  if(bz){
+    const e = favorable.indexOf(JS_HWX[t]);
+    if(e >= 0){
+      sc += 14; me = "xi";
+      R.push(hitJi ? "此" + JS_HOUR[t] + "时属" + JS_HWX[t] + "合你喜用，然事由忌此（+14）"
+                   : "此" + JS_HOUR[t] + "时属" + JS_HWX[t] + "，正合你命中喜用（+14）");
+    }
+    else if(favorable.length === 2){ sc -= 10; me = "ji"; R.push("此" + JS_HOUR[t] + "时属" + JS_HWX[t] + "，非你所喜（−10）"); }
+  }
+  /* 7 冲本人日支 */
+  if(bz){
+    const myB = bz.pillars.day.b;
+    if((t + 6) % 12 === myB){ sc -= 8; R.push("此" + JS_HOUR[t] + "时冲你的日支（−8）"); }
+  }
+  /* 8 时支与日支六合/三合——同气相助，用于拉开同档时辰的差距 */
+  if(day && day.gzD){
+    const dB = MG_ZHI.indexOf(day.gzD.charAt(1));
+    if(dB >= 0){
+      const LH6 = [[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+      const SH3 = [[8,0,4],[11,3,7],[2,6,10],[5,9,1]];
+      const hit = LH6.some(function(p){ return p[0] === Math.min(t, dB) && p[1] === Math.max(t, dB); });
+      const hit3 = SH3.some(function(g){ return g.indexOf(t) >= 0 && g.indexOf(dB) >= 0; });
+      if(hit){ sc += 7; R.push("此" + JS_HOUR[t] + "时与日支六合，同气相求（+7）"); }
+      else if(hit3){ sc += 5; R.push("此" + JS_HOUR[t] + "时与日支三合，得助力（+5）"); }
+      else if((t + 6) % 12 === dB){ sc -= 6; R.push("此" + JS_HOUR[t] + "时与日支相冲，宜避（−6）"); }
+    }
+  }
+  /* 9 事由契合度微调：时辰支与事由宜时列表的位置越靠前越契合，
+     用于拉开同档时辰（避免多个 100 并列失去排行意义） */
+  const pos = E.yi.indexOf(t);
+  if(pos >= 0){
+    const n = E.yi.length || 1;
+    const adj = Math.round((n - pos) / n * 4) - 2;   // −2 .. +2
+    if(adj !== 0) sc += adj;
+  }
+  /* raw 保留未封顶原分：排序与展示都用它，多吉叠加时（如动土）才看得出高下。
+     score 仅供老逻辑兼容，钳到 0-100。 */
+  const raw = Math.max(0, sc);
+  if(sc > 100) sc = 100;
+  if(sc < 0) sc = 0;
+  return { t: t, name: JS_HOUR[t], range: JS_RANGE[t], score: sc, raw: raw, reasons: R, good: L.good, god: L.god, me: me };
+}
+/* 某日全部时辰打分，返回按分降序的数组 */
+function jsCalc(date, evtKey, bz){
+  const D = hlCalc(date);
+  const E = JS_EVT[evtKey] || JS_EVT.jiaqu;
+  const favorable = bz ? mgFavorWx(bz).map(function(i){ return "木火土金水"[i]; }) : [];
+  const out = [];
+  for(let t = 0; t < 12; t++) out.push(jsScoreHour(D, D, t, E, bz, favorable));
+  out.sort(function(a, b){ return b.raw - a.raw || a.t - b.t; });
+  return { day: D, evt: E, evtKey: evtKey, hours: out, bz: bz || null, favorite: favorable };
+}
+/* 奇门择时：对候选时辰起局，判用神宫门吉凶与四害 */
+function jsQimen(y, m, d, t){
+  const hh = t === 0 ? 0 : t * 2 + 1;
+  const r = qmCalc(new Date(y, m - 1, d, hh));
+  /* 用神落中五宫则寄坤二宫（中宫无门无星，奇门通例寄坤） */
+  const pY = r.pYong === 4 ? 1 : r.pYong;
+  const G = r.gong[pY];
+  const ji = { 休:1, 生:1, 开:1 }, xiong = { 死:1, 惊:1, 伤:1 };
+  let sc = 50, R = [];
+  if(ji[G.men]){ sc += 16; R.push("用神宫得「" + G.men + "门」大吉（+16）"); }
+  else if(xiong[G.men]){ sc -= 16; R.push("用神宫落「" + G.men + "门」凶（−16）"); }
+  else if(G.men){ R.push("用神宫落「" + G.men + "门」中平"); }
+  G.hz.forEach(function(z){ sc -= 6; R.push("用神宫带「" + z + "」（−6）"); });
+  if(!G.hz.length) R.push("用神宫无门迫·击刑·旬空之扰");
+  const pf = r.gong[r.pFu];
+  if(ji[pf.men]){ sc += 8; R.push("值符落" + QM_GUA[r.pFu] + "宫得吉门，大势向好（+8）"); }
+  return { score: Math.max(0, Math.min(100, sc)), reasons: R, verdict: qmVerdict(r), gong: r.gong, pYong: pY, pFu: r.pFu, ju: r.ju, yang: r.yang, term: r.term, kong: r.kong, ma: r.ma };
 }
 
 /* ============ 奇门遁甲（阳盘 · 拆补法）V0.28.5 ============ */
@@ -5708,8 +6003,155 @@ function qmRender(){
     '<div>'+QM_YONG[cat]+'</div><div class="mg-bai">'+qmVerdict(r)+'</div><div class="mg-bai">'+qmBai(r)+'</div>';
 }
 
+/* ============ 吉时择日：渲染与交互 ============ */
+let JS_SEL = 0;                                   // 当前展开的时辰（支序）
+function jsEsc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+function jsDT(){
+  const v = (document.getElementById("jsDate") || {}).value || "";
+  if(v){ const p = v.split("-"); const d = new Date(+p[0], +p[1]-1, +p[2]); if(!isNaN(d)) return d; }
+  return new Date();
+}
+function jsMeOn(){
+  const el = document.getElementById("jsMe");
+  if(!el || el.value !== "1") return false;
+  return !!(typeof MG_BZ !== "undefined" && MG_BZ);
+}
+/* 合我档需要的本命八字：优先用命理卷已排的盘，否则从命理输入框现排一次 */
+function jsGetBz(){
+  try { if(typeof MG_BZ !== "undefined" && MG_BZ) return MG_BZ; } catch(e){}
+  try {
+    const y = +document.getElementById("mgY").value, m = +document.getElementById("mgM").value, d = +document.getElementById("mgD").value;
+    const hEl = document.getElementById("mgH"), gEl = document.getElementById("mgG");
+    if(!y || !m || !d) return null;
+    const hh = hEl ? +hEl.value : -1;
+    const female = gEl ? gEl.value === "0" : false;
+    if(hh < 0) return null;                    // 时辰未知无法定喜用强度
+    return mgPai(y, m, d, hh, female);
+  } catch(e){ return null; }
+}
+function jsRender(){
+  const dt = jsDT();
+  const evtKey = (document.getElementById("jsEvt") || {}).value || "jiaqu";
+  const wantMe = (document.getElementById("jsMe") || {}).value === "1";
+  const myBz = wantMe ? jsGetBz() : null;
+  const bz = myBz || null;
+  const R = jsCalc(dt, evtKey, bz);
+  const unlock = (typeof DF_LIC !== "undefined") && DF_LIC.on();
+  const esc = jsEsc;
+  /* 合我档选中但拿不到本命 → 顶部提示，并自动回落通用档 */
+  const meTip = document.getElementById("jsMeTip");
+  if(meTip){
+    if(wantMe && !bz){ meTip.hidden = false; }
+    else { meTip.hidden = true; }
+  }
+
+  /* 排行：最佳三时辰 */
+  const top = R.hours.slice(0, 3);
+  document.getElementById("jsRank").innerHTML = top.map(function(h, i){
+    const badges = [];
+    /* 「合我」徽章只在喜用压过事由之忌时才亮，避免「既忌此亥时又合我喜用」的自相矛盾 */
+    const hitJi = R.evt.ji.indexOf(h.t) >= 0, hitYi = R.evt.yi.indexOf(h.t) >= 0;
+    if(bz && h.me === "xi" && !(hitJi && !hitYi)) badges.push('<span class="js-badge xi">合我喜用</span>');
+    else if(bz && h.me === "ji") badges.push('<span class="js-badge ji">非我所喜</span>');
+    if(!unlock) badges.push('<span class="js-badge lock">奇门 · 需解锁</span>');
+    /* 理由只显示「人无我有」的差异项：事件宜忌与合我优先，其余按权重补足到 3 条 */
+    const key = h.reasons.filter(function(r){ return /事由|嫁娶|合你|非你|冲你/.test(r) && !/彭祖/.test(r); });
+    const rest = h.reasons.filter(function(r){ return key.indexOf(r) < 0; });
+    const show = key.concat(rest).slice(0, 3);
+    return '<div class="js-item' + (i === 0 ? " top" : "") + '">'
+      + '<span class="js-no">' + (i + 1) + '</span>'
+      + '<span class="js-hd"><span class="js-name">' + h.name + '时</span><span class="js-range">' + h.range + ' · ' + esc(h.god) + (h.good ? "黄道" : "黑道") + '</span></span>'
+      + '<span class="js-score">' + h.raw + '<small>吉时指数</small></span>'
+      + '<span class="js-why">' + show.map(esc).join(" · ") + '</span>'
+      + (badges.length ? '<span class="js-badges">' + badges.join("") + '</span>' : "")
+      + '</div>';
+  }).join("");
+
+  /* 全览 12 时辰 */
+  document.getElementById("jsHours").innerHTML = R.hours.slice().sort(function(a, b){ return a.t - b.t; }).map(function(h){
+    return '<div class="hl-hour ' + (h.good ? "good" : "bad") + (h.t === JS_SEL ? " sel" : "") + '" data-t="' + h.t + '">'
+      + '<span class="hh-n">' + h.name + '</span><span class="hh-l">' + esc(h.god) + '</span><span class="hh-s">' + h.raw + '</span></div>';
+  }).join("");
+
+  jsDetail(R, unlock);
+}
+function jsDetail(R, unlock){
+  const esc = jsEsc, h = R.hours.filter(function(x){ return x.t === JS_SEL; })[0] || R.hours[0];
+  const D = R.day;
+  let out = '<div class="hl-cap">' + h.name + ' 时 · ' + h.range + '</div>'
+    + '<div class="js-dl">'
+    + '<span>黄道：<b>' + esc(h.god) + '（' + (h.good ? "吉" : "凶") + '）</b></span>'
+    + '<span>建除：<b>' + esc(D.jc) + '</b></span>'
+    + '<span>星宿：<b>' + esc(D.qin) + '</b></span>'
+    + '<span>值日干支：<b>' + esc(D.gzD) + '</b></span>'
+    + '<span>吉时指数：<b>' + h.raw + '</b></span>'
+    + '</div>'
+    + '<div class="js-dl" style="margin-top:5px">' + h.reasons.map(function(r){ return '<span>' + esc(r) + '</span>'; }).join("") + '</div>';
+
+  /* 深度层：奇门择时 */
+  if(unlock){
+    const dt = jsDT();
+    const Q = jsQimen(dt.getFullYear(), dt.getMonth() + 1, dt.getDate(), h.t);
+    out += '<div class="js-qm"><div class="js-qm-t">奇 门 择 时 · ' + h.name + '时</div>'
+      + '<div class="js-qm-grid">' + [3,8,1,2,4,6,7,0,5].map(function(p){
+          if(p === 4) return '<div class="qm-gong mid"><span class="qm-gname">中 五</span></div>';
+          const g = Q.gong[p];
+          return '<div class="qm-gong' + (p === Q.pYong ? " yong" : "") + '">'
+            + '<div class="qm-hz">' + g.hz.map(function(z){ return "<i>" + esc(z) + "</i>"; }).join("") + '</div>'
+            + '<div class="qm-men">' + (g.men ? esc(g.men) + "门" : "中五") + '</div>'
+            + '<div class="qm-gname">' + QM_GUA[p] + '</div></div>';
+        }).join("") + '</div>'
+      + '<p>奇门指数 <b style="color:var(--gold-hi)">' + Q.score + '</b>（' + (Q.yang ? "阳遁" : "阴遁") + Q.ju + '局 · ' + esc(Q.term) + '后）</p>'
+      + Q.reasons.map(function(r){ return '<p>' + esc(r) + '</p>'; }).join("")
+      + '<p>' + esc(Q.verdict) + '</p>'
+      + '</div>';
+  } else {
+    out += '<div class="js-lock"><p>深度层（<b>合我本命</b> · <b>奇门择时</b>）需解锁完整版查看——<br>结合你的八字喜用与用神宫门吉凶，挑出真正合你的那一时。</p>'
+      + '<button class="js-lock-btn" type="button" id="jsGoUnlock">前 往 解 锁</button></div>';
+  }
+  document.getElementById("jsDetail").innerHTML = out;
+}
+function jsOpen(){
+  const dEl = document.getElementById("jsDate");
+  if(dEl){ const n = new Date(), mm = n.getMonth()+1, dd = n.getDate();
+    dEl.value = n.getFullYear() + "-" + (mm<10?"0":"") + mm + "-" + (dd<10?"0":"") + dd; }
+  const eEl = document.getElementById("jsEvt");
+  if(eEl && !eEl.options.length) eEl.innerHTML = jsEvtList();
+  JS_SEL = 0;
+  jsRender();
+  const L = document.getElementById("jsLayer");
+  L.classList.add("show");
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ L.classList.add("vis"); }); });
+}
+function jsClose(){
+  const L = document.getElementById("jsLayer");
+  L.classList.remove("vis");
+  setTimeout(function(){ L.classList.remove("show"); }, 300);
+}
+function jsBind(){
+  const dEl = document.getElementById("jsDate"), eEl = document.getElementById("jsEvt"), mEl = document.getElementById("jsMe");
+  if(dEl) dEl.addEventListener("change", jsRender);
+  if(eEl) eEl.addEventListener("change", jsRender);
+  if(mEl) mEl.addEventListener("change", jsRender);
+  const hEl = document.getElementById("jsHours");
+  if(hEl) hEl.addEventListener("click", function(e){
+    const cell = e.target.closest ? e.target.closest(".hl-hour") : null;
+    if(!cell) return;
+    JS_SEL = +cell.getAttribute("data-t");
+    jsRender();
+  });
+  const lEl = document.getElementById("jsLayer");
+  if(lEl) lEl.addEventListener("click", function(e){
+    if(e.target === this){ jsClose(); return; }
+    const g = e.target.closest ? e.target.closest("#jsGoUnlock") : null;
+    if(g){ jsClose(); setTimeout(setLayerOpen, 320); }
+  });
+  const cEl = document.getElementById("jsClose");
+  if(cEl) cEl.addEventListener("click", jsClose);
+}
+
 /* ============ 紫微斗数（飞星派）V0.28.5 ============ */
-const ZW_SIHUA={甲:{lu:"廉贞",quan:"破军",ke:"武曲",ji:"太阳"},乙:{lu:"天机",quan:"天梁",ke:"紫微",ji:"太阴"},
+const ZW_SIHUA={甲:{lu:"廉贞",quan:"破军",ke:"武曲",ji:"太阳"},乙:{lu:"天机",quan:"天梁",ke:"紫微",ji:"太阴"},乙:{lu:"天机",quan:"天梁",ke:"紫微",ji:"太阴"},
   丙:{lu:"天同",quan:"天机",ke:"文昌",ji:"廉贞"},丁:{lu:"太阴",quan:"天同",ke:"天机",ji:"巨门"},
   戊:{lu:"贪狼",quan:"太阴",ke:"右弼",ji:"天机"},己:{lu:"武曲",quan:"贪狼",ke:"天梁",ji:"文曲"},
   庚:{lu:"太阳",quan:"武曲",ke:"太阴",ji:"天同"},辛:{lu:"巨门",quan:"太阳",ke:"文曲",ji:"文昌"},
@@ -6007,6 +6449,7 @@ function mgInit(){
   const hlLayerEl = document.getElementById("hlLayer");
   if(hlLayerEl) hlLayerEl.addEventListener("click", function(e){ if(e.target === this) hlClose(); });
   hlMiniFill();
+  jsBind();
 }
 
 /* ============ 启动 ============ */
@@ -6022,9 +6465,6 @@ initGuide();
 mgInit();
 })();
 </script>
-<!-- ============ 全局语言切换（简/繁/EN）· V0.28.6 ============ -->
-
-
 <!-- ============ 全局语言切换（简/繁/EN）· V0.28.6 ============ -->
 <div class="lang-pop" id="langPop" role="menu">
   <button type="button" data-lng="zh">简体</button>
