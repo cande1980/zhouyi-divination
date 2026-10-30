@@ -1,0 +1,25 @@
+# ===== 作者私有内容 · 永不公开 =====
+
+# 知识库明文源（加密前的原创文案）
+data/
+kb_source.json
+
+# 发码程序与授权账本 —— 公开即人人可自造解锁码
+tools/
+gen_codes.py
+*.csv
+
+# 备份、过程文件、内部文档
+backups/
+docs/
+dist/
+publish/
+shot_*.png
+
+# ===== 系统与编辑器 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/
