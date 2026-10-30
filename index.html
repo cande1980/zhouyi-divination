@@ -1009,6 +1009,52 @@ body.lang-en h2{line-height:1.25}
 .mg-topics{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px auto 0;max-width:520px}
 .mg-topic{padding:5px 14px;border-radius:999px;border:1px solid rgba(201,164,92,.3);background:rgba(255,255,255,.04);color:#CBB27A;font-family:var(--serif);font-size:13px;letter-spacing:.12em;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .mg-topic.on{background:linear-gradient(135deg,var(--gold),var(--gold-hi));color:#15110A;border-color:transparent;font-weight:600}
+/* 排盘历史（留存钩子） */
+.mg-hist-wrap{margin:14px auto 0;max-width:520px}
+.mg-hist-btn{padding:7px 18px;border-radius:999px;border:1px dashed rgba(201,164,92,.4);background:rgba(255,255,255,.03);color:#CBB27A;font-family:var(--serif);font-size:12.5px;letter-spacing:.18em;cursor:pointer;transition:all .2s}
+.mg-hist-btn:hover{background:rgba(201,164,92,.12)}
+.mg-hist-list{max-width:520px;margin:10px auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.mg-hist-item{border:1px solid var(--line-soft);border-radius:10px;padding:9px 11px;background:rgba(255,255,255,.025);cursor:pointer;text-align:left;transition:all .2s}
+.mg-hist-item:hover{border-color:var(--gold);background:rgba(201,164,92,.1)}
+.mg-hist-item .hi-gz{display:flex;flex-wrap:wrap;gap:3px 9px;font-family:var(--serif);font-size:15px;color:var(--gold-hi);letter-spacing:.06em}
+.mg-hist-item .hi-p{white-space:nowrap}
+.mg-hist-item .hi-meta{font-size:10.5px;color:var(--ink-dim);margin-top:4px}
+/* 分享命盘（裂变钩子） */
+.mb-share{margin:18px auto 4px;display:block;padding:10px 26px;background:transparent;border:1px solid var(--gold);color:var(--gold-hi);border-radius:999px;font-family:var(--serif);font-size:14px;letter-spacing:.24em;cursor:pointer;transition:all .2s}
+.mb-share:hover{background:rgba(201,164,92,.14)}
+/* 首页今日卡（每日回访） */
+.h-today{margin:18px auto 0;max-width:520px;border:1px solid var(--line);border-radius:var(--r-md);background:linear-gradient(165deg,rgba(201,164,92,.07),rgba(255,255,255,.02));padding:14px 16px}
+.ht-head{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:13px;letter-spacing:.2em;color:var(--gold-hi)}
+.ht-dot{width:7px;height:7px;border-radius:50%;background:#E14B3A;box-shadow:0 0 8px #E14B3A;animation:pulseDot 1.8s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.35}}
+.ht-date{margin-left:auto;color:var(--ink-dim);font-size:11px;letter-spacing:.06em}
+.ht-yj{display:flex;align-items:flex-start;gap:8px;margin-top:9px;font-size:12.5px;line-height:1.6}
+.ht-yi-tag,.ht-ji-tag{flex:0 0 auto;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:12px;font-weight:700}
+.ht-yi-tag{background:rgba(94,140,122,.22);color:#7FD0AE}
+.ht-ji-tag{background:rgba(222,41,16,.2);color:#F0988A}
+.ht-tags{color:var(--ink);letter-spacing:.04em}
+.ht-foot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:11px;color:var(--ink-dim)}
+.ht-foot #htJiShi{color:var(--gold)}
+/* 时间修正（Batch B · 真太阳时/夏令时/夜子时） */
+.ming-rowt{grid-template-columns:1.1fr 1fr}
+.cal-row input[type="time"]{width:100%;padding:8px 8px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--ink);font-size:14px;outline:none;font-family:var(--sans);color-scheme:dark}
+.cal-row input[type="time"]::-webkit-calendar-picker-indicator{filter:invert(.8) sepia(.3) saturate(2) hue-rotate(-15deg)}
+/* 紫微深度（Batch B · 亮度/格局/流年四化） */
+.zw-liang{display:inline-block;margin-left:3px;padding:0 3px;border-radius:4px;font-size:9px;font-style:normal;vertical-align:1px;font-family:var(--sans);line-height:13px}
+.zw-liang.lv-hi{color:#0d0f0e;background:var(--gold-hi)}
+.zw-liang.lv-mid{color:#B9B5AA;background:rgba(255,255,255,.08)}
+.zw-liang.lv-lo{color:#F0988A;background:rgba(222,41,16,.18)}
+.zw-geju{flex-basis:100%;font-size:11.5px;letter-spacing:.06em;color:var(--ink-dim);margin-top:2px}
+.zw-geju b{color:var(--gold-hi);font-weight:600}
+.zw-hua.ln{background:transparent!important;border:1px solid}
+.zw-hua.ln.lu{color:#3FA76A;border-color:#3FA76A}
+.zw-hua.ln.quan{color:#5B8FD9;border-color:#5B8FD9}
+.zw-hua.ln.ke{color:var(--gold-hi);border-color:var(--gold-hi)}
+.zw-hua.ln.ji{color:#D9534F;border-color:#D9534F}
+.qm-head{display:flex;align-items:center;gap:10px}
+.qm-head .bk-close{margin-left:auto}
+.zw-ln-btn{flex:0 0 auto;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);font-family:var(--serif);font-size:12px;letter-spacing:.18em;cursor:pointer;transition:.2s}
+.zw-ln-btn.on{border-color:var(--gold);color:var(--gold-hi);background:rgba(201,164,92,.1)}
 /* 命书层 */
 .ming-layer{position:fixed;inset:0;z-index:104;display:none;flex-direction:column;background:radial-gradient(ellipse at top,#141812 0%,var(--bg) 72%);opacity:0;transition:opacity .35s var(--ease);overflow-y:auto;padding:calc(14px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
 .ming-layer.show{display:flex}
@@ -1220,7 +1266,16 @@ input[type="date"].qm-cat{color-scheme:dark}
 .zw-layer{position:fixed;inset:0;z-index:210;display:none;opacity:0;transition:opacity .3s var(--ease);background:rgba(6,8,7,.92);overflow-y:auto;padding:16px 10px calc(28px + env(safe-area-inset-bottom,0px))}
 .zw-layer.show{display:block}
 .zw-layer.vis{opacity:1}
-.zw-card{max-width:640px;margin:0 auto;background:linear-gradient(180deg,#14170f 0%,#0d110e 100%);border:1px solid rgba(201,164,92,.55);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.65);overflow:hidden;padding-bottom:16px}
+.zw-card{position:relative;max-width:640px;margin:0 auto;background:linear-gradient(180deg,#14170f 0%,#0d110e 100%);border:1px solid rgba(201,164,92,.55);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.65);overflow:hidden;padding-bottom:16px}
+/* 紫微使用指南（大白话覆盖面板） */
+.zw-guide{position:absolute;inset:0;z-index:6;overflow-y:auto;background:linear-gradient(180deg,#14170f 0%,#0d110e 100%);padding:14px 15px 18px}
+.zg-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.zg-head b{font-family:var(--serif);font-size:15px;color:var(--gold-hi);letter-spacing:.14em}
+.zg-item{display:flex;gap:10px;margin:0 0 9px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(201,164,92,.05);font-size:12.5px;line-height:1.85;color:var(--ink)}
+.zg-item b{color:var(--gold-hi);font-family:var(--serif);letter-spacing:.06em}
+.zg-no{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);color:var(--gold-hi);font-family:var(--serif);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.zg-lu{color:#7FD0AE}.zg-quan{color:#7FB3E8}.zg-ke{color:#E7C77A}.zg-ji{color:#F0988A}
+.zg-foot{margin:12px 0 0;font-size:11px;color:var(--ink-dim);text-align:center;line-height:1.8}
 .zw-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:12px 12px 0}
 .zw-svg{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:visible}
 .zw-gong{position:relative;min-height:112px;padding:5px 6px;border:1px solid rgba(201,164,92,.28);border-radius:8px;background:rgba(231,199,122,.045);cursor:pointer;transition:border-color .2s,box-shadow .2s;z-index:1}
@@ -2131,6 +2186,13 @@ input[type="date"].qm-cat{color-scheme:dark}
     <p class="tp-lead">报上生辰时辰，排四柱、观五行、起大运。过去、现在、未来三卷命书依次翻开；更可合两人八字，看三生缘分。</p>
   </header>
 
+  <section class="h-today" id="hToday" aria-label="今日黄历">
+    <div class="ht-head"><span class="ht-dot"></span><span>今 日 · 老 黄 历</span><span class="ht-date" id="htDate"></span></div>
+    <div class="ht-yj"><span class="ht-yi-tag">宜</span><span class="ht-tags" id="htYi"></span></div>
+    <div class="ht-yj"><span class="ht-ji-tag">忌</span><span class="ht-tags" id="htJi"></span></div>
+    <div class="ht-foot"><span id="htChong"></span><span id="htJiShi"></span></div>
+  </section>
+
   <div class="ming-in">
     <div class="cal-row">
       <label><span>公历年份</span><select id="mgY"></select></label>
@@ -2142,8 +2204,20 @@ input[type="date"].qm-cat{color-scheme:dark}
       <label><span>性别</span><select id="mgG"><option value="1">男</option><option value="0">女</option></select></label>
       <label><span>&nbsp;</span><button class="ming-go" id="mgGo" type="button">排 盘</button></label>
     </div>
+    <div class="cal-row ming-rowt">
+      <label><span>钟表时间 · 可选</span><input type="time" id="mgClock"></label>
+      <label><span>出生地（真太阳时）</span><select id="mgCity"></select></label>
+    </div>
+    <div class="cal-row ming-rowt">
+      <label><span>夏令时</span><select id="mgDst"><option value="auto">自动识别 86-91 年</option><option value="yes">夏令时出生</option><option value="no">非夏令时</option></select></label>
+      <label><span>夜子时 23-24 点</span><select id="mgYez"><option value="next">日柱按次日</option><option value="same">日柱按当日</option></select></label>
+    </div>
     <div class="mg-topics" id="mgTopics" aria-label="关注类目"></div>
     <div class="cal-result" id="mgLunar">— 日期换算 —</div>
+    <div class="mg-hist-wrap">
+      <button class="mg-hist-btn" id="mgHistBtn" type="button" hidden>历 史 排 盘</button>
+      <div class="mg-hist-list" id="mgHist" hidden></div>
+    </div>
   </div>
 
   <div class="shelf ming-shelf" id="mgShelf">
@@ -2322,13 +2396,26 @@ input[type="date"].qm-cat{color-scheme:dark}
   <div class="zw-card">
     <div class="qm-head">
       <span class="qm-title">紫 微 斗 数<span style="font-size:11px;letter-spacing:.1em;color:var(--ink-dim);text-indent:0"> · 飞星四化</span></span>
+      <button class="zw-ln-btn" id="zwGuideBtn" type="button">指 南</button>
+      <button class="zw-ln-btn on" id="zwLnBtn" type="button">流 年</button>
       <button class="bk-close" id="zwClose" type="button">关 闭</button>
     </div>
     <div class="qm-meta" id="zwMeta"></div>
     <div class="zw-grid" id="zwGrid"></div>
     <div class="zw-bai" id="zwBaiBox"></div>
     <div class="qm-yong" id="zwInfo"></div>
-    <p class="hl-note">盘式：飞星派十二宫。生年四化标于星旁（禄绿·权蓝·科金·忌红）；轻触任一宫，看该宫宫干飞出之四化连线（虚线回环为自化）。年干以立春为界，与八字同源。相信科学，理性看待。</p>
+    <p class="hl-note">盘式：飞星派十二宫。生年四化标于星旁（禄绿·权蓝·科金·忌红）；星名旁小签为主星亮度（庙旺得利平不陷，空心彩签为流年四化，可点上方「流年」开关）；轻触任一宫，看该宫宫干飞出之四化连线（虚线回环为自化）。年干以立春为界，与八字同源。相信科学，理性看待。</p>
+    <div class="zw-guide" id="zwGuide" hidden>
+      <div class="zg-head"><b>三分钟看懂这张盘</b><button class="zw-ln-btn" id="zwGuideClose" type="button">收 起</button></div>
+      <div class="zg-item"><span class="zg-no">一</span><div><b>这张盘是什么？</b><br>你出生那一刻，天上星星的「座位表」。中间十二个格子就是人生的十二个房间：性格、钱财、感情、事业、健康……一格管一摊事。</div></div>
+      <div class="zg-item"><span class="zg-no">二</span><div><b>先看哪一格？</b><br>找带「命」字标记的格子（命宫）——那里的主星就是你的出厂性格。比如七杀坐命＝敢闯敢拼，天同坐命＝随遇而安，没有好坏，只有不同。</div></div>
+      <div class="zg-item"><span class="zg-no">三</span><div><b>星星旁的小圆圈（禄权科忌）？</b><br>四种加成状态：<span class="zg-lu">禄＝顺、来财</span> · <span class="zg-quan">权＝掌控、当家</span> · <span class="zg-ke">科＝名声、贵人</span> · <span class="zg-ji">忌＝纠结、操心、破财</span>。实心圈是生下来就带的（先天牌），空心圈是今年流年临时发的（今年限定的机会与坑）。</div></div>
+      <div class="zg-item"><span class="zg-no">四</span><div><b>星星旁的小字签（庙旺得利平）？</b><br>星星的状态条：庙、旺＝满血出场，能量最强；得、利、平＝正常发挥；不、陷＝发挥打折，优点缺点都会变味。同一颗星，坐庙和落陷判若两人。</div></div>
+      <div class="zg-item"><span class="zg-no">五</span><div><b>「大限 33–42」是什么？</b><br>十年一幕的剧本。某个宫的大限年份走到时，这一格管的事就是你那十年的主线任务。</div></div>
+      <div class="zg-item"><span class="zg-no">六</span><div><b>点格子有什么用？</b><br>轻触任意一宫，会画出四条彩色连线：这一宫的天干把禄权科忌「飞」到别的宫去。禄飞到哪＝好处流向哪，忌冲到哪＝操心在哪。虚线飞回自己叫自化，主折腾不守。</div></div>
+      <div class="zg-item"><span class="zg-no">七</span><div><b>怎么用？三步走。</b><br>① 先读命宫主星，定下整体基调 → ② 找生年忌落在哪一宫，那是你这辈子的功课 → ③ 看流年空心圈，今年的机会（禄）和坑（忌）落在哪个房间，提前有个数。</div></div>
+      <p class="zg-foot">斗数是流传千年的观察与归纳，看的是趋势不是定数 · 相信科学，理性看待</p>
+    </div>
   </div>
 </div>
 
@@ -3285,6 +3372,7 @@ function initCal(){
 /* ============ 首页交互 ============ */
 function initHome(){
   initLiuren();
+  dfFillToday();
   const calBox = document.getElementById('calBox');
   document.getElementById('calHead').addEventListener('click', function(){ calBox.classList.toggle('open'); });
   // 三数字卦印：渐进激活（文档§七） + 填满触发卦盘扩散波
@@ -5032,16 +5120,73 @@ function mgDayGZ(y, m, d){
   const jdn = d + Math.floor((153*mm+2)/5) + 365*yy + Math.floor(yy/4) - Math.floor(yy/100) + Math.floor(yy/400) - 32045;
   return ((jdn + 49) % 60 + 60) % 60;
 }
-/* 四柱排盘（北京时间；夜 23 时按次日干支）。hSel = 时辰下拉值：-1 未知 / 0-11 地支序 / 23 晚子 */
+/* —— 时间修正（V0.28.14 · Batch B）：夏令时 / 真太阳时（经度+均时差） / 夜子时策略 —— */
+const MG_CITIES=[["按北京时间 · 不修正",120],["北京",116.41],["天津",117.2],["上海",121.47],["重庆",106.55],["哈尔滨",126.53],["长春",125.32],["沈阳",123.43],["呼和浩特",111.75],["石家庄",114.51],["太原",112.55],["济南",117],["郑州",113.63],["西安",108.94],["兰州",103.83],["银川",106.28],["西宁",101.78],["乌鲁木齐",87.62],["喀什",75.99],["拉萨",91.11],["成都",104.07],["昆明",102.71],["贵阳",106.63],["南宁",108.32],["武汉",114.31],["长沙",112.94],["南昌",115.86],["合肥",117.28],["南京",118.78],["杭州",120.16],["福州",119.3],["广州",113.27],["深圳",114.06],["海口",110.32],["香港",114.17],["澳门",113.55],["台北",121.56]];
+const MG_DST=[[1986,5,4,9,14],[1987,4,12,9,13],[1988,4,10,9,11],[1989,4,16,9,17],[1990,4,15,9,16],[1991,4,14,9,15]];   // 全国夏令时官方时段（含首尾日，1992 起停用）
+function mgInDST(y, m, d){
+  for(let i = 0; i < MG_DST.length; i++){
+    const w = MG_DST[i];
+    if(y !== w[0]) continue;
+    if(m > w[1] && m < w[3]) return true;
+    if(m === w[1] && d >= w[2]) return true;
+    if(m === w[3] && d <= w[4]) return true;
+  }
+  return false;
+}
+function mgEoT(y, m, d){                        // 均时差（分钟，近似式，误差 <20s）
+  const N = Math.floor((Date.UTC(y, m - 1, d) - Date.UTC(y, 0, 1)) / 86400000) + 1;
+  const B = 2 * Math.PI * (N - 81) / 364;
+  return 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+}
+let MG_TPREF = { clock: "", city: "0", dst: "auto", yez: "next" };
+function mgLoadTPref(){
+  try{ const s = JSON.parse(localStorage.getItem("dfTimePref") || "null");
+    if(s && typeof s === "object") MG_TPREF = { clock: s.clock || "", city: s.city || "0", dst: s.dst || "auto", yez: s.yez || "next" };
+  }catch(e){}
+}
+function mgSaveTPref(){ try{ localStorage.setItem("dfTimePref", JSON.stringify(MG_TPREF)); }catch(e){} }
+/* mgTimeFix：把钟表时刻折算为真太阳时（夏令时减 1h → 经度差 4 分/度 → 均时差），跨日自动翻日。
+   未填钟表时刻时维持旧行为（按所选时辰整块）。 ponytail: 夏令时切换日 2-3 点的极端钟面不特判（一年不到 2 小时窗口）。 */
+function mgTimeFix(y, m, d, hSel){
+  const r = { y: y, m: m, d: d, min: 0, hIdx: -1, hh: -1, nightZi: false, corrected: false, dstApplied: false, solarApplied: false };
+  const clock = (MG_TPREF.clock || "").trim();
+  const cm = /^(\d{1,2}):(\d{2})$/.exec(clock);
+  if(cm && +cm[1] < 24 && +cm[2] < 60){
+    let min = (+cm[1]) * 60 + (+cm[2]);
+    const dstOn = MG_TPREF.dst === "yes" || (MG_TPREF.dst === "auto" && mgInDST(y, m, d));
+    if(dstOn) min -= 60;                                        // 夏令时钟比标准钟快 1h → 减回
+    r.dstApplied = dstOn;
+    const ci = MG_CITIES[+MG_TPREF.city || 0];
+    const lon = ci ? ci[1] : 120;
+    if(lon !== 120){ min += Math.round((lon - 120) * 4 + mgEoT(y, m, d)); r.solarApplied = true; }
+    while(min < 0){ min += 1440; d--; if(d < 1){ m--; if(m < 1){ m = 12; y--; } d = new Date(y, m, 0).getDate(); } }
+    while(min >= 1440){ min -= 1440; d++; const dm = new Date(y, m, 0).getDate(); if(d > dm){ d = 1; m++; if(m > 12){ m = 1; y++; } } }
+    r.y = y; r.m = m; r.d = d; r.min = min;
+    r.hIdx = Math.floor(((min + 60) % 1440) / 120);             // 子 23-1 · 丑 1-3 · … · 亥 21-23
+    r.hh = Math.floor(min / 60);
+    r.nightZi = min >= 1380;                                    // 真太阳时 23:00 后仍计夜子
+    r.corrected = true;
+    return r;
+  }
+  /* 无钟表时刻：维持旧行为 */
+  const hh = hSel === 23 ? 23 : (hSel < 0 ? -1 : hSel * 2);
+  r.hh = hh;
+  r.hIdx = hh < 0 ? -1 : Math.floor((hh + 1) / 2) % 12;
+  r.nightZi = hSel === 23;
+  return r;
+}
+/* 四柱排盘。hSel = 时辰下拉值：-1 未知 / 0-11 地支序 / 23 夜子（23-24时）。
+   V0.28.14：填了「钟表时间」即自动做夏令时/真太阳时修正（mgTimeFix），所有入口共用。 */
 function mgPai(y, m, d, hSel, female){
-  const hh = hSel === 23 ? 23 : (hSel < 0 ? -1 : hSel * 2);   // 折算近似钟点（子0 丑2 …亥22）
-  // 时辰（未知 = -1）
-  const hIdx = hh < 0 ? -1 : Math.floor((hh + 1) / 2) % 12;
-  const dgz = (mgDayGZ(y, m, d) + (hh >= 23 ? 1 : 0)) % 60;   // 夜子时（23点）按次日干支
+  const tf = mgTimeFix(y, m, d, hSel);
+  const hh = tf.hh;                                             // 折算近似钟点（子0 丑2 …亥22 / 夜子23）
+  const hIdx = tf.hIdx;                                         // 时辰（未知 = -1）
+  const yezNext = MG_TPREF.yez !== "same";                      // 夜子时日柱策略：默认按次日（与旧版一致）
+  const dgz = (mgDayGZ(tf.y, tf.m, tf.d) + (tf.nightZi && yezNext ? 1 : 0)) % 60;
   const dStem = dgz % 10, dBr = dgz % 12;
-  // 年柱：立春界
+  // 年柱：立春界（按修正后时刻）
   const lichun = mgTermBJ(y, 0);
-  const birthJD = mgJD(y, m, d, hh < 0 ? 12 : hh);
+  const birthJD = mgJD(tf.y, tf.m, tf.d, hh < 0 ? 12 : hh);
   const afterLC = birthJD >= lichun.jd;
   const yy0 = afterLC ? y : y - 1;
   const yStem = ((yy0 - 4) % 10 + 10) % 10, yBr = ((yy0 - 4) % 12 + 12) % 12;
@@ -5117,7 +5262,8 @@ function mgPai(y, m, d, hSel, female){
     pillars: pillars, ss: ss, wx: wx, wxTotal: total, strength: strength, ge: ge,
     dayuns: dayuns, curDun: curDun, startYears: startYears,
     lunarY: yy0, shengxiao: MG_SHENGXIAO[yBr], nayin: mgNayin(dgz), dStem: dStem, dBr: dBr,
-    hourKnown: hIdx >= 0, nextDayZi: hh >= 23, female: !!female
+    hourKnown: hIdx >= 0, hIdx: hIdx, tf: tf, yezNext: yezNext,
+    nextDayZi: tf.nightZi && yezNext, nightZiSameDay: tf.nightZi && !yezNext, female: !!female
   };
 }
 /* —— 传统断语 + 白话（模板按 排盘结果 组合） —— */
@@ -5191,7 +5337,25 @@ function mgFillDays(y, m, d, defDay){
 function mgFillHours(h, defV){
   const oU = document.createElement("option"); oU.value = "-1"; oU.textContent = "时辰未知"; h.appendChild(oU);
   for(let i = 0; i < 12; i++){ const o = document.createElement("option"); o.value = i; o.textContent = MG_SH[i]; h.appendChild(o); }
+  const oN = document.createElement("option"); oN.value = "23"; oN.textContent = "夜子 23-24时"; h.appendChild(oN);
   h.value = defV;
+}
+function mgLunarLine(){
+  const y = document.getElementById("mgY"), m = document.getElementById("mgM"), d = document.getElementById("mgD");
+  const yy = +y.value, mm = +m.value, dd = +d.value;
+  if(!yy || !mm || !dd || dd > new Date(yy, mm, 0).getDate()){ document.getElementById("mgLunar").textContent = "— 日期有误 —"; return; }
+  const L = lrSolar2Lunar(yy, mm, dd);
+  const gzY = MG_GAN[((L.y - 4) % 10 + 10) % 10] + MG_ZHI[((L.y - 4) % 12 + 12) % 12];
+  let tail = " · 排盘按北京时间（东经120°）";
+  const tf = mgTimeFix(yy, mm, dd, +document.getElementById("mgH").value);
+  const pad2 = n => ("0" + n).slice(-2);
+  if(tf.corrected){
+    tail = " · 真太阳时 " + tf.m + "月" + tf.d + "日 " + pad2(Math.floor(tf.min / 60)) + ":" + pad2(tf.min % 60)
+         + (tf.dstApplied ? " · 夏令时已减1h" : "") + (tf.solarApplied ? " · 含经度/均时差" : "");
+  } else if(!MG_TPREF.clock && (+MG_TPREF.city || 0) !== 0){
+    tail = " · 已选出生地，填「钟表时间」即自动修正";
+  }
+  document.getElementById("mgLunar").textContent = "农历 " + gzY + "年 " + L.mName + L.dName + tail;
 }
 function mgFillSelects(){
   const y = document.getElementById("mgY"), m = document.getElementById("mgM"), d = document.getElementById("mgD"), h = document.getElementById("mgH");
@@ -5199,15 +5363,29 @@ function mgFillSelects(){
   mgFillYM(y, m);
   mgFillDays(y, m, d, now.getDate());
   mgFillHours(h, "6");   // 默认午时
-  function lunarLine(){
-    const yy = +y.value, mm = +m.value, dd = +d.value;
-    if(!yy || !mm || !dd || dd > new Date(yy, mm, 0).getDate()){ document.getElementById("mgLunar").textContent = "— 日期有误 —"; return; }
-    const L = lrSolar2Lunar(yy, mm, dd);
-    const gzY = MG_GAN[((L.y - 4) % 10 + 10) % 10] + MG_ZHI[((L.y - 4) % 12 + 12) % 12];
-    document.getElementById("mgLunar").textContent = "农历 " + gzY + "年 " + L.mName + L.dName + " · 排盘按北京时间（东经120°）";
-  }
-  [y, m, d].forEach(function(s){ s.addEventListener("change", lunarLine); });
-  lunarLine();
+  [y, m, d].forEach(function(s){ s.addEventListener("change", mgLunarLine); });
+  mgLunarLine();
+}
+function mgInitTPref(){
+  const city = document.getElementById("mgCity"), dst = document.getElementById("mgDst"), yez = document.getElementById("mgYez"), clock = document.getElementById("mgClock");
+  if(!city || !dst || !yez || !clock) return;
+  MG_CITIES.forEach(function(c, i){
+    const o = document.createElement("option"); o.value = i;
+    o.textContent = i === 0 ? c[0] : c[0] + " " + c[1] + "°E";
+    city.appendChild(o);
+  });
+  mgLoadTPref();
+  clock.value = MG_TPREF.clock; city.value = MG_TPREF.city; dst.value = MG_TPREF.dst; yez.value = MG_TPREF.yez;
+  [clock, city, dst, yez].forEach(function(el){
+    el.addEventListener("change", function(){
+      MG_TPREF.clock = clock.value || "";
+      MG_TPREF.city = city.value;
+      MG_TPREF.dst = dst.value;
+      MG_TPREF.yez = yez.value;
+      mgSaveTPref();
+      mgLunarLine();
+    });
+  });
 }
 let MG_BZ = null;
 function mgGo(){
@@ -5215,6 +5393,7 @@ function mgGo(){
   const hh = +document.getElementById("mgH").value, female = document.getElementById("mgG").value === "0";
   if(!y || !m || !d || d > new Date(y, m, 0).getDate()){ document.getElementById("mgLunar").textContent = "— 日期有误，请检查 —"; return; }
   MG_BZ = mgPai(y, m, d, hh, female);
+  mgSaveHistory(y, m, d, hh, female, MG_BZ);
   document.getElementById("mgShelf").hidden = false;
   document.getElementById("mgNote").textContent = "命书已成 · 六门任你翻。含传统推演与戏说之笔，相信科学，理性看待。";
 }
@@ -5257,7 +5436,7 @@ function mgOpenBook(kind){
       dus += '<div class="du' + (i === bz.curDun ? " cur" : "") + '"><div class="du-gz">' + du.gz + '</div><div class="du-age">' + Math.round(du.from) + '岁</div></div>';
     });
     html = '<h3 class="tp-h">今 生 命 盘</h3>'
-      + '<p class="tp-text">属' + bz.shengxiao + ' · 日柱纳音「' + bz.nayin + '」' + (bz.nextDayZi ? ' · 夜子时（按次日干支）' : '') + (bz.hourKnown ? '' : ' · 时辰未知，时柱暂缺') + '</p>'
+      + '<p class="tp-text">属' + bz.shengxiao + ' · 日柱纳音「' + bz.nayin + '」' + (bz.nextDayZi ? ' · 夜子时（日柱按次日）' : (bz.nightZiSameDay ? ' · 夜子时（日柱按当日）' : '')) + (bz.hourKnown ? '' : ' · 时辰未知，时柱暂缺') + '</p>'
       + '<div class="mb-pillars">'
       + mgPillar(bz.pillars.year, bz.pillars.year, "年柱", bz.ss.year)
       + mgPillar(bz.pillars.month, bz.pillars.month, "月柱", bz.ss.month)
@@ -5267,7 +5446,8 @@ function mgOpenBook(kind){
       + '<div class="mb-tag">' + bz.ge + '</div><div class="mb-tag">' + bz.strength + '</div><div class="mb-tag">日主 ' + MG_GAN[bz.dStem] + MG_GWX[bz.dStem] + '</div>'
       + '<h3 class="tp-h" style="font-size:19px;margin-top:18px">五 行 分 布</h3><div class="mb-wux">' + bars + '</div>'
       + '<h3 class="tp-h" style="font-size:19px;margin-top:18px">大 运（十年一易）</h3><div class="mb-dayun">' + dus + '</div>'
-      + mgSecsHTML(bz);
+      + mgSecsHTML(bz)
+      + '<button class="mb-share" id="mbShare" type="button">分 享 命 盘</button>';
   } else if(kind === "past"){
     const P = mgPast(bz);
     cap.textContent = "过 去 卷 · 前 世 因 缘";
@@ -5322,6 +5502,121 @@ function mgCloseBook(){
   const layer = document.getElementById("mingLayer");
   layer.classList.remove("vis");
   setTimeout(function(){ layer.classList.remove("show"); }, 320);
+}
+/* —— 排盘历史（localStorage 留存 → 复访钩子） —— */
+const DF_HIST_KEY = "dfBzHistory";
+function mgSaveHistory(y, m, d, hh, female, bz){
+  try{
+    const key = [y,m,d,hh,female?1:0].join("-");
+    let arr = [];
+    try{ arr = JSON.parse(localStorage.getItem(DF_HIST_KEY) || "[]"); }catch(e){ arr = []; }
+    arr = arr.filter(function(r){ return r.key !== key; });
+    arr.unshift({
+      key:key, y:y, m:m, d:d, hh:hh, female:female,
+      gz:[bz.pillars.year.gz, bz.pillars.month.gz, bz.pillars.day.gz, (bz.hourKnown && bz.pillars.hour) ? bz.pillars.hour.gz : "—"],
+      ge:bz.ge, strength:bz.strength, dayZhu:bz.pillars.day.gz, ts:Date.now()
+    });
+    if(arr.length > 12) arr = arr.slice(0, 12);
+    localStorage.setItem(DF_HIST_KEY, JSON.stringify(arr));
+    mgRenderHistory();
+  }catch(e){}
+}
+function mgRenderHistory(){
+  const btn = document.getElementById("mgHistBtn"), box = document.getElementById("mgHist");
+  if(!btn || !box) return;
+  let arr = [];
+  try{ arr = JSON.parse(localStorage.getItem(DF_HIST_KEY) || "[]"); }catch(e){ arr = []; }
+  if(!arr.length){ btn.hidden = true; box.hidden = true; box.innerHTML = ""; return; }
+  btn.hidden = false;
+  btn.textContent = "历 史 排 盘 (" + arr.length + ")";
+  if(box.hidden) return;   // 折叠态不重绘列表
+  let h = "";
+  arr.forEach(function(r){
+    const hhTxt = r.hh < 0 ? "时未知" : (HL_SHI[r.hh] || "");
+    h += '<button class="mg-hist-item" type="button" data-key="' + r.key + '">'
+       + '<div class="hi-gz">' + r.gz.map(function(p){ return '<span class="hi-p">'+p+'</span>'; }).join("") + '</div>'
+       + '<div class="hi-meta">' + r.y + '-' + r.m + '-' + r.d + ' ' + hhTxt + ' · ' + (r.female ? "女" : "男") + ' · ' + r.strength + '</div>'
+       + '</button>';
+  });
+  box.innerHTML = h;
+  box.querySelectorAll(".mg-hist-item").forEach(function(b){
+    b.addEventListener("click", function(){ mgRestoreHistory(b.getAttribute("data-key")); });
+  });
+}
+function mgRestoreHistory(key){
+  let arr = [];
+  try{ arr = JSON.parse(localStorage.getItem(DF_HIST_KEY) || "[]"); }catch(e){ return; }
+  const r = arr.filter(function(x){ return x.key === key; })[0];
+  if(!r) return;
+  document.getElementById("mgY").value = r.y;
+  document.getElementById("mgM").value = r.m;
+  document.getElementById("mgD").value = r.d;
+  document.getElementById("mgH").value = r.hh;
+  document.getElementById("mgG").value = r.female ? "0" : "1";
+  // 触发 change，让农历换算标签/日下拉同步（否则编程赋值不会刷新 UI 文案）
+  ["mgY","mgM","mgD","mgH","mgG"].forEach(function(id){
+    const el = document.getElementById(id); if(el) el.dispatchEvent(new Event("change"));
+  });
+  mgGo();
+  document.getElementById("mgHist").hidden = true;
+}
+/* —— 分享命盘（canvas 导出 PNG + 品牌水印 → 裂变钩子） —— */
+function mgShareNow(){
+  const bz = MG_BZ; if(!bz) return;
+  const W = 640, H = 860;
+  const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  const x = cv.getContext("2d");
+  const g = x.createLinearGradient(0,0,0,H); g.addColorStop(0,"#0B0D0C"); g.addColorStop(1,"#15110a");
+  x.fillStyle = g; x.fillRect(0,0,W,H);
+  x.strokeStyle = "rgba(201,164,92,.6)"; x.lineWidth = 2; x.strokeRect(20,20,W-40,H-40);
+  x.textAlign = "center"; x.fillStyle = "#E7C77A";
+  x.font = "bold 40px STKaiti, KaiTi, serif"; x.fillText("东 方 秘 境", W/2, 80);
+  x.font = "16px STKaiti, KaiTi, serif"; x.fillStyle = "#9D9A91"; x.fillText("四 柱 命 盘", W/2, 110);
+  const cols = [["年柱",bz.pillars.year],["月柱",bz.pillars.month],["日柱",bz.pillars.day],["时柱",bz.pillars.hour]];
+  const cw = (W-80)/4;
+  cols.forEach(function(c,i){
+    const px = 40 + cw*i + cw/2;
+    x.fillStyle = "#C9A45C"; x.font = "15px serif"; x.fillText(c[0], px, 172);
+    const gz = (c[1] && c[1].gz) ? c[1].gz : "—";
+    x.fillStyle = "#E7C77A"; x.font = "bold 34px STKaiti, KaiTi, serif"; x.fillText(gz, px, 216);
+    if(c[1] && c[1].s != null){ x.fillStyle = "#9D9A91"; x.font = "12px serif"; x.fillText(MG_GWX[c[1].s] + "·" + MG_ZWX[c[1].b], px, 242); }
+  });
+  x.fillStyle = "#E9E2D3"; x.font = "18px serif";
+  x.fillText("日主 " + MG_GAN[bz.dStem] + MG_GWX[bz.dStem] + " · " + bz.ge + " · " + bz.strength, W/2, 302);
+  const WXCOL = {"木":"#7aa86b","火":"#c25b3a","土":"#b98c3e","金":"#c9c9b8","水":"#5f8fb4"};
+  let wy = 352;
+  ["木","火","土","金","水"].forEach(function(k){
+    const pct = Math.round(bz.wx[k] / bz.wxTotal * 100);
+    x.textAlign = "left"; x.fillStyle = "#9D9A91"; x.font = "13px serif"; x.fillText(k, 60, wy);
+    x.fillStyle = "rgba(255,255,255,.08)"; x.fillRect(100, wy-10, W-200, 12);
+    x.fillStyle = WXCOL[k]; x.fillRect(100, wy-10, (W-200)*pct/100, 12);
+    x.fillStyle = "#E9E2D3"; x.textAlign = "right"; x.fillText(pct + "%", W-60, wy);
+    wy += 30;
+  });
+  x.textAlign = "center"; x.fillStyle = "rgba(201,164,92,.75)"; x.font = "15px STKaiti, KaiTi, serif";
+  x.fillText("东洲星语 · 东方秘境", W/2, H-50);
+  x.fillStyle = "#6b675e"; x.font = "12px serif"; x.fillText("传统术数 · 理性看待 · 仅供娱乐", W/2, H-28);
+  try{
+    const url = cv.toDataURL("image/png");
+    const a = document.createElement("a");
+    const tag = bz.pillars.year.gz + bz.pillars.month.gz + bz.pillars.day.gz + (bz.hourKnown && bz.pillars.hour ? bz.pillars.hour.gz : "");
+    a.href = url; a.download = "东方秘境_命盘_" + tag + ".png";
+    document.body.appendChild(a); a.click(); a.remove();
+  }catch(e){ if(typeof alert !== "undefined") alert("导出失败：" + e.message); }
+}
+/* —— 首页今日卡（每日回访问因） —— */
+function dfFillToday(){
+  const box = document.getElementById("hToday"); if(!box) return;
+  try{
+    const D = hlCalc(new Date());
+    document.getElementById("htDate").textContent = D.lunarM + D.lunarD + " · " + D.gzD + "日";
+    document.getElementById("htYi").textContent = (D.yi.slice(0,8).join("、") || "—");
+    document.getElementById("htJi").textContent = (D.ji.slice(0,8).join("、") || "—");
+    document.getElementById("htChong").textContent = D.chong + " " + D.sha;
+    const js = [];
+    for(let t=0;t<12;t++){ const L = hlHourLuck(D.hdStart, t); if(L.good) js.push(HL_SHI[t]); if(js.length>=3) break; }
+    document.getElementById("htJiShi").textContent = "吉时：" + (js.join("、") || "—");
+  }catch(e){ box.hidden = true; }
 }
 /* —— 关注类目 chips（第一项「全选」，多选只看个别类目） —— */
 const MG_TOPICS = ["运势","事业","财运","感情","家庭","父母","子女","身体","学业","人际"];
@@ -5548,7 +5843,7 @@ function mgSanRun(){
     + '<p class="mb-play">—— 八字合参，重在人为 · 相信科学，理性看待 ——</p>';
 }
 /* —— 设置层 —— */
-const MG_APP_VER = "V0.28.12", MG_BUILD = "2026-09-18";
+const MG_APP_VER = "V0.28.14", MG_BUILD = "2026-10-30";
 /* ================= 老黄历（黄页）引擎 ================= */
 const HL_XIU = ["角","亢","氐","房","心","尾","箕","斗","牛","女","虚","危","室","壁","奎","娄","胃","昴","毕","觜","参","井","鬼","柳","星","张","翼","轸"];
 const HL_QIN = ["角木蛟","亢金龙","氐土貉","房日兔","心月狐","尾火虎","箕水豹","斗木獬","牛金牛","女土蝠","虚日鼠","危月燕","室火猪","壁水貐","奎木狼","娄金狗","胃土雉","昴日鸡","毕月乌","觜火猴","参水猿","井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓"];
@@ -6163,10 +6458,11 @@ const ZW_HCLR={lu:"#3FA76A",quan:"#5B8FD9",ke:"#E7C77A",ji:"#D9534F"};
 const ZW_HUN={lu:"禄",quan:"权",ke:"科",ji:"忌"};
 function zwPai(y,m,d,hSel,female){
   const bz=mgPai(y,m,d,hSel,female);
+  const tf=bz.tf||{y:y,m:m,d:d};
   const yStem=bz.pillars.year.s;                             // 立春界年干，与八字同源
-  const lunar=lrSolar2Lunar(y,m,d);
+  const lunar=lrSolar2Lunar(tf.y,tf.m,tf.d);                 // V0.28.14：真太阳时跨日自动跟随
   const lm=lunar.m,ld=lunar.d;
-  const hIdx=hSel>=0&&hSel<12?hSel:0;                        // 时辰未知按子时
+  const hIdx=bz.hIdx>=0?bz.hIdx:0;                           // 时辰未知按子时（含修正后时辰）
   const pMing=(2+lm-1-hIdx+24)%12;
   const pShen=(2+lm-1+hIdx)%12;
   const stemOf=b=>((yStem%5)*2+2+((b-2+12)%12))%10;          // 五虎遁宫干
@@ -6206,22 +6502,77 @@ function zwPai(y,m,d,hSel,female){
   const forward=(yangY&&!female)||(!yangY&&female);
   const daxian=[];
   for(let i=0;i<12;i++)daxian.push({gong:forward?((pMing+i)%12):((pMing-i+24)%12),from:ju+i*10});
-  return {y:y,m:m,d:d,lunar:lunar,female:!!female,hourKnown:hSel>=0,yStem:yStem,gan:gan,
+  return {y:y,m:m,d:d,lunar:lunar,female:!!female,hourKnown:!!bz.hourKnown,hIdx:hIdx,tf:tf,yStem:yStem,gan:gan,
     pMing:pMing,pShen:pShen,ju:ju,nayin:nayin,stars:stars,aux:aux,starPal:starPal,
     shengnian:sh,lines:lines,zihua:zihua,daxian:daxian};
 }
-let ZW_R=null,ZW_SEL=-1;
+let ZW_R=null,ZW_SEL=-1,ZW_LN_ON=true;
+/* 十四主星亮度（庙旺得利平不陷，按支序 子0…亥11 取字）——与 ziweihome / fatemaster 两家排盘引擎 168 格逐格核对一致，并对照《紫微斗数全书》（151/168 同，古籍各派本有出入） */
+const ZW_LIANG={
+  "紫微":"平庙旺旺得旺庙庙旺旺得旺",
+  "天机":"庙陷得旺利平庙陷得旺利平",
+  "太阳":"陷不旺庙旺旺旺得得平不陷",
+  "武曲":"旺庙得利庙平旺庙得利庙平",
+  "天同":"旺不利平平庙陷不旺平平庙",
+  "廉贞":"平利庙平利陷平利庙平利陷",
+  "天府":"庙庙庙得庙得旺庙得旺庙得",
+  "太阴":"庙庙旺陷陷陷不不利旺旺庙",
+  "贪狼":"旺庙平利庙陷旺庙平利庙陷",
+  "巨门":"旺不庙庙陷旺旺不庙庙陷旺",
+  "天相":"庙庙庙陷得得庙得庙陷得得",
+  "天梁":"庙旺庙庙庙得庙旺陷得庙陷",
+  "七杀":"旺庙庙旺庙平旺庙庙旺庙平",
+  "破军":"庙旺得陷旺平庙旺得陷旺平"};
+const ZW_LIANG_CLS={"庙":"lv-hi","旺":"lv-hi","得":"lv-mid","利":"lv-mid","平":"lv-mid","不":"lv-lo","陷":"lv-lo"};
+function zwLiangTag(st,p){
+  const t=ZW_LIANG[st]; if(!t)return"";
+  const lv=t[p]; if(!lv)return"";
+  return '<i class="zw-liang '+ZW_LIANG_CLS[lv]+'" title="'+st+'在'+MG_ZHI[p]+'为'+lv+'">'+lv+'</i>';
+}
+/* 格局判定（位置规则派，能机械核验的经典格） */
+function zwGeju(r){
+  const out=[];
+  const ming=r.pMing;
+  const san=[ming,(ming+4)%12,(ming+8)%12,(ming+6)%12];                  // 三方四正
+  const mainAt=p=>r.stars[p]||[];
+  const allMain=san.reduce((a,p)=>a.concat(mainAt(p)),[]);
+  const allAux=san.reduce((a,p)=>a.concat(r.aux[p]||[]),[]);
+  const pair=(a,b)=>{ const pa=r.starPal[a],pb=r.starPal[b]; return pa!==undefined&&pa===pb; };
+  if(pair("紫微","天府"))out.push("紫府同宫");
+  if(["七杀","破军","贪狼"].every(st=>allMain.indexOf(st)>=0))out.push("杀破狼");
+  if(["天机","太阴","天同","天梁"].every(st=>allMain.indexOf(st)>=0))out.push("机月同梁");
+  const mm=mainAt(ming);
+  if(mm.indexOf("太阳")>=0&&ming===3)out.push("日照雷门");
+  if(mm.indexOf("太阴")>=0&&ming===11)out.push("月朗天门");
+  if(pair("贪狼","火星")||pair("贪狼","铃星"))out.push("火铃贪格");
+  if(r.starPal["紫微"]===ming){
+    const court=["左辅","右弼","文昌","文曲","天魁","天钺","天相"].filter(st=>allAux.indexOf(st)>=0||allMain.indexOf(st)>=0);
+    if(court.length>=2)out.push("君臣庆会");
+  }
+  const luCun=ZW_LU[r.gan];                                              // 禄存支位（擎羊陀罗以此为锚）
+  if(["太阳","天梁"].every(st=>allMain.indexOf(st)>=0)&&allAux.indexOf("文昌")>=0&&san.indexOf(luCun)>=0)out.push("阳梁昌禄");
+  return out;
+}
+/* 流年四化：流年干按立春界（与排盘同源） */
+function zwLnGan(){
+  const now=new Date();
+  const nowJD=mgJD(now.getFullYear(),now.getMonth()+1,now.getDate(),12);
+  const yy0=nowJD>=mgTermBJ(now.getFullYear(),0).jd?now.getFullYear():now.getFullYear()-1;
+  return ((yy0-4)%10+10)%10;
+}
+function zwLnMap(){ const g=zwLnGan(); return {gan:g,map:ZW_SIHUA[MG_GAN[g]]}; }
 function zwCellHTML(p){
   const r=ZW_R,o=(r.pMing-p+12)%12,main=r.stars[p]||[],ax=r.aux[p]||[];
   const dx=r.daxian.find(d=>d.gong===p);
   const sh=r.shengnian;
   const badge=st=>{ let h=""; ["lu","quan","ke","ji"].forEach(t=>{ if(sh[t]===st)h+='<i class="zw-hua '+t+'">'+ZW_HUN[t]+'</i>'; }); return h; };
+  const lnb=st=>{ let h=""; if(ZW_LN_ON&&r.ln){ const m=r.ln.map; ["lu","quan","ke","ji"].forEach(t=>{ if(m[t]===st)h+='<i class="zw-hua ln '+t+'" title="流年'+ZW_HUN[t]+'">'+ZW_HUN[t]+'</i>'; }); } return h; };
   const zh=r.zihua.filter(l=>l.from===p).map(l=>'<i class="zw-hua '+l.type+'">'+ZW_HUN[l.type]+'</i>').join("");
   return '<div class="zw-gong'+(p===ZW_SEL?" sel":"")+'" data-p="'+p+'">'
     +'<div class="zw-gname"><b>'+ZW_GONGN[o]+'</b><span>'+MG_GAN[stemOfZw(p)]+MG_ZHI[p]+(p===r.pMing?" · 命":"")+(p===r.pShen?" · 身":"")+'</span></div>'
     +'<div class="zw-dx">大限 '+(dx?dx.from+"–"+(dx.from+9):"")+'</div>'
-    +'<div>'+(main.length?main.map(st=>'<span class="zw-star">'+st+badge(st)+'</span>').join(""):'<span class="zw-sha">空宫</span>')+'</div>'
-    +(ax.length?'<div class="zw-sha">'+ax.map(st=>st+badge(st)).join(" · ")+'</div>':'')
+    +'<div>'+(main.length?main.map(st=>'<span class="zw-star">'+st+zwLiangTag(st,p)+badge(st)+lnb(st)+'</span>').join(""):'<span class="zw-sha">空宫</span>')+'</div>'
+    +(ax.length?'<div class="zw-sha">'+ax.map(st=>st+badge(st)+lnb(st)).join(" · ")+'</div>':'')
     +(zh?'<div class="zw-zh">自化 '+zh+'</div>':'')
     +'</div>';
 }
@@ -6249,11 +6600,18 @@ function zwBai(){
   return h;
 }
 function zwRender(){
+  ZW_R.ln=zwLnMap();
+  const tfn=(ZW_R.tf&&ZW_R.tf.corrected)?(function(){
+    const t=ZW_R.tf,p2=n=>("0"+n).slice(-2);
+    return " · 已按真太阳时 "+t.m+"月"+t.d+"日 "+p2(Math.floor(t.min/60))+":"+p2(t.min%60)+(t.dstApplied?"（夏令时已减1h）":"");
+  })():"";
+  const gj=zwGeju(ZW_R);
   document.getElementById("zwMeta").innerHTML=
     "公历 "+ZW_R.y+"年"+ZW_R.m+"月"+ZW_R.d+"日（农历"+ZW_R.lunar.mName+ZW_R.lunar.dName+"）"
     +" · <b>"+MG_GAN[ZW_R.yStem]+"年生</b> · 五行局<b>"+["水","木","金","土","火"].find((v,i)=>[2,3,4,5,6][i]===ZW_R.ju)+ZW_R.ju+"局</b>"
     +" · 命宫在<b>"+MG_ZHI[ZW_R.pMing]+"</b> 身宫在<b>"+MG_ZHI[ZW_R.pShen]+"</b>"
-    +(ZW_R.hourKnown?"":" · <b>时辰未知按子时</b>");
+    +(ZW_R.hourKnown?"":" · <b>时辰未知按子时</b>")+tfn
+    +(gj.length?'<div class="zw-geju">格局：<b>'+gj.join('</b> · <b>')+'</b></div>':"");
   const order=[5,6,7,8,4,"INFO",9,3,10,2,1,0,11];
   document.getElementById("zwGrid").innerHTML=order.map(p=>p==="INFO"?'<div class="zw-info" id="zwInfoBox"></div>':zwCellHTML(p)).join("")
     +'<svg class="zw-svg" id="zwSvg"></svg>';
@@ -6294,10 +6652,20 @@ function zwInfoFill(){
     return '<span style="color:'+ZW_HCLR[t]+'">'+ZW_HUN[t]+'</span>('+fs[t]+')入'+(too>=0?ZW_GONGN[too]:"—");
   }).join(" · ");
   const zh=ZW_R.zihua.filter(l=>l.from===p);
+  let lnPart="";
+  if(ZW_LN_ON&&ZW_R.ln){
+    const m=ZW_R.ln.map;
+    const lnp=["lu","quan","ke","ji"].map(t=>{
+      const tp=ZW_R.starPal[m[t]],too=tp!==undefined?(ZW_R.pMing-tp+12)%12:-1;
+      return '<span style="color:'+ZW_HCLR[t]+'">流'+ZW_HUN[t]+'</span>('+m[t]+')入'+(too>=0?ZW_GONGN[too]:"—");
+    }).join(" · ");
+    lnPart='<br><b>流年四化（'+MG_GAN[ZW_R.ln.gan]+'年 · 立春界）：</b>'+lnp;
+  }
   document.getElementById("zwInfoBox").innerHTML=
     '<b>生年四化（'+ZW_R.gan+'干）：</b>'+sn+'<br>'
     +'<b>宫干飞化 · '+ZW_GONGN[o]+'（'+MG_GAN[stemOfZw(p)]+MG_ZHI[p]+'）：</b>'+fly
-    +(zh.length?'<br><b style="color:#c99">自化：</b>'+zh.map(l=>'<span style="color:'+ZW_HCLR[l.type]+'">'+ZW_HUN[l.type]+'</span>('+fs[l.type]+')').join(" · ")+"（气散于本宫，主变动不守）":"");
+    +(zh.length?'<br><b style="color:#c99">自化：</b>'+zh.map(l=>'<span style="color:'+ZW_HCLR[l.type]+'">'+ZW_HUN[l.type]+'</span>('+fs[l.type]+')').join(" · ")+"（气散于本宫，主变动不守）":"")
+    +lnPart;
 }
 function zwOpen(){
   const y=+document.getElementById("mgY").value,m=+document.getElementById("mgM").value,d=+document.getElementById("mgD").value;
@@ -6385,6 +6753,7 @@ function licInit(){
 }
 function mgInit(){
   mgFillSelects();
+  mgInitTPref();
   mgRenderTopics();
   // 赞助二维码：探测到文件才加载（避免素材未上传时 404）
   document.querySelectorAll("img[data-sponsor]").forEach(function(img){
@@ -6395,7 +6764,17 @@ function mgInit(){
     probe.src = url;
   });
   document.getElementById("mgGo").addEventListener("click", mgGo);
+  const hb = document.getElementById("mgHistBtn");
+  if(hb) hb.addEventListener("click", function(){ const box = document.getElementById("mgHist"); box.hidden = !box.hidden; mgRenderHistory(); });
+  mgRenderHistory();
+  const mls = document.getElementById("mlSheet");
+  if(mls) mls.addEventListener("click", function(e){ if(e.target && e.target.id === "mbShare") mgShareNow(); });
   document.getElementById("zwClose").addEventListener("click", zwClose);
+  const zb = document.getElementById("zwLnBtn");
+  if(zb) zb.addEventListener("click", function(){ ZW_LN_ON = !ZW_LN_ON; zb.classList.toggle("on", ZW_LN_ON); if(ZW_R) zwRender(); });
+  const gb = document.getElementById("zwGuideBtn"), gw = document.getElementById("zwGuide"), gc = document.getElementById("zwGuideClose");
+  if(gb && gw) gb.addEventListener("click", function(){ gw.hidden = !gw.hidden; if(!gw.hidden) gw.scrollTop = 0; });
+  if(gc && gw) gc.addEventListener("click", function(){ gw.hidden = true; });
   document.getElementById("qmCat").addEventListener("change", qmRender);
   document.getElementById("qmDate").addEventListener("change", qmRender);
   document.getElementById("qmShi").addEventListener("change", qmRender);
